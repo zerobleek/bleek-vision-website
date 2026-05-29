@@ -612,6 +612,112 @@ a { color: inherit; }
   .nav__logo img { height: 56px; }
 }
 
+/* ──────────────────────────  LEGAL PAGES  ────────────────────────── */
+.legal-header {
+  padding: 100px 32px 64px;
+  border-bottom: 1px solid var(--rule);
+}
+.legal-header .eyebrow { margin-bottom: 20px; }
+.legal-header h1 {
+  font-size: clamp(34px, 4vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  color: var(--silver);
+  margin: 0 0 12px;
+}
+.legal-meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--mute);
+  letter-spacing: 0.04em;
+}
+.legal-body {
+  padding: 72px 32px 120px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.legal-body h2 {
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--silver);
+  margin: 52px 0 14px;
+}
+.legal-body h2:first-child { margin-top: 0; }
+.legal-body h3 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: -0.005em;
+  margin: 28px 0 8px;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+.legal-body p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--mute);
+  margin: 0 0 16px;
+}
+.legal-body ul, .legal-body ol {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--mute);
+  padding-left: 22px;
+  margin: 0 0 16px;
+}
+.legal-body li { margin-bottom: 5px; }
+.legal-body strong { color: var(--ink); font-weight: 500; }
+.legal-body a { color: var(--accent); text-decoration: none; }
+.legal-body a:hover { text-decoration: underline; }
+.legal-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--mute);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  margin-bottom: 48px;
+  transition: color .2s;
+}
+.legal-back:hover { color: var(--silver); }
+.legal-divider {
+  border: none;
+  border-top: 1px solid var(--rule-hi);
+  margin: 64px 0;
+  position: relative;
+}
+.legal-divider::after {
+  content: attr(data-label);
+  position: absolute;
+  top: -10px;
+  left: 0;
+  background: var(--bg);
+  padding-right: 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--mute-deep);
+}
+.legal-app-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--panel);
+  border: 1px solid var(--rule-hi);
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin: 0 6px 8px 0;
+}
+
 /* ──────────────────────────  GHOST CTA (coming-soon cards)  ────────────────────────── */
 .card__cta--ghost {
   background: transparent;
