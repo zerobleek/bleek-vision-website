@@ -4,20 +4,33 @@
 # Created by Shabaka Malik Banks on 5/29/26.
 # Copyright © 2026 Bleek Vision LLC. All rights reserved.
 #
-# Runs on every push to main. Pings Google, Bing, Yandex, and DuckDuckGo
-# via IndexNow so new/updated content is indexed immediately.
+# Runs on every push to main:
+#   1. Purges Cloudflare CDN cache
+#   2. Pings Google sitemap
+#   3. Submits to IndexNow (Bing, Yandex, DuckDuckGo)
+#   4. Pings Bing sitemap directly
 
-name: Notify Search Engines
+name: Deploy — Purge Cache & Notify Search Engines
 
 on:
   push:
     branches: [main]
 
 jobs:
-  notify:
-    name: Ping & submit
+  deploy:
+    name: Purge & ping
     runs-on: ubuntu-latest
+
     steps:
+      - name: Purge Cloudflare cache
+        run: |
+          echo "Purging Cloudflare CDN..."
+          curl -s -X POST \
+            "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.CF_CACHE_PURGE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"purge_everything":true}' | python3 -c "import json,sys; r=json.load(sys.stdin); print('Cloudflare purge:', 'OK' if r['success'] else r['errors'])"
+
       - name: Ping Google sitemap
         run: |
           echo "Pinging Google..."
@@ -39,4 +52,4 @@ jobs:
             -o /dev/null -w "Bing: HTTP %{http_code}\n"
 
       - name: Done
-        run: echo "All search engine notifications sent for bleekvision.com"
+        run: echo "Cache purged and all search engines notified for bleekvision.com"
