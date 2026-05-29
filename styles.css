@@ -520,9 +520,7 @@ a { color: inherit; }
   color: var(--silver);
 }
 .founder__facts {
-  margin-top: 40px;
-  padding-top: 28px;
-  border-top: 1px solid var(--rule);
+  margin-top: 4px;
   display: flex;
   flex-direction: column;
   gap: 14px;
