@@ -173,6 +173,57 @@ a { color: inherit; }
 .nav.is-open .nav__toggle span:nth-child(2) { opacity: 0; }
 .nav.is-open .nav__toggle span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
+/* ──────────────────────────  ANIMATED WORDMARK  ────────────────────────── */
+@keyframes wm-letter-in {
+  from { opacity: 0; transform: translateY(28px) scale(0.93); filter: blur(10px); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    filter: blur(0);    }
+}
+@keyframes wm-vision-in {
+  from { opacity: 0; letter-spacing: 0.72em; filter: blur(6px); }
+  to   { opacity: 1; letter-spacing: 0.52em; filter: blur(0);   }
+}
+@keyframes wm-vision-pulse {
+  0%, 100% { text-shadow: none;                                       opacity: 1;   }
+  50%       { text-shadow: 0 0 28px rgba(137,161,195,0.55);           opacity: 0.82; }
+}
+
+.hero__wordmark {
+  margin-bottom: 40px;
+}
+.hero__wm-bleek {
+  font-family: 'Outfit', var(--font);
+  font-weight: 800;
+  font-size: clamp(72px, 10vw, 148px);
+  color: var(--silver);
+  letter-spacing: 0.1em;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+}
+.hero__wm-bleek span {
+  display: inline-block;
+  animation: wm-letter-in 0.75s cubic-bezier(.15,.7,.2,1) both;
+}
+.hero__wm-bleek span:nth-child(1) { animation-delay: 0.00s; }
+.hero__wm-bleek span:nth-child(2) { animation-delay: 0.07s; }
+.hero__wm-bleek span:nth-child(3) { animation-delay: 0.14s; }
+.hero__wm-bleek span:nth-child(4) { animation-delay: 0.21s; }
+.hero__wm-bleek span:nth-child(5) { animation-delay: 0.28s; }
+
+.hero__wm-vision {
+  font-family: 'Outfit', var(--font);
+  font-weight: 300;
+  font-size: clamp(16px, 2.2vw, 34px);
+  color: var(--accent);
+  letter-spacing: 0.52em;
+  text-indent: 0.52em; /* offset trailing letter-spacing so it appears visually centred */
+  text-align: center;
+  margin-top: 8px;
+  animation:
+    wm-vision-in 0.9s cubic-bezier(.2,.7,.2,1) 0.38s both,
+    wm-vision-pulse 3.5s ease-in-out 1.4s infinite;
+}
+
 /* ──────────────────────────  HERO  ────────────────────────── */
 .hero {
   position: relative;
