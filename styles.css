@@ -343,6 +343,7 @@ a { color: inherit; }
   color: var(--w-muted);
   margin-bottom: 28px;
   max-width: 480px;
+  text-align: justify;
 }
 .card__meta {
   font-size: 12px;
@@ -489,6 +490,7 @@ a { color: inherit; }
   color: var(--silver);
   margin: 0;
   letter-spacing: -0.015em;
+  text-align: justify;
 }
 .founder__body {
   font-size: 18px;
@@ -498,6 +500,7 @@ a { color: inherit; }
   margin-top: 22px;
   letter-spacing: -0.01em;
   max-width: 640px;
+  text-align: justify;
 }
 .founder__sig {
   margin-top: 32px;
@@ -660,6 +663,7 @@ a { color: inherit; }
   line-height: 1.75;
   color: var(--mute);
   margin: 0 0 16px;
+  text-align: justify;
 }
 .legal-body ul, .legal-body ol {
   font-size: 16px;
