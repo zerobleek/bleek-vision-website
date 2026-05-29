@@ -536,8 +536,8 @@ a { color: inherit; }
 .founder__facts .v { color: var(--silver); }
 .founder__portrait {
   position: relative;
-  margin: 44px 0 0;
-  max-width: 380px;
+  margin: 40px 0 0;
+  max-width: 260px;
 }
 .founder__portrait::before {
   /* periwinkle halo behind the figure */
