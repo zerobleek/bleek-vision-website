@@ -1,0 +1,42 @@
+# notify-search-engines.yml
+# Bleek Vision Website
+#
+# Created by Shabaka Malik Banks on 5/29/26.
+# Copyright © 2026 Bleek Vision LLC. All rights reserved.
+#
+# Runs on every push to main. Pings Google, Bing, Yandex, and DuckDuckGo
+# via IndexNow so new/updated content is indexed immediately.
+
+name: Notify Search Engines
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  notify:
+    name: Ping & submit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Google sitemap
+        run: |
+          echo "Pinging Google..."
+          curl -s "https://www.google.com/ping?sitemap=https://bleekvision.com/sitemap.xml" \
+            -o /dev/null -w "Google: HTTP %{http_code}\n"
+
+      - name: Submit to IndexNow (Bing, Yandex, DuckDuckGo)
+        run: |
+          echo "Submitting to IndexNow..."
+          curl -s -X POST "https://api.indexnow.org/IndexNow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d '{"host":"bleekvision.com","key":"bc05497c4b12b8e6ee8e30f4d3a78a6c","keyLocation":"https://bleekvision.com/bc05497c4b12b8e6ee8e30f4d3a78a6c.txt","urlList":["https://bleekvision.com/"]}' \
+            -o /dev/null -w "IndexNow: HTTP %{http_code}\n"
+
+      - name: Ping Bing sitemap
+        run: |
+          echo "Pinging Bing..."
+          curl -s "https://ssl.bing.com/webmaster/ping.aspx?siteMap=https://bleekvision.com/sitemap.xml" \
+            -o /dev/null -w "Bing: HTTP %{http_code}\n"
+
+      - name: Done
+        run: echo "All search engine notifications sent for bleekvision.com"
