@@ -534,6 +534,37 @@ a { color: inherit; }
 .founder__facts .row { display: grid; grid-template-columns: 90px 1fr; gap: 16px; }
 .founder__facts .k { color: var(--mute); }
 .founder__facts .v { color: var(--silver); }
+.founder__portrait {
+  position: relative;
+  margin: 44px 0 0;
+  max-width: 380px;
+}
+.founder__portrait::before {
+  /* periwinkle halo behind the figure */
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  width: 80%;
+  height: 80%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse, var(--accent-soft), transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+}
+.founder__portrait img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: grayscale(1) contrast(1.06) brightness(0.97)
+          drop-shadow(0 10px 34px rgba(137, 161, 195, 0.22));
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+}
+
 .founder__lead {
   font-size: clamp(20px, 2.4vw, 24px);
   line-height: 1.5;
