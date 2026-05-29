@@ -1,0 +1,324 @@
+<!doctype html>
+<!--
+  index.html
+  Bleek Vision Website
+
+  Created by Shabaka Malik Banks on 5/29/26.
+  Copyright © 2026 Bleek Vision LLC. All rights reserved.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bleek Vision — Indie iOS App Developer | iPhone &amp; iPad Apps</title>
+  <meta name="description" content="Bleek Vision makes independent iPhone and iPad apps — MadWeather, FOCUS//DECK, UNCONTAINED, and more. Compelling, no-subscription apps made deliberately by one developer." />
+  <meta name="theme-color" content="#121418" />
+  <meta property="og:title" content="Bleek Vision — Indie iOS App Developer | iPhone &amp; iPad Apps" />
+  <meta property="og:description" content="Independent iPhone and iPad apps by Shabaka Malik Banks. MadWeather, FOCUS//DECK, UNCONTAINED, and more. Made deliberately." />
+  <meta property="og:type" content="website" />
+  <!-- Update og:image / twitter:image to absolute URL once deployed, e.g. https://bleekvision.com/assets/og-image.png -->
+  <meta property="og:image" content="https://bleekvision.com/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bleek Vision — Indie iOS App Developer | iPhone &amp; iPad Apps" />
+  <meta name="twitter:description" content="Compelling iPhone and iPad apps from a solo developer. No subscriptions. Made deliberately." />
+  <meta name="twitter:image" content="https://bleekvision.com/assets/og-image.png" />
+  <!-- Update href to your live domain before deploying -->
+  <link rel="canonical" href="https://bleekvision.com/" />
+  <link rel="icon" href="assets/bleek-vision-logo.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Structured data — update "url" values to your live domain before deploying -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "Bleek Vision LLC",
+        "url": "https://bleekvision.com",
+        "description": "Independent iPhone and iPad app development practice by Shabaka Malik Banks.",
+        "founder": { "@type": "Person", "name": "Shabaka Malik Banks" },
+        "sameAs": [
+          "https://apps.apple.com/us/app/madweather/id6758524351",
+          "https://apps.apple.com/us/app/uncontained/id6761268905",
+          "https://apps.apple.com/us/app/focus-deck-focus-timer/id6771453354"
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "MadWeather",
+        "operatingSystem": "iOS",
+        "applicationCategory": "WeatherApplication",
+        "url": "https://apps.apple.com/us/app/madweather/id6758524351",
+        "description": "NYC weather app with borough personalities. Plain-language forecasts that talk the way New York actually talks.",
+        "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "USD" },
+        "author": { "@type": "Organization", "name": "Bleek Vision LLC" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "FOCUS//DECK",
+        "operatingSystem": "iOS",
+        "applicationCategory": "ProductivityApplication",
+        "url": "https://apps.apple.com/us/app/focus-deck-focus-timer/id6771453354",
+        "description": "Pocket cyberdeck focus timer for iPhone. Pomodoro, ADHD sprints, and deep work — one-time purchase, no subscription.",
+        "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "USD" },
+        "author": { "@type": "Organization", "name": "Bleek Vision LLC" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "UNCONTAINED",
+        "operatingSystem": "iOS",
+        "applicationCategory": "GameApplication",
+        "url": "https://apps.apple.com/us/app/uncontained/id6761268905",
+        "description": "Nuclear fission puzzle game for iPhone and iPad. 72 levels, no ads, no timers, no tricks.",
+        "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "USD" },
+        "author": { "@type": "Organization", "name": "Bleek Vision LLC" }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ──────────  NAV  ────────── -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo cta" aria-label="Bleek Vision — home">
+        <img src="assets/bleek-vision-logo.png" alt="Bleek Vision LLC — indie iOS app developer" />
+      </a>
+      <div class="nav__right">
+        <div class="nav__links" id="navLinks">
+          <a href="#work">Work</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ──────────  HERO  ────────── -->
+  <section class="hero">
+    <div class="aurora" aria-hidden="true">
+      <span class="b1"></span><span class="b2"></span><span class="b3"></span>
+    </div>
+    <div class="hero__grid" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <h1 class="v5-fadeup v5-d2">Welcome to <span class="accent">Bleek Vision.</span></h1>
+      <p class="hero__sub v5-fadeup v5-d3">Compelling iPhone and iPad apps from a solo developer with a laptop and a dream.</p>
+      <div class="hero__actions v5-fadeup v5-d4">
+        <a href="#work" class="btn btn--solid cta">See the work</a>
+        <a href="#about" class="btn btn--ghost cta">About →</a>
+      </div>
+      <div class="hero__scroll-cue" aria-hidden="true">
+        <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1L10 10L19 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────  WORK / THE SLATE  ────────── -->
+  <section class="work" id="work">
+    <div class="work__head wrap" style="padding-left:0;padding-right:0;">
+      <div class="eyebrow">— THE SLATE</div>
+      <h2>The Products.</h2>
+    </div>
+    <div class="slate wrap" style="padding-left:0;padding-right:0;">
+
+      <!-- MadWeather · image right -->
+      <article class="card card--madweather">
+        <div class="card__copy">
+          <div>
+            <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>LIVE ON THE APP STORE</div>
+            <h3 class="card__title">MadWeather</h3>
+            <div class="card__subtitle">NYC Weather. Real Talk.</div>
+            <p class="card__desc">A weather app that talks the way New York actually talks. Plain-language forecasts, borough personalities, and the small details a hometown forecast gets right.</p>
+          </div>
+          <div>
+            <div class="card__meta">iPhone &amp; iPad · Free with ads · Premium one-time IAP</div>
+            <a class="card__cta cta" href="https://apps.apple.com/us/app/madweather/id6758524351" target="_blank" rel="noopener">View on App Store →</a>
+          </div>
+        </div>
+        <div class="card__mount">
+          <div class="card__glow" aria-hidden="true"></div>
+          <div class="card__frame"><img src="assets/products/madweather-today.png" alt="MadWeather NYC weather app — borough forecast screen showing plain-language conditions for New York" /></div>
+        </div>
+      </article>
+
+      <!-- FOCUS//DECK · image left, mono title -->
+      <article class="card card--focusdeck card--mono card--img-left">
+        <div class="card__mount">
+          <div class="card__glow" aria-hidden="true"></div>
+          <div class="card__frame"><img src="assets/products/focusdeck-cyberdeck.png" alt="FOCUS//DECK focus timer iPhone app — cyberdeck UI showing deep work sprint session" /></div>
+        </div>
+        <div class="card__copy">
+          <div>
+            <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>LIVE ON THE APP STORE</div>
+            <h3 class="card__title">FOCUS//DECK</h3>
+            <div class="card__subtitle">A pocket cyberdeck for staying on task.</div>
+            <p class="card__desc">Stop negotiating with yourself. Pomodoro, ADHD sprints, and deep work — fronted by a drill-sergeant mascot named BIT who won’t let you bail mid-session.</p>
+          </div>
+          <div>
+            <div class="card__meta">iPhone · One-time Pro unlock · No subscriptions</div>
+            <a class="card__cta cta" href="https://apps.apple.com/us/app/focus-deck-focus-timer/id6771453354" target="_blank" rel="noopener">View on App Store →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- UNCONTAINED · image right -->
+      <article class="card card--uncontained">
+        <div class="card__copy">
+          <div>
+            <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>LIVE ON THE APP STORE</div>
+            <h3 class="card__title">UNCONTAINED</h3>
+            <div class="card__subtitle">The deeper you go.</div>
+            <p class="card__desc">Nuclear fission puzzles. Seventy-two levels, nine atom types, chain reactions that don’t forgive bad angles. Six chapters, from First Light to Vacuum Decay.</p>
+          </div>
+          <div>
+            <div class="card__meta">iPhone &amp; iPad · No ads · No timers · No tricks</div>
+            <a class="card__cta cta" href="https://apps.apple.com/us/app/uncontained/id6761268905" target="_blank" rel="noopener">View on App Store →</a>
+          </div>
+        </div>
+        <div class="card__mount">
+          <div class="card__glow" aria-hidden="true"></div>
+          <div class="card__frame"><img src="assets/products/uncontained-dark-matter.png" alt="UNCONTAINED nuclear fission puzzle game for iPhone — Dark Matter chapter level" /></div>
+        </div>
+      </article>
+
+      <!-- MomKnows! · image left -->
+      <article class="card card--momknows card--img-left">
+        <div class="card__mount">
+          <div class="card__glow" aria-hidden="true"></div>
+          <div class="card__frame"><img src="assets/products/momknows-crisis.png" alt="MomKnows! family emergency information app for iPhone — one-time purchase, no subscription" /></div>
+        </div>
+        <div class="card__copy">
+          <div>
+            <div class="card__status"><span class="dot dot--work"><span class="core"></span></span>COMING SOON</div>
+            <h3 class="card__title">MomKnows!</h3>
+            <div class="card__subtitle">The things only she knows.</div>
+            <p class="card__desc">A private space for capturing what matters most — emergency information, family stories, the health details that need to be findable when it counts. Privacy-first. Yours forever.</p>
+          </div>
+          <div>
+            <div class="card__meta">iPhone &amp; iPad · One-time purchase · No subscription</div>
+            <a class="card__cta card__cta--ghost cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfHFI6y0Ow1kOfTFEfu8vX4PJq4ywOnPUAB03b1_N-ZxvTs8w/viewform" target="_blank" rel="noopener">Get notified at launch →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Cipher Protocol · image right -->
+      <article class="card card--cipher">
+        <div class="card__copy">
+          <div>
+            <div class="card__status"><span class="dot dot--mute"><span class="core"></span></span>IN DEVELOPMENT</div>
+            <h3 class="card__title">Cipher Protocol</h3>
+            <div class="card__subtitle">Fitness disguised as 90s espionage.</div>
+            <p class="card__desc">GPS-tracked runs become covert operations. Consistency matters more than speed; community support replaces leaderboards. No agent left behind.</p>
+          </div>
+          <div>
+            <div class="card__meta">iPhone · Fitness RPG · ARKit · v0.1 field tests · Q3 — TBC</div>
+            <a class="card__cta card__cta--ghost cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfHFI6y0Ow1kOfTFEfu8vX4PJq4ywOnPUAB03b1_N-ZxvTs8w/viewform" target="_blank" rel="noopener">Get on the list →</a>
+          </div>
+        </div>
+        <div class="card__mount">
+          <div class="card__glow" aria-hidden="true"></div>
+          <div class="card__frame"><img src="assets/cipher-protocol-screenshot.png" alt="Cipher Protocol fitness RPG running app for iPhone — GPS-tracked covert operations screen" /></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ──────────  FOUNDER / THE VISION  ────────── -->
+  <section class="founder" id="about">
+    <div class="founder__glow" aria-hidden="true"></div>
+    <div class="founder__inner">
+      <div>
+        <div class="founder__kicker">
+          <span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>
+          <span>THE VISION</span>
+        </div>
+        <h2>One developer. One studio. One slate.</h2>
+        <div class="founder__facts">
+          <div class="row"><span class="k">NAME</span><span class="v">Shabaka Malik Banks</span></div>
+          <div class="row"><span class="k">STUDIO</span><span class="v">Bleek Vision LLC · est. 2026</span></div>
+          <div class="row"><span class="k">SHIPPED</span><span class="v">3 live · 2 in flight</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="founder__lead">I started Bleek Vision so the work I care about would have a single home. The aim is plain: build compelling products people find entertaining, interesting, and useful in their daily lives.</p>
+        <p class="founder__body">My coding journey was a long process full of fits and starts but not a whole lot of progress. Then AI products started becoming more mainstream and democratized the coding skill. This allowed ideas to become projects and then real products.</p>
+        <div class="founder__sig">— Shabaka Malik Banks, Founder</div>
+        <a class="founder__link cta" href="#">Read the full story →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────  FOOTER  ────────── -->
+  <footer class="footer" id="contact">
+    <div class="footer__cols">
+      <div class="footer__brand">
+        <img src="assets/bleek-vision-logo.png" alt="Bleek Vision LLC" />
+        <div class="footer__tagline">An independent practice. Compelling products, made deliberately.</div>
+      </div>
+      <div class="footer__col">
+        <h4>WORK</h4>
+        <div class="links">
+          <a href="https://apps.apple.com/us/app/madweather/id6758524351" target="_blank" rel="noopener">MadWeather</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHFI6y0Ow1kOfTFEfu8vX4PJq4ywOnPUAB03b1_N-ZxvTs8w/viewform" target="_blank" rel="noopener">MomKnows!</a>
+          <a href="https://apps.apple.com/us/app/focus-deck-focus-timer/id6771453354" target="_blank" rel="noopener">FOCUS//DECK</a>
+          <a href="https://apps.apple.com/us/app/uncontained/id6761268905" target="_blank" rel="noopener">UNCONTAINED</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHFI6y0Ow1kOfTFEfu8vX4PJq4ywOnPUAB03b1_N-ZxvTs8w/viewform" target="_blank" rel="noopener">Cipher Protocol</a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>STUDIO</h4>
+        <div class="links">
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a href="#">Press kit</a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>LEGAL</h4>
+        <div class="links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bar">
+      <div>© 2026 Bleek Vision LLC. All rights reserved.</div>
+      <div>Made deliberately.</div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Nav hamburger toggle
+  (function () {
+    var nav = document.getElementById('nav');
+    var toggle = document.getElementById('navToggle');
+    toggle.addEventListener('click', function () {
+      var open = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    });
+    // Close the menu after following an in-page link
+    document.getElementById('navLinks').addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        nav.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open menu');
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
