@@ -129,8 +129,31 @@ a { color: inherit; }
   align-items: center;
   justify-content: space-between;
 }
-.nav__logo { display: flex; align-items: center; text-decoration: none; cursor: pointer; }
-.nav__logo img { height: 72px; width: auto; display: block; }
+.nav__logo {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1;
+  gap: 3px;
+}
+.nav__wm-bleek {
+  font-family: 'Outfit', var(--font);
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--silver);
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+.nav__wm-vision {
+  font-family: 'Outfit', var(--font);
+  font-weight: 300;
+  font-size: 9px;
+  color: var(--accent);
+  letter-spacing: 0.45em;
+  text-indent: 0.45em;
+  line-height: 1;
+}
 .nav__right { display: flex; align-items: center; gap: 28px; }
 .nav__links {
   display: flex;
