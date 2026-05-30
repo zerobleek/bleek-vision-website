@@ -559,10 +559,10 @@ a { color: inherit; }
   width: 100%;
   height: auto;
   display: block;
-  filter: grayscale(1) contrast(1.06) brightness(0.97)
-          drop-shadow(0 10px 34px rgba(137, 161, 195, 0.22));
-  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
-          mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+  filter: contrast(1.03) saturate(1.02)
+          drop-shadow(0 12px 36px rgba(137, 161, 195, 0.26));
+  -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
 }
 
 .founder__lead {
