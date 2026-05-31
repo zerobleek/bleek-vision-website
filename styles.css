@@ -23,6 +23,10 @@
   --accent-soft: rgba(137, 161, 195, 0.18);
   --live: #7EC8A0;
 
+  /* Custom easing — stronger than built-in CSS curves */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-serif: ui-serif, "New York", "Charter", "Iowan Old Style", Georgia, "Times New Roman", serif;
   --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
