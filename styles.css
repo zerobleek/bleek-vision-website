@@ -167,11 +167,12 @@ a { color: inherit; }
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
-  transition: max-width .45s cubic-bezier(.2, .7, .2, 1), opacity .3s ease;
+  visibility: hidden; /* keep closed links out of the keyboard tab order */
+  transition: max-width .45s cubic-bezier(.2, .7, .2, 1), opacity .3s ease, visibility 0s linear .3s;
 }
 .nav__links a { color: inherit; text-decoration: none; white-space: nowrap; transition: color .25s; }
 .nav__links a:hover { color: var(--ink); }
-.nav.is-open .nav__links { max-width: 360px; opacity: 1; pointer-events: auto; }
+.nav.is-open .nav__links { max-width: 360px; opacity: 1; pointer-events: auto; visibility: visible; transition-delay: 0s; }
 
 .nav__toggle {
   appearance: none;
@@ -182,8 +183,10 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: 36px;
+  width: 44px;
+  min-height: 44px;
   align-items: flex-end;
+  justify-content: center;
 }
 .nav__toggle span {
   display: block;
@@ -278,6 +281,7 @@ a { color: inherit; }
   letter-spacing: -0.045em;
   margin: 0;
   color: var(--silver);
+  text-wrap: balance;
 }
 .hero h1 .accent { color: var(--accent); }
 .hero__sub {
@@ -342,6 +346,7 @@ a { color: inherit; }
   margin: 0;
   color: var(--silver);
   max-width: 820px;
+  text-wrap: balance;
 }
 .slate { display: flex; flex-direction: column; gap: 24px; }
 
@@ -417,7 +422,7 @@ a { color: inherit; }
   color: var(--w-muted);
   margin-bottom: 28px;
   max-width: 480px;
-  text-align: justify;
+  text-wrap: pretty;
 }
 .card__meta {
   font-size: 12px;
@@ -477,7 +482,7 @@ a { color: inherit; }
   --w-accent: #FFB142; --w-accent-deep: #A86A1B; --w-mount: #0B1422; --w-cta-bg: #FFB142; --w-cta-text: #1A0F00;
 }
 .card--focusdeck {
-  --w-bg: #0A0907; --w-surface: #15120C; --w-text: #E8C772; --w-muted: rgba(232,199,114,0.55);
+  --w-bg: #0A0907; --w-surface: #15120C; --w-text: #E8C772; --w-muted: rgba(232,199,114,0.66);
   --w-accent: #F2D27A; --w-accent-deep: #A88A3E; --w-mount: #050402; --w-cta-bg: #E8C772; --w-cta-text: #0A0907;
 }
 .card--uncontained {
@@ -485,13 +490,17 @@ a { color: inherit; }
   --w-accent: #FF7A1A; --w-accent-deep: #A84A0A; --w-mount: #050302; --w-cta-bg: #FF7A1A; --w-cta-text: #0A0805;
 }
 .card--momknows {
-  --w-bg: #F5EDE3; --w-surface: #FFF8EF; --w-text: #2A1A12; --w-muted: rgba(42,26,18,0.6);
+  --w-bg: #F5EDE3; --w-surface: #FFF8EF; --w-text: #2A1A12; --w-muted: rgba(42,26,18,0.7);
   --w-accent: #C5532A; --w-accent-deep: #7A2E14; --w-mount: #E8DDD0; --w-cta-bg: #C5532A; --w-cta-text: #FFFFFF;
 }
 .card--cipher {
   --w-bg: #04100A; --w-surface: #0A1A12; --w-text: #5BF08C; --w-muted: rgba(91,240,140,0.58);
   --w-accent: #36F07A; --w-accent-deep: #1B9E4E; --w-mount: #020805; --w-cta-bg: #36F07A; --w-cta-text: #03130A;
 }
+
+/* Light-world (MomKnows) card: the bright terracotta accent fails AA as small
+   status text on cream, so the status label uses the deeper shade. */
+.card--momknows .card__status { color: var(--w-accent-deep); }
 
 /* ──────────────────────────  FOUNDER  ────────────────────────── */
 .founder {
@@ -541,6 +550,7 @@ a { color: inherit; }
   font-weight: 500;
   margin: 0;
   color: var(--silver);
+  text-wrap: balance;
 }
 .founder__facts {
   margin-top: 40px;
@@ -595,7 +605,7 @@ a { color: inherit; }
   color: var(--silver);
   margin: 0;
   letter-spacing: -0.015em;
-  text-align: justify;
+  text-wrap: pretty;
 }
 .founder__body {
   font-size: 18px;
@@ -605,7 +615,7 @@ a { color: inherit; }
   margin-top: 22px;
   letter-spacing: -0.01em;
   max-width: 640px;
-  text-align: justify;
+  text-wrap: pretty;
 }
 .founder__sig {
   margin-top: 32px;
@@ -710,6 +720,7 @@ a { color: inherit; }
     max-width: none;
     opacity: 1;
     pointer-events: auto;
+    visibility: visible;
     overflow: visible;
     transition: none;
   }
@@ -792,7 +803,7 @@ a { color: inherit; }
   line-height: 1.75;
   color: var(--mute);
   margin: 0 0 16px;
-  text-align: justify;
+  text-wrap: pretty;
 }
 .legal-body ul, .legal-body ol {
   font-size: 16px;
@@ -834,7 +845,7 @@ a { color: inherit; }
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.18em;
-  color: var(--mute-deep);
+  color: var(--mute);
 }
 .legal-app-tag {
   display: inline-flex;
