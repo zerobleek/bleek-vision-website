@@ -384,7 +384,15 @@ a { color: inherit; }
   transition: transform .35s cubic-bezier(.2, .7, .2, 1);
 }
 .card:hover { transform: translateY(-2px); }
+.card:hover .card__frame {
+  transform: translateY(-6px) scale(1.012);
+  box-shadow: 0 44px 80px -28px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.card:hover .card__glow { opacity: 1; transform: scale(1.08); }
 .card--img-left { grid-template-columns: 0.85fr 1.15fr; } /* mount | copy */
+
+/* Move 2 — subtle rhythm: alternating cards breathe a little differently */
+.card--img-left { min-height: 580px; }
 
 /* faint accent dot-grid texture */
 .card::before {
@@ -476,6 +484,8 @@ a { color: inherit; }
   background: radial-gradient(ellipse, color-mix(in srgb, var(--w-accent) 15%, transparent), transparent 70%);
   filter: blur(60px);
   pointer-events: none;
+  opacity: 0.8;
+  transition: opacity .4s var(--ease-out), transform .4s var(--ease-out);
 }
 .card__frame {
   position: relative;
@@ -485,6 +495,7 @@ a { color: inherit; }
   padding: 10px;
   box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.06);
   display: inline-block;
+  transition: transform .4s var(--ease-out), box-shadow .4s var(--ease-out);
 }
 .card__frame img {
   height: 100%;
