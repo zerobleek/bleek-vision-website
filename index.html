@@ -87,6 +87,7 @@
   </script>
 </head>
 <body>
+<script>document.documentElement.classList.add('js');</script>
 <div class="shell">
 
   <!-- ──────────  NAV  ────────── -->
@@ -333,6 +334,27 @@
         toggle.setAttribute('aria-label', 'Open menu');
       }
     });
+  })();
+
+  // Move 2 — reveal cards on scroll, staggered. Reduced-motion users get them
+  // immediately (CSS forces .is-in styling regardless), so we still add the class.
+  (function () {
+    var cards = document.querySelectorAll('.card');
+    if (!('IntersectionObserver' in window)) {
+      cards.forEach(function (c) { c.classList.add('is-in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var i = Array.prototype.indexOf.call(cards, el);
+        el.style.transitionDelay = (Math.min(i, 4) * 90) + 'ms';
+        el.classList.add('is-in');
+        io.unobserve(el);
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+    cards.forEach(function (c) { io.observe(c); });
   })();
 </script>
 

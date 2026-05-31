@@ -81,6 +81,7 @@ a { color: inherit; }
     animation-iteration-count: 1 !important;
     transition-duration: .001ms !important;
   }
+  .js .card { opacity: 1 !important; transform: none !important; }
 }
 
 /* ──────────────────────────  STATUS DOT  ────────────────────────── */
@@ -354,6 +355,18 @@ a { color: inherit; }
   text-wrap: balance;
 }
 .slate { display: flex; flex-direction: column; gap: 24px; }
+
+/* Move 2 — card scroll reveal (JS-gated so no-JS users always see cards) */
+.js .card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  will-change: opacity, transform;
+}
+.js .card.is-in {
+  opacity: 1;
+  transform: none;
+}
 
 /* ──────────────────────────  PRODUCT CARD  ────────────────────────── */
 .card {
