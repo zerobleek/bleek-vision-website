@@ -712,7 +712,7 @@ a { color: inherit; }
   max-width: 280px;
   margin-top: 18px;
 }
-.footer__col h4 {
+.footer__col-label {
   font-family: var(--font-mono);
   font-size: 10.5px;
   letter-spacing: 0.18em;
