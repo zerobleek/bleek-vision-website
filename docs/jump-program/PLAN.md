@@ -107,11 +107,11 @@ The PS2 look is mostly **asset discipline**, not shaders — and it's a perfect 
 - Chunky UI: bitmap-style font, hard-edged HUD boxes, memory-card-style save iconography
 - Sound: compressed-sounding SFX, a drum-and-bass / trip-hop loop fits both the era and the "program" vibe
 
-## 7. Tech Stack — recommendation
+## 7. Tech Stack — decided: Godot 4
 
-Two credible paths for "iOS native." **Recommendation: Godot 4** for the prototype, with RealityKit as the all-Apple alternative.
+Two credible paths for "iOS native" were considered; **Godot 4 is the decision** (RealityKit documented below as the fallback if M0 disappoints).
 
-**Godot 4 (recommended)**
+**Godot 4 (decided)**
 - `CharacterBody3D` + mature 3D platformer tooling: animation state machines, tweens, in-editor tuning while the game runs — jump *feel* iteration is the entire prototype risk, and this is where Godot pays for itself.
 - Free, no runtime fee, exports to iOS cleanly (Metal renderer); PS2-style rendering is a well-trodden path in the Godot community (fog, nearest-neighbor, vertex lighting are all built-in toggles).
 - Cost: GDScript/C# instead of Swift; one more toolchain in the studio.
