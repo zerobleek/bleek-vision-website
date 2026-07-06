@@ -163,6 +163,10 @@ func _physics_process(delta: float) -> void:
 	if state == State.MOVE and held and on_floor \
 			and hold_time > charge_threshold and player_tier >= 1:
 		state = State.CHARGE
+	# Walking off a ledge mid-charge must not bank a free mid-air launch:
+	# once coyote expires, the charge dissolves back into a normal fall.
+	if state == State.CHARGE and not on_floor and coyote_left <= 0.0:
+		state = State.MOVE
 
 	if released:
 		if state == State.CHARGE:
