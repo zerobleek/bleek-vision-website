@@ -25,7 +25,8 @@ func _process(_delta: float) -> void:
 		return
 	var flat := Vector2(_player.velocity.x, _player.velocity.z).length()
 	_label.text = (
-		"state  %s   charge %3d%%\n" % [STATE_NAMES[_player.state], _player.charge_ratio() * 100]
+		"state  %s   charge %3d%%   air jumps %d\n"
+			% [STATE_NAMES[_player.state], _player.charge_ratio() * 100, _player.air_jumps_left]
 		+ "speed  %5.2f m/s   v.y %5.2f m/s\n" % [flat, _player.velocity.y]
 		+ "alt    %5.2f m   (best %.2f)\n" % [_player.global_position.y, _player.max_altitude]
 		+ "floor  %s   coyote %.2f   buffer %.2f\n"

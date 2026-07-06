@@ -14,7 +14,7 @@ const TIER_NAMES: Array[String] = ["GROUNDED", "LIFT", "MOMENTUM"]
 const TIER_UNLOCKS: Array[String] = [
 	"",
 	"CHARGED JUMP — hold to aim, release to fly",
-	"DOUBLE JUMP · WALL JUMP · ROLL (arriving in M3)",
+	"DOUBLE JUMP · WALL JUMP · ROLL LANDING",
 ]
 ## Chain survives if the next takeoff happens within this many seconds grounded.
 const CHAIN_WINDOW := 1.5

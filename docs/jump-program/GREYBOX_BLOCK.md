@@ -151,7 +151,17 @@ Naming: `srf_<area>_<name>[_n]`. Every surface pays the one-time new-surface XP 
 - **Scene structure:** `block.tscn` → one `Node3D` per structure (`Bodega`, `Depot`, `Walkup`, `MidRise`, `Courtyard`, `Alley`, `Tower`), surfaces as children. Tower is mesh-only, no collision on upper mass, red material.
 - **Playtest telemetry (M3):** append every landing as JSON lines to `user://landings.jsonl` — `{surface_id, y, chain, tier, t}`. One session file per run. A landing heatmap over this map is the M3 exit review: dead surfaces get moved or deleted, hot accidental routes get promoted to intended ones.
 
-## 7. Build Order
+## 7. As-Built Deviations (M3)
+
+Recorded during the greybox build; the geometry in `jump-program/scenes/world/block.tscn` is the source of truth for coordinates.
+
+- **Billboard moved to close a gating hole.** As drawn, billboard top (13 m) sat at the alley edge — a T1 player could mantle onto it from the catwalk (rise 2.0) and then clear a flat ~5 m gap to the balcony (also 13 m), reaching the Mid-rise a tier early. As built, the panel sits *south* of the catwalk, over the depot roof, so billboard-top → balcony is a 7.2 m gap (past T1's 6 m, comfortably inside T2's 8.5 m — it's now a bonus T2 route).
+- **Catwalk → balcony gap built at ~5.7 m** (not 6): re-audited against the full arc math including the grab window — a max-charged T1 leap arrives 1.15 m below grab reach. Still T1-proof with margin, slightly friendlier for T2.
+- **Balcony is 0.6 m deep** (spec said 2 m) — the depth was the cheese vector; landing on it is not hard (4 m wide), it just can't be overshot onto from below.
+- **Clothesline poles are T1 in practice.** Dumpster → pole top is a 2.0 m rise; T0's grab tops out at 1.9. The doc's T0 sequence-break taste doesn't survive the contract math — poles stay tagged tier 1.
+- **Shaft west wall** is a cap block on the Walkup roof (top 15 m, `srf_shaft_cap`) — wall-jumpable on both faces, top landable only from the shaft climb, exactly the no-cheese cap §4 called for.
+
+## 8. Build Order
 
 1. **M0:** courtyard slab + planter/table/dumpster/van only. Enough for the engine spike.
 2. **M1:** add Bodega + alley. Tuning the T0/T1 contract happens against real targets, and §1's table gets corrected from the build.

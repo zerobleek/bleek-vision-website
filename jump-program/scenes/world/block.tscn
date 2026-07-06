@@ -1,0 +1,333 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/surface.gd" id="1"]
+
+[node name="Block" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+position = Vector3(28, -0.5, -25)
+script = ExtResource("1")
+surface_id = &"srf_street_s"
+tier = 0
+size = Vector3(90, 1, 110)
+
+[node name="Courtyard" type="Node3D" parent="."]
+
+[node name="Planter1" type="StaticBody3D" parent="Courtyard"]
+position = Vector3(16, 0.25, -3)
+script = ExtResource("1")
+surface_id = &"srf_court_planter_1"
+tier = 0
+precision = true
+size = Vector3(2, 0.5, 1)
+
+[node name="Planter2" type="StaticBody3D" parent="Courtyard"]
+position = Vector3(19, 0.25, -3)
+script = ExtResource("1")
+surface_id = &"srf_court_planter_2"
+tier = 0
+precision = true
+size = Vector3(2, 0.5, 1)
+
+[node name="Table" type="StaticBody3D" parent="Courtyard"]
+position = Vector3(22.5, 0.375, -5)
+script = ExtResource("1")
+surface_id = &"srf_court_table"
+tier = 0
+size = Vector3(1.8, 0.75, 1)
+
+[node name="Dumpster" type="StaticBody3D" parent="Courtyard"]
+position = Vector3(18.5, 0.5, -7.5)
+script = ExtResource("1")
+surface_id = &"srf_court_dumpster"
+tier = 0
+size = Vector3(2, 1, 1.5)
+
+[node name="Van" type="StaticBody3D" parent="Courtyard"]
+position = Vector3(19.5, 1.1, -11)
+script = ExtResource("1")
+surface_id = &"srf_court_van"
+tier = 0
+size = Vector3(2, 2.2, 5)
+
+[node name="Crate" type="StaticBody3D" parent="Courtyard"]
+position = Vector3(24, 0.75, -5.5)
+script = ExtResource("1")
+surface_id = &"srf_court_crate"
+tier = 1
+size = Vector3(1.5, 1.5, 1.5)
+
+[node name="CrateStack" type="StaticBody3D" parent="Courtyard"]
+position = Vector3(24.5, 1.75, -8.5)
+script = ExtResource("1")
+surface_id = &"srf_court_cratestack"
+tier = 1
+size = Vector3(2, 3.5, 2)
+
+[node name="Bodega" type="Node3D" parent="."]
+
+[node name="Mass" type="StaticBody3D" parent="Bodega"]
+position = Vector3(7, 2, -7)
+script = ExtResource("1")
+surface_id = &"srf_bodega_roof"
+tier = 0
+size = Vector3(14, 4, 14)
+
+[node name="Awning" type="StaticBody3D" parent="Bodega"]
+position = Vector3(15, 2.35, -11)
+script = ExtResource("1")
+surface_id = &"srf_bodega_awning_e"
+tier = 0
+size = Vector3(2, 0.3, 3)
+
+[node name="Sign" type="StaticBody3D" parent="Bodega"]
+position = Vector3(7, 4.5, 0.25)
+script = ExtResource("1")
+surface_id = &"srf_bodega_sign"
+tier = 1
+precision = true
+size = Vector3(3, 1, 0.5)
+
+[node name="Alley" type="Node3D" parent="."]
+
+[node name="AlleyDumpster" type="StaticBody3D" parent="Alley"]
+position = Vector3(10, 0.5, -18.5)
+script = ExtResource("1")
+surface_id = &"srf_alley_dumpster"
+tier = 0
+size = Vector3(2, 1, 1.5)
+
+[node name="Pole1" type="StaticBody3D" parent="Alley"]
+position = Vector3(8, 1.5, -17)
+script = ExtResource("1")
+surface_id = &"srf_alley_pole_1"
+tier = 1
+precision = true
+size = Vector3(0.3, 3, 0.3)
+
+[node name="Pole2" type="StaticBody3D" parent="Alley"]
+position = Vector3(11, 1.5, -17)
+script = ExtResource("1")
+surface_id = &"srf_alley_pole_2"
+tier = 1
+precision = true
+size = Vector3(0.3, 3, 0.3)
+
+[node name="Pole3" type="StaticBody3D" parent="Alley"]
+position = Vector3(14, 1.5, -17)
+script = ExtResource("1")
+surface_id = &"srf_alley_pole_3"
+tier = 1
+precision = true
+size = Vector3(0.3, 3, 0.3)
+
+[node name="Depot" type="Node3D" parent="."]
+
+[node name="Mass" type="StaticBody3D" parent="Depot"]
+position = Vector3(41, 3.5, -7)
+script = ExtResource("1")
+surface_id = &"srf_depot_roof"
+tier = 1
+size = Vector3(30, 7, 14)
+
+[node name="DockCanopy" type="StaticBody3D" parent="Depot"]
+position = Vector3(24.5, 4.85, -11.5)
+script = ExtResource("1")
+surface_id = &"srf_depot_canopy"
+tier = 1
+size = Vector3(3, 0.3, 4)
+
+[node name="Machinery1" type="StaticBody3D" parent="Depot"]
+position = Vector3(50, 8, -12)
+script = ExtResource("1")
+surface_id = &"srf_depot_machinery_1"
+tier = 1
+size = Vector3(2, 2, 2)
+
+[node name="Machinery2" type="StaticBody3D" parent="Depot"]
+position = Vector3(53, 8, -12)
+script = ExtResource("1")
+surface_id = &"srf_depot_machinery_2"
+tier = 1
+size = Vector3(2, 2, 2)
+
+[node name="Machinery3" type="StaticBody3D" parent="Depot"]
+position = Vector3(51.5, 8, -9)
+script = ExtResource("1")
+surface_id = &"srf_depot_machinery_3"
+tier = 1
+size = Vector3(2, 2, 2)
+
+[node name="BillboardCatwalk" type="StaticBody3D" parent="Depot"]
+position = Vector3(46, 10.85, -13)
+script = ExtResource("1")
+surface_id = &"srf_depot_catwalk"
+tier = 2
+size = Vector3(10, 0.3, 1.5)
+
+[node name="BillboardTop" type="StaticBody3D" parent="Depot"]
+position = Vector3(46, 12, -12)
+script = ExtResource("1")
+surface_id = &"srf_depot_billboard_top"
+tier = 2
+precision = true
+size = Vector3(10, 2, 0.4)
+
+[node name="Walkup" type="Node3D" parent="."]
+
+[node name="Mass" type="StaticBody3D" parent="Walkup"]
+position = Vector3(12, 5, -28)
+script = ExtResource("1")
+surface_id = &"srf_walkup_roof"
+tier = 1
+size = Vector3(24, 10, 16)
+
+[node name="FireEscape1" type="StaticBody3D" parent="Walkup"]
+position = Vector3(8, 3.35, -19)
+script = ExtResource("1")
+surface_id = &"srf_walkup_fe_1"
+tier = 1
+size = Vector3(3, 0.3, 2)
+
+[node name="FireEscape2" type="StaticBody3D" parent="Walkup"]
+position = Vector3(11, 5.35, -19)
+script = ExtResource("1")
+surface_id = &"srf_walkup_fe_2"
+tier = 1
+size = Vector3(3, 0.3, 2)
+
+[node name="FireEscape3" type="StaticBody3D" parent="Walkup"]
+position = Vector3(8, 7.35, -19)
+script = ExtResource("1")
+surface_id = &"srf_walkup_fe_3"
+tier = 1
+size = Vector3(3, 0.3, 2)
+
+[node name="FireEscape4" type="StaticBody3D" parent="Walkup"]
+position = Vector3(11, 9.35, -19)
+script = ExtResource("1")
+surface_id = &"srf_walkup_fe_4"
+tier = 1
+size = Vector3(3, 0.3, 2)
+
+[node name="FeRail1" type="StaticBody3D" parent="Walkup"]
+position = Vector3(8, 4.45, -18.1)
+script = ExtResource("1")
+surface_id = &"srf_walkup_fe_rail_1"
+tier = 1
+precision = true
+size = Vector3(3, 0.1, 0.1)
+
+[node name="FeRail2" type="StaticBody3D" parent="Walkup"]
+position = Vector3(11, 6.45, -18.1)
+script = ExtResource("1")
+surface_id = &"srf_walkup_fe_rail_2"
+tier = 1
+precision = true
+size = Vector3(3, 0.1, 0.1)
+
+[node name="FeRail3" type="StaticBody3D" parent="Walkup"]
+position = Vector3(8, 8.45, -18.1)
+script = ExtResource("1")
+surface_id = &"srf_walkup_fe_rail_3"
+tier = 1
+precision = true
+size = Vector3(3, 0.1, 0.1)
+
+[node name="FeRail4" type="StaticBody3D" parent="Walkup"]
+position = Vector3(11, 10.45, -18.1)
+script = ExtResource("1")
+surface_id = &"srf_walkup_fe_rail_4"
+tier = 1
+precision = true
+size = Vector3(3, 0.1, 0.1)
+
+[node name="Ac1" type="StaticBody3D" parent="Walkup"]
+position = Vector3(16, 2.7, -19.5)
+script = ExtResource("1")
+surface_id = &"srf_walkup_ac_1"
+tier = 2
+precision = true
+size = Vector3(1.5, 1, 1)
+
+[node name="Ac2" type="StaticBody3D" parent="Walkup"]
+position = Vector3(18, 5.3, -19.5)
+script = ExtResource("1")
+surface_id = &"srf_walkup_ac_2"
+tier = 2
+precision = true
+size = Vector3(1.5, 1, 1)
+
+[node name="Ac3" type="StaticBody3D" parent="Walkup"]
+position = Vector3(16, 7.9, -19.5)
+script = ExtResource("1")
+surface_id = &"srf_walkup_ac_3"
+tier = 2
+precision = true
+size = Vector3(1.5, 1, 1)
+
+[node name="Stairbox" type="StaticBody3D" parent="Walkup"]
+position = Vector3(5, 10.75, -30)
+script = ExtResource("1")
+surface_id = &"srf_walkup_stairbox"
+tier = 1
+size = Vector3(4, 1.5, 3)
+
+[node name="ShaftCap" type="StaticBody3D" parent="Walkup"]
+position = Vector3(23.5, 12.5, -29)
+script = ExtResource("1")
+surface_id = &"srf_shaft_cap"
+tier = 2
+size = Vector3(1.5, 5, 6)
+
+[node name="MidRise" type="Node3D" parent="."]
+
+[node name="Mass" type="StaticBody3D" parent="MidRise"]
+position = Vector3(41.5, 9, -28)
+script = ExtResource("1")
+surface_id = &"srf_mid_roof"
+tier = 2
+size = Vector3(29, 18, 16)
+
+[node name="BalconyS" type="StaticBody3D" parent="MidRise"]
+position = Vector3(44, 12.85, -19.7)
+script = ExtResource("1")
+surface_id = &"srf_mid_balcony_s"
+tier = 2
+size = Vector3(4, 0.3, 0.6)
+
+[node name="ShelfS" type="StaticBody3D" parent="MidRise"]
+position = Vector3(44, 15.35, -19.5)
+script = ExtResource("1")
+surface_id = &"srf_mid_shelf_s"
+tier = 2
+size = Vector3(3, 0.3, 1)
+
+[node name="LedgeW" type="StaticBody3D" parent="MidRise"]
+position = Vector3(26.9, 14.85, -29)
+script = ExtResource("1")
+surface_id = &"srf_mid_ledge_w"
+tier = 2
+size = Vector3(1.2, 0.3, 2)
+
+[node name="AntennaBase" type="StaticBody3D" parent="MidRise"]
+position = Vector3(50, 18.5, -30)
+script = ExtResource("1")
+surface_id = &"srf_mid_antenna_base"
+tier = 2
+size = Vector3(1.5, 1, 1.5)
+
+[node name="AntennaTip" type="StaticBody3D" parent="MidRise"]
+position = Vector3(50, 20.5, -30)
+script = ExtResource("1")
+surface_id = &"srf_mid_antenna_tip"
+tier = 2
+precision = true
+size = Vector3(0.3, 3, 0.3)
+
+[node name="Tower" type="StaticBody3D" parent="."]
+position = Vector3(28, 20, -53)
+script = ExtResource("1")
+surface_id = &"srf_tower"
+tier = 3
+size = Vector3(20, 40, 16)

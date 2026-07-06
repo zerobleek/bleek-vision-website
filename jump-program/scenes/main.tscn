@@ -1,12 +1,13 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=12 format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/world/courtyard.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/world/block.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2"]
 [ext_resource type="Script" path="res://scripts/camera_rig.gd" id="3"]
 [ext_resource type="Script" path="res://scripts/debug_hud.gd" id="4"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="5"]
 [ext_resource type="Script" path="res://scripts/xp_system.gd" id="6"]
 [ext_resource type="Script" path="res://scripts/xp_hud.gd" id="7"]
+[ext_resource type="Script" path="res://scripts/telemetry.gd" id="8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 sky_top_color = Color(0.25, 0.32, 0.45, 1)
@@ -28,7 +29,7 @@ fog_density = 0.008
 [node name="Main" type="Node3D"]
 script = ExtResource("5")
 
-[node name="Courtyard" parent="." instance=ExtResource("1")]
+[node name="Block" parent="." instance=ExtResource("1")]
 
 [node name="Player" parent="." instance=ExtResource("2")]
 position = Vector3(18, 0.1, 4)
@@ -63,4 +64,9 @@ player_path = NodePath("../Player")
 
 [node name="XpHud" type="CanvasLayer" parent="."]
 script = ExtResource("7")
+xp_path = NodePath("../XpSystem")
+
+[node name="Telemetry" type="Node" parent="."]
+script = ExtResource("8")
+player_path = NodePath("../Player")
 xp_path = NodePath("../XpSystem")

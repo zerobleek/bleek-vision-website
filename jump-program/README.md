@@ -1,4 +1,4 @@
-# Jump Program — prototype (M2)
+# Jump Program — prototype (M3)
 
 Godot 4.4 project. Design docs live in [`../docs/jump-program/`](../docs/jump-program/) — `PLAN.md` (game plan) and `GREYBOX_BLOCK.md` (level spec; §1 is the movement contract these scripts implement).
 
@@ -42,6 +42,13 @@ Godot 4.4 project. Design docs live in [`../docs/jump-program/`](../docs/jump-pr
 
 **M2 exit gate:** the Tier 1 unlock visibly changes behavior — you immediately retry the fire-escape-height stuff you failed before.
 
+**M3 — Tier 2 and the whole block**
+- Double jump (tap in air; redirects toward the stick, +1 m apex), wall jump (tap while against a wall, +2 m per contact), roll landing (4–8 m drops no longer stun at T2). All gated on Tier 2 (500 XP).
+- Full block geometry per `GREYBOX_BLOCK.md`: Depot (loading dock → roof → machinery → billboard catwalk), Walkup (fire escape + railings, AC-unit sequence break, roof, stairbox), the wall-jump airshaft, Mid-rise (balcony → shelf → **roof, 18 m, the prototype summit** → antenna tip at 22 m), and the unreachable Tower watching over everything. Both intended T2 routes are in: the Catwalk Line (signature double-jump gap across the alley) and the Shaft (wall-jump chimney).
+- Landing telemetry: every landing appends a JSON line (surface, kind, drop, airtime, chain, tier, xp) to `user://landings_<datetime>.jsonl`, one file per session — playtest heatmap fuel.
+
+**M3 exit gate:** both routes to the Mid-rise roof are completable, the Tier-1 sequence breaks work at high execution, and nothing lets a tier climb early (see the as-built audit in the greybox doc).
+
 ## Not yet (on purpose)
 
-Double jump / wall jump / roll + Depot/Walkup/Mid-rise/Tower + landing telemetry (M3), any art or sound (M4).
+Art, sound, particles, TestFlight build (M4). Design-only for now: Tiers 3–5 (flips, super jump, glide, flight).

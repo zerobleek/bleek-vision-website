@@ -35,6 +35,15 @@ enum State { MOVE, CHARGE, MANTLE, STUN }
 @export var coyote_time := 0.1
 @export var jump_buffer := 0.1
 
+@export_group("Air (T2)")
+## Apex of the mid-air double jump. Contract: charged 2.6 + air 1.0 = 3.6 max rise.
+@export var air_jump_height := 1.0
+@export var air_jumps_max := 1
+## Height gained per wall jump. Contract: +2.0 m per wall contact.
+@export var wall_jump_height := 2.0
+## Horizontal push away from the wall on a wall jump.
+@export var wall_push := 3.5
+
 @export_group("Ledge grab")
 ## How far ahead of the capsule we search for a wall.
 @export var grab_forward := 0.6
@@ -46,6 +55,8 @@ enum State { MOVE, CHARGE, MANTLE, STUN }
 @export_group("Landing")
 ## Falls of at least this many meters land heavy (brief stun).
 @export var heavy_drop := 4.0
+## At T2, drops up to this many meters roll instead of landing heavy (no stun).
+@export var roll_drop := 8.0
 ## Falls beyond this knock the player down. Contract: drops > 12 m = knockdown.
 @export var knockdown_drop := 12.0
 @export var heavy_stun := 0.25
@@ -62,6 +73,7 @@ var max_altitude := 0.0
 var coyote_left := 0.0
 var buffer_left := 0.0
 var hold_time := 0.0
+var air_jumps_left := 0
 
 var _held := false
 var _airtime := 0.0
@@ -135,6 +147,7 @@ func _physics_process(delta: float) -> void:
 	var on_floor := is_on_floor()
 	if on_floor:
 		_fall_top = global_position.y
+		air_jumps_left = air_jumps_max
 	else:
 		_fall_top = maxf(_fall_top, global_position.y)
 		_airtime += delta
@@ -155,6 +168,11 @@ func _physics_process(delta: float) -> void:
 			state = State.MOVE
 		elif coyote_left > 0.0:
 			_launch(jump_height, false)
+		elif player_tier >= 2 and not on_floor and is_on_wall():
+			_wall_jump()
+		elif player_tier >= 2 and not on_floor and air_jumps_left > 0:
+			air_jumps_left -= 1
+			_launch(air_jump_height, true)
 		else:
 			buffer_left = jump_buffer
 	if buffer_left > 0.0 and coyote_left > 0.0 and state == State.MOVE:
@@ -205,6 +223,15 @@ func _launch(apex: float, aimed: bool) -> void:
 	buffer_left = 0.0
 
 
+func _wall_jump() -> void:
+	var n := get_wall_normal()
+	velocity.y = jump_speed_for(wall_jump_height)
+	velocity.x = n.x * wall_push
+	velocity.z = n.z * wall_push
+	_body.rotation.y = atan2(n.x, n.z)
+	buffer_left = 0.0
+
+
 ## Mid-air ledge grab: wall ahead at shin height, walkable top within
 ## grab_reach above the feet, and the stick pushed toward the wall.
 ## Clearance check is skipped on purpose — greybox boxes are always clear.
@@ -246,6 +273,7 @@ func _mantle_step(delta: float) -> void:
 	if _mantle_t >= 1.0:
 		state = State.MOVE
 		velocity = Vector3.ZERO
+		air_jumps_left = air_jumps_max
 		_fall_top = global_position.y
 		# Leave _was_on_floor false: the first grounded frame after a mantle
 		# fires _on_landed, so grabbing a ledge credits that surface like a landing.
@@ -260,9 +288,12 @@ func _on_landed(fall_speed: float) -> void:
 		_stun_left = knockdown_stun
 		state = State.STUN
 	elif drop >= heavy_drop:
-		kind = &"heavy"
-		_stun_left = heavy_stun
-		state = State.STUN
+		if player_tier >= 2 and drop <= roll_drop:
+			kind = &"roll"
+		else:
+			kind = &"heavy"
+			_stun_left = heavy_stun
+			state = State.STUN
 	last_landing_kind = kind
 	var surface := _floor_collider()
 	if surface and surface.is_in_group(&"landable"):
