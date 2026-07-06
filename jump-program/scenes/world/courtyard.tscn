@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/surface.gd" id="1"]
+
+[node name="Courtyard" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+position = Vector3(28, -0.5, -10)
+script = ExtResource("1")
+surface_id = &"srf_street_s"
+tier = 0
+size = Vector3(80, 1, 60)
+
+[node name="Planter1" type="StaticBody3D" parent="."]
+position = Vector3(16, 0.25, -3)
+script = ExtResource("1")
+surface_id = &"srf_court_planter_1"
+tier = 0
+precision = true
+size = Vector3(2, 0.5, 1)
+
+[node name="Planter2" type="StaticBody3D" parent="."]
+position = Vector3(19, 0.25, -3)
+script = ExtResource("1")
+surface_id = &"srf_court_planter_2"
+tier = 0
+precision = true
+size = Vector3(2, 0.5, 1)
+
+[node name="Table" type="StaticBody3D" parent="."]
+position = Vector3(22.5, 0.375, -5)
+script = ExtResource("1")
+surface_id = &"srf_court_table"
+tier = 0
+size = Vector3(1.8, 0.75, 1)
+
+[node name="Dumpster" type="StaticBody3D" parent="."]
+position = Vector3(18.5, 0.5, -7.5)
+script = ExtResource("1")
+surface_id = &"srf_court_dumpster"
+tier = 0
+size = Vector3(2, 1, 1.5)
+
+[node name="Van" type="StaticBody3D" parent="."]
+position = Vector3(21, 1.1, -11)
+script = ExtResource("1")
+surface_id = &"srf_court_van"
+tier = 0
+size = Vector3(2, 2.2, 5)
