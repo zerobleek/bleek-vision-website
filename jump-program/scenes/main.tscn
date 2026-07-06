@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/block.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2"]
@@ -8,12 +8,13 @@
 [ext_resource type="Script" path="res://scripts/xp_system.gd" id="6"]
 [ext_resource type="Script" path="res://scripts/xp_hud.gd" id="7"]
 [ext_resource type="Script" path="res://scripts/telemetry.gd" id="8"]
+[ext_resource type="Script" path="res://scripts/audio_director.gd" id="9"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
-sky_top_color = Color(0.25, 0.32, 0.45, 1)
-sky_horizon_color = Color(0.55, 0.56, 0.6, 1)
+sky_top_color = Color(0.2, 0.24, 0.38, 1)
+sky_horizon_color = Color(0.62, 0.5, 0.46, 1)
 ground_bottom_color = Color(0.1, 0.11, 0.13, 1)
-ground_horizon_color = Color(0.55, 0.56, 0.6, 1)
+ground_horizon_color = Color(0.62, 0.5, 0.46, 1)
 
 [sub_resource type="Sky" id="sky"]
 sky_material = SubResource("sky_mat")
@@ -23,8 +24,8 @@ background_mode = 2
 sky = SubResource("sky")
 ambient_light_source = 3
 fog_enabled = true
-fog_light_color = Color(0.55, 0.56, 0.6, 1)
-fog_density = 0.008
+fog_light_color = Color(0.6, 0.52, 0.5, 1)
+fog_density = 0.012
 
 [node name="Main" type="Node3D"]
 script = ExtResource("5")
@@ -49,6 +50,7 @@ collision_mask = 1
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 rotation = Vector3(-0.9, 0.6, 0)
+light_color = Color(1, 0.88, 0.78, 1)
 shadow_enabled = true
 
 [node name="Env" type="WorldEnvironment" parent="."]
@@ -68,5 +70,10 @@ xp_path = NodePath("../XpSystem")
 
 [node name="Telemetry" type="Node" parent="."]
 script = ExtResource("8")
+player_path = NodePath("../Player")
+xp_path = NodePath("../XpSystem")
+
+[node name="AudioDirector" type="Node" parent="."]
+script = ExtResource("9")
 player_path = NodePath("../Player")
 xp_path = NodePath("../XpSystem")

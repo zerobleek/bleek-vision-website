@@ -1,4 +1,4 @@
-# Jump Program — prototype (M3)
+# Jump Program — prototype (M4)
 
 Godot 4.4 project. Design docs live in [`../docs/jump-program/`](../docs/jump-program/) — `PLAN.md` (game plan) and `GREYBOX_BLOCK.md` (level spec; §1 is the movement contract these scripts implement).
 
@@ -49,6 +49,22 @@ Godot 4.4 project. Design docs live in [`../docs/jump-program/`](../docs/jump-pr
 
 **M3 exit gate:** both routes to the Mid-rise roof are completable, the Tier-1 sequence breaks work at high execution, and nothing lets a tier climb early (see the as-built audit in the greybox doc).
 
-## Not yet (on purpose)
+**M4 — the PS2 skin**
+- **Textures** (`assets/textures/`): six procedurally generated 128 px tiles — brick, concrete, asphalt, metal, wood, and dusk office windows — applied by `surface.gd` via surface-id rules, world-triplanar mapped with **nearest-neighbor filtering**. A faint tier tint stays on top so routes remain legible; the Tower stays hard red.
+- **Character** (`character_body.gd`): blocky low-poly figure built and animated in code — run cycle, charge crouch, air tuck, a full flip on the double jump, landing squash scaled by impact. Navy suit, periwinkle visor (studio colors).
+- **Audio** (`assets/audio/`, `audio_director.gd`): synthesized placeholder SFX for every jump/land/grab flavor, a chain blip that rises in pitch with the multiplier, a tier-up chime, and a 9.6 s lo-fi break loop at 100 BPM. All generated WAVs — real sound design replaces the *files*, the wiring stays.
+- **FX** (`fx.gd`): hard little cube particles — landing dust scaled by impact, speed lines past 8 m/s. No soft alpha sprites; the era demands cubes.
+- **Render**: 75% internal 3D resolution upscaled, anisotropic filtering off, denser warm dusk fog, warm key light.
 
-Art, sound, particles, TestFlight build (M4). Design-only for now: Tiers 3–5 (flips, super jump, glide, flight).
+**M4 exit gate:** a TestFlight build in testers' hands (requires a Mac — see iOS export below).
+
+## iOS / TestFlight export (needs your Mac)
+
+1. In Godot: Editor → Manage Export Templates → download for 4.4.x.
+2. Project → Export → Add → iOS. Set your Apple Team ID, bundle id (e.g. `com.bleekvision.jumpprogram`), and app icons (source: `icon.svg`).
+3. Export the Xcode project, open it, sign with your distribution cert, archive, upload to App Store Connect, add to a TestFlight group.
+4. `export_presets.cfg` is gitignored on purpose — it will contain your team identifiers.
+
+## Design-only for now
+
+Tiers 3–5 (flips as input tricks, super jump, glide, flight), districts beyond the block.

@@ -8,6 +8,8 @@ extends CharacterBody3D
 
 signal landed(surface: Node, drop: float, kind: StringName, airtime: float, distance: float)
 signal took_off
+signal jumped(kind: StringName)
+signal grabbed
 
 enum State { MOVE, CHARGE, MANTLE, STUN }
 
@@ -164,19 +166,19 @@ func _physics_process(delta: float) -> void:
 
 	if released:
 		if state == State.CHARGE:
-			_launch(charge_apex(), true)
+			_launch(charge_apex(), true, &"charged")
 			state = State.MOVE
 		elif coyote_left > 0.0:
-			_launch(jump_height, false)
+			_launch(jump_height, false, &"tap")
 		elif player_tier >= 2 and not on_floor and is_on_wall():
 			_wall_jump()
 		elif player_tier >= 2 and not on_floor and air_jumps_left > 0:
 			air_jumps_left -= 1
-			_launch(air_jump_height, true)
+			_launch(air_jump_height, true, &"air")
 		else:
 			buffer_left = jump_buffer
 	if buffer_left > 0.0 and coyote_left > 0.0 and state == State.MOVE:
-		_launch(jump_height, false)
+		_launch(jump_height, false, &"tap")
 		buffer_left = 0.0
 
 	var wish := _wish_dir() if state != State.STUN else Vector3.ZERO
@@ -211,7 +213,7 @@ func _physics_process(delta: float) -> void:
 		respawn()
 
 
-func _launch(apex: float, aimed: bool) -> void:
+func _launch(apex: float, aimed: bool, kind: StringName) -> void:
 	velocity.y = jump_speed_for(apex)
 	if aimed:
 		var wish := _wish_dir()
@@ -221,6 +223,7 @@ func _launch(apex: float, aimed: bool) -> void:
 			velocity.z = h.z
 	coyote_left = 0.0
 	buffer_left = 0.0
+	jumped.emit(kind)
 
 
 func _wall_jump() -> void:
@@ -230,6 +233,7 @@ func _wall_jump() -> void:
 	velocity.z = n.z * wall_push
 	_body.rotation.y = atan2(n.x, n.z)
 	buffer_left = 0.0
+	jumped.emit(&"wall")
 
 
 ## Mid-air ledge grab: wall ahead at shin height, walkable top within
@@ -262,6 +266,7 @@ func _try_grab(wish: Vector3) -> void:
 	velocity = Vector3.ZERO
 	state = State.MANTLE
 	_body.rotation.y = atan2(dir.x, dir.z)
+	grabbed.emit()
 
 
 func _mantle_step(delta: float) -> void:
