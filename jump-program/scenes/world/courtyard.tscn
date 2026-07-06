@@ -42,8 +42,61 @@ tier = 0
 size = Vector3(2, 1, 1.5)
 
 [node name="Van" type="StaticBody3D" parent="."]
-position = Vector3(21, 1.1, -11)
+position = Vector3(19.5, 1.1, -11)
 script = ExtResource("1")
 surface_id = &"srf_court_van"
 tier = 0
 size = Vector3(2, 2.2, 5)
+
+[node name="BodegaMass" type="StaticBody3D" parent="."]
+position = Vector3(7, 2, -7)
+script = ExtResource("1")
+surface_id = &"srf_bodega_roof"
+tier = 0
+size = Vector3(14, 4, 14)
+
+[node name="BodegaAwning" type="StaticBody3D" parent="."]
+position = Vector3(15, 2.35, -11)
+script = ExtResource("1")
+surface_id = &"srf_bodega_awning_e"
+tier = 0
+size = Vector3(2, 0.3, 3)
+
+[node name="BodegaSign" type="StaticBody3D" parent="."]
+position = Vector3(7, 4.5, 0.25)
+script = ExtResource("1")
+surface_id = &"srf_bodega_sign"
+tier = 1
+precision = true
+size = Vector3(3, 1, 0.5)
+
+[node name="AlleyDumpster" type="StaticBody3D" parent="."]
+position = Vector3(10, 0.5, -18.5)
+script = ExtResource("1")
+surface_id = &"srf_alley_dumpster"
+tier = 0
+size = Vector3(2, 1, 1.5)
+
+[node name="AlleyPole1" type="StaticBody3D" parent="."]
+position = Vector3(8, 1.5, -17)
+script = ExtResource("1")
+surface_id = &"srf_alley_pole_1"
+tier = 1
+precision = true
+size = Vector3(0.3, 3, 0.3)
+
+[node name="AlleyPole2" type="StaticBody3D" parent="."]
+position = Vector3(11, 1.5, -17)
+script = ExtResource("1")
+surface_id = &"srf_alley_pole_2"
+tier = 1
+precision = true
+size = Vector3(0.3, 3, 0.3)
+
+[node name="AlleyPole3" type="StaticBody3D" parent="."]
+position = Vector3(14, 1.5, -17)
+script = ExtResource("1")
+surface_id = &"srf_alley_pole_3"
+tier = 1
+precision = true
+size = Vector3(0.3, 3, 0.3)

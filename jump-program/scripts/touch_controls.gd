@@ -13,7 +13,6 @@ var _stick_index := -1
 var _stick_origin := Vector2.ZERO
 var _stick_pos := Vector2.ZERO
 var _right_index := -1
-var _jump_queued := false
 var _overlay: Control
 
 
@@ -24,12 +23,6 @@ func _ready() -> void:
 	_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_overlay.draw.connect(_draw_stick)
 	add_child(_overlay)
-
-
-func consume_jump() -> bool:
-	var q := _jump_queued
-	_jump_queued = false
-	return q
 
 
 func _process(_delta: float) -> void:
@@ -46,7 +39,6 @@ func _input(event: InputEvent) -> void:
 				_stick_pos = event.position
 			elif event.position.x >= half_w and _right_index == -1:
 				_right_index = event.index
-				_jump_queued = true
 				jump_held = true
 		else:
 			if event.index == _stick_index:

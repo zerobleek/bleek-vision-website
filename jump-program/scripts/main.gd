@@ -9,5 +9,5 @@ func _ready() -> void:
 	_player.landed.connect(_on_player_landed)
 
 
-func _on_player_landed(surface: Node, fall_speed: float) -> void:
-	print("landed on %s (fall %.1f m/s)" % [surface.get(&"surface_id"), absf(fall_speed)])
+func _on_player_landed(surface: Node, drop: float, kind: StringName) -> void:
+	print("landed on %s (%s, drop %.1f m)" % [surface.get(&"surface_id"), kind, drop])

@@ -1,6 +1,8 @@
 extends CanvasLayer
 ## M0 tuning readout. Reads the player directly; no game logic here.
 
+const STATE_NAMES: Array[String] = ["MOVE", "CHARGE", "MANTLE", "STUN"]
+
 @export var player_path: NodePath
 
 var _label: Label
@@ -23,11 +25,12 @@ func _process(_delta: float) -> void:
 		return
 	var flat := Vector2(_player.velocity.x, _player.velocity.z).length()
 	_label.text = (
-		"speed  %5.2f m/s\n" % flat
-		+ "v.y    %5.2f m/s\n" % _player.velocity.y
+		"state  %s   charge %3d%%\n" % [STATE_NAMES[_player.state], _player.charge_ratio() * 100]
+		+ "speed  %5.2f m/s   v.y %5.2f m/s\n" % [flat, _player.velocity.y]
 		+ "alt    %5.2f m   (best %.2f)\n" % [_player.global_position.y, _player.max_altitude]
 		+ "floor  %s   coyote %.2f   buffer %.2f\n"
 			% [_player.is_on_floor(), _player.coyote_left, _player.buffer_left]
-		+ "landed %s\n" % _player.last_landing
-		+ "jump: apex %.2f m, t_apex %.2f s  [R] reset" % [_player.jump_height, _player.time_to_apex]
+		+ "landed %s (%s)\n" % [_player.last_landing, _player.last_landing_kind]
+		+ "tier %d   jump: tap %.2f m / charged %.2f m  [R] reset"
+			% [_player.player_tier, _player.jump_height, _player.charged_height]
 	)
