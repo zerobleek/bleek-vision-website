@@ -9,5 +9,8 @@ func _ready() -> void:
 	_player.landed.connect(_on_player_landed)
 
 
-func _on_player_landed(surface: Node, drop: float, kind: StringName) -> void:
-	print("landed on %s (%s, drop %.1f m)" % [surface.get(&"surface_id"), kind, drop])
+func _on_player_landed(
+	surface: Node, drop: float, kind: StringName, airtime: float, distance: float
+) -> void:
+	print("landed on %s (%s, drop %.1f m, air %.2f s, dist %.1f m)"
+		% [surface.get(&"surface_id"), kind, drop, airtime, distance])

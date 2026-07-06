@@ -1,4 +1,4 @@
-# Jump Program — prototype (M1)
+# Jump Program — prototype (M2)
 
 Godot 4.4 project. Design docs live in [`../docs/jump-program/`](../docs/jump-program/) — `PLAN.md` (game plan) and `GREYBOX_BLOCK.md` (level spec; §1 is the movement contract these scripts implement).
 
@@ -35,6 +35,13 @@ Godot 4.4 project. Design docs live in [`../docs/jump-program/`](../docs/jump-pr
 
 **M1 exit gate:** aimless jumping is fun for 30 seconds, and the courtyard→Bodega-roof climb teaches itself.
 
+**M2 — the XP loop**
+- `xp_system.gd`: airtime + distance pay base XP, first-ever landing on any tagged surface pays the exploration bonus (+25), precision surfaces pay every clean landing (+15), altitude records pay per meter. Consecutive jumps (taking off within 1.5 s of landing) build a chain multiplier up to ×2; heavy landings break the chain, knockdowns forfeit the jump's XP entirely. A mantle counts as landing on the grabbed surface.
+- Tiers: **you start at Tier 0 — charging is locked.** 150 XP unlocks Tier 1 (charged jump), 500 XP announces Tier 2 (abilities land in M3). Progress persists in `user://save.json`; delete it to replay the progression.
+- `xp_hud.gd`: XP bar toward next tier, chain counter, per-landing "+N ×mult" popups, tier-up banner. Debug HUD stays separate and dev-only.
+
+**M2 exit gate:** the Tier 1 unlock visibly changes behavior — you immediately retry the fire-escape-height stuff you failed before.
+
 ## Not yet (on purpose)
 
-XP + chain multiplier + unlocks (M2), Depot/Walkup/Mid-rise/Tower (M3), any art or sound (M4).
+Double jump / wall jump / roll + Depot/Walkup/Mid-rise/Tower + landing telemetry (M3), any art or sound (M4).

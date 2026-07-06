@@ -6,7 +6,8 @@ extends CharacterBody3D
 ## The jump fires on RELEASE: a quick tap is the base jump, holding charges it,
 ## so tap / variable height / charged jump are one continuous input.
 
-signal landed(surface: Node, drop: float, kind: StringName)
+signal landed(surface: Node, drop: float, kind: StringName, airtime: float, distance: float)
+signal took_off
 
 enum State { MOVE, CHARGE, MANTLE, STUN }
 
@@ -51,8 +52,8 @@ enum State { MOVE, CHARGE, MANTLE, STUN }
 @export var knockdown_stun := 0.9
 
 @export_group("Progression")
-## Driven by the XP system from M2 on; exported for M1 testing.
-@export var player_tier := 1
+## Set by the XP system on load and on tier-up; exported only for testing.
+@export var player_tier := 0
 
 var state := State.MOVE
 var last_landing := "—"
@@ -63,6 +64,8 @@ var buffer_left := 0.0
 var hold_time := 0.0
 
 var _held := false
+var _airtime := 0.0
+var _takeoff_pos := Vector3.ZERO
 var _fall_top := 0.0
 var _was_on_floor := false
 var _stun_left := 0.0
@@ -134,6 +137,7 @@ func _physics_process(delta: float) -> void:
 		_fall_top = global_position.y
 	else:
 		_fall_top = maxf(_fall_top, global_position.y)
+		_airtime += delta
 		var g := rise_gravity() * (fall_gravity_mult if velocity.y < 0.0 else 1.0)
 		velocity.y -= g * delta
 
@@ -177,6 +181,10 @@ func _physics_process(delta: float) -> void:
 
 	if is_on_floor() and not _was_on_floor:
 		_on_landed(fall_speed)
+	elif not is_on_floor() and _was_on_floor:
+		_takeoff_pos = global_position
+		_airtime = 0.0
+		took_off.emit()
 	_was_on_floor = is_on_floor()
 
 	max_altitude = maxf(max_altitude, global_position.y)
@@ -239,7 +247,9 @@ func _mantle_step(delta: float) -> void:
 		state = State.MOVE
 		velocity = Vector3.ZERO
 		_fall_top = global_position.y
-		_was_on_floor = true
+		# Leave _was_on_floor false: the first grounded frame after a mantle
+		# fires _on_landed, so grabbing a ledge credits that surface like a landing.
+		_was_on_floor = false
 
 
 func _on_landed(fall_speed: float) -> void:
@@ -257,7 +267,8 @@ func _on_landed(fall_speed: float) -> void:
 	var surface := _floor_collider()
 	if surface and surface.is_in_group(&"landable"):
 		last_landing = str(surface.get(&"surface_id"))
-		landed.emit(surface, drop, kind)
+		var dist := Vector2(global_position.x - _takeoff_pos.x, global_position.z - _takeoff_pos.z)
+		landed.emit(surface, drop, kind, _airtime, dist.length())
 	if fall_speed < 0.0:
 		_fall_top = global_position.y
 

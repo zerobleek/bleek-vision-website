@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/courtyard.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2"]
 [ext_resource type="Script" path="res://scripts/camera_rig.gd" id="3"]
 [ext_resource type="Script" path="res://scripts/debug_hud.gd" id="4"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="5"]
+[ext_resource type="Script" path="res://scripts/xp_system.gd" id="6"]
+[ext_resource type="Script" path="res://scripts/xp_hud.gd" id="7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 sky_top_color = Color(0.25, 0.32, 0.45, 1)
@@ -54,3 +56,11 @@ environment = SubResource("env")
 [node name="DebugHud" type="CanvasLayer" parent="."]
 script = ExtResource("4")
 player_path = NodePath("../Player")
+
+[node name="XpSystem" type="Node" parent="."]
+script = ExtResource("6")
+player_path = NodePath("../Player")
+
+[node name="XpHud" type="CanvasLayer" parent="."]
+script = ExtResource("7")
+xp_path = NodePath("../XpSystem")
