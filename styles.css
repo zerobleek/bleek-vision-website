@@ -527,6 +527,10 @@ a { color: inherit; }
   --w-bg: #04100A; --w-surface: #0A1A12; --w-text: #5BF08C; --w-muted: rgba(91,240,140,0.58);
   --w-accent: #36F07A; --w-accent-deep: #1B9E4E; --w-mount: #020805; --w-cta-bg: #36F07A; --w-cta-text: #03130A;
 }
+.card--estoppelbot {
+  --w-bg: #0E2235; --w-surface: #132F4C; --w-text: #FFFFFF; --w-muted: rgba(255,255,255,0.62);
+  --w-accent: #C89B3C; --w-accent-deep: #8A6320; --w-mount: #08192A; --w-cta-bg: #C89B3C; --w-cta-text: #0E1E2E;
+}
 
 /* Light-world (MomKnows) card: the bright terracotta accent fails AA as small
    status text on cream, so the status label uses the deeper shade. */
