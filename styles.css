@@ -245,12 +245,12 @@ a { color: inherit; }
 .hero__wm-vision {
   font-family: 'Outfit', var(--font);
   font-weight: 300;
-  font-size: clamp(11px, 1.4vw, 18px);
+  font-size: clamp(16px, 2.1vw, 28px);
   color: var(--accent);
   letter-spacing: 0.52em;
   text-indent: 0.52em; /* offset trailing letter-spacing so it appears visually centred */
   text-align: center;
-  margin-top: 8px;
+  margin-top: 10px;
   animation:
     wm-vision-in 0.9s cubic-bezier(.2,.7,.2,1) 0.38s both,
     wm-vision-pulse 3.5s ease-in-out 1.4s infinite;
