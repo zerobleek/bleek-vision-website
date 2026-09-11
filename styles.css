@@ -523,6 +523,10 @@ a { color: inherit; }
   --w-bg: #F5EDE3; --w-surface: #FFF8EF; --w-text: #2A1A12; --w-muted: rgba(42,26,18,0.7);
   --w-accent: #C5532A; --w-accent-deep: #7A2E14; --w-mount: #E8DDD0; --w-cta-bg: #C5532A; --w-cta-text: #FFFFFF;
 }
+.card--gobobbygo {
+  --w-bg: #2B2320; --w-surface: #3A302B; --w-text: #FBF6EC; --w-muted: rgba(251,246,236,0.66);
+  --w-accent: #FFD23E; --w-accent-deep: #D93B2B; --w-mount: #1F1916; --w-cta-bg: #D93B2B; --w-cta-text: #FFFFFF;
+}
 .card--cipher {
   --w-bg: #04100A; --w-surface: #0A1A12; --w-text: #5BF08C; --w-muted: rgba(91,240,140,0.58);
   --w-accent: #36F07A; --w-accent-deep: #1B9E4E; --w-mount: #020805; --w-cta-bg: #36F07A; --w-cta-text: #03130A;
