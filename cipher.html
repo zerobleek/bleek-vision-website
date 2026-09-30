@@ -1,0 +1,1221 @@
+<!--
+  cipher.html
+  bleek-vision-website
+
+  Created by Shabaka Malik Banks on 9/30/26.
+  Copyright © 2026 Bleek Vision LLC. All rights reserved.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cipher Protocol — iOS Running App | Bleek Vision</title>
+  <meta name="description" content="A running app told as a spy thriller. Briefings before you run. Debriefs when you finish. The story moves when you do. Coming to iPhone in spring 2027." />
+  <meta name="theme-color" content="#030805" />
+  <meta property="og:title" content="Cipher Protocol — Coming to iPhone" />
+  <meta property="og:description" content="A running app told as a spy thriller. The story moves when you do." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://bleekvision.com/assets/cipher/og-cipher.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cipher Protocol — Coming to iPhone" />
+  <meta name="twitter:description" content="A running app told as a spy thriller. The story moves when you do." />
+  <meta name="twitter:image" content="https://bleekvision.com/assets/cipher/og-cipher.png" />
+  <link rel="canonical" href="https://bleekvision.com/cipher" />
+  <link rel="icon" href="assets/bleek-vision-logo.png" />
+  <!-- Studio fonts (nav/footer) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Cipher-specific fonts loaded here only -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;800&family=VT323&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Cloudflare Turnstile (invisible) — REPLACE data-sitekey before deploying -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <style>
+    /* ── Cipher page tokens ────────────────────────────────── */
+    .cipher {
+      --c-ground:   #030805;
+      --c-surface:  #08130D;
+      --c-phosphor: #8CFFAE;
+      --c-text:     #EAF7EE;
+      --c-muted:    #BFE3C9;
+      --c-label:    #6FA982;
+      --c-border:   rgba(140,255,174,0.15);
+      --c-scanline: rgba(0,0,0,0.18);
+      --c-cta-bg:   #8CFFAE;
+      --c-cta-text: #030805;
+      --c-dim:      rgba(3,8,5,0.72);
+    }
+
+    /* ── Base ──────────────────────────────────────────────── */
+    .cipher {
+      background: var(--c-ground);
+      color: var(--c-text);
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+
+    .cipher-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ── CRT scanlines ─────────────────────────────────────── */
+    .cipher-crt {
+      position: relative;
+      overflow: hidden;
+    }
+    .cipher-crt::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 1px,
+        var(--c-scanline) 1px,
+        var(--c-scanline) 2px
+      );
+      pointer-events: none;
+      z-index: 10;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cipher-crt::after { display: none; }
+    }
+
+    /* ── Section eyebrows ──────────────────────────────────── */
+    .cipher-eyebrow {
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      font-size: clamp(9px, 1.1vw, 11px);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-label);
+      margin: 0 0 20px;
+    }
+
+    /* ── Section headings ──────────────────────────────────── */
+    .cipher-h2 {
+      font-family: 'VT323', 'Courier New', monospace;
+      font-size: clamp(36px, 6vw, 72px);
+      line-height: 1.05;
+      color: var(--c-phosphor);
+      margin: 0 0 20px;
+      letter-spacing: 0.02em;
+    }
+
+    .cipher-h3 {
+      font-family: 'VT323', 'Courier New', monospace;
+      font-size: clamp(22px, 3.5vw, 40px);
+      color: var(--c-phosphor);
+      margin: 0 0 10px;
+      letter-spacing: 0.02em;
+    }
+
+    .cipher-p {
+      font-size: clamp(14px, 1.5vw, 16px);
+      line-height: 1.72;
+      color: var(--c-muted);
+      margin: 0 0 16px;
+      max-width: 58ch;
+    }
+
+    /* ── Divider ───────────────────────────────────────────── */
+    .cipher-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--c-border);
+      margin: 0 0 28px;
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* §1  HERO                                               */
+    /* ─────────────────────────────────────────────────────── */
+    .cipher-hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 40px;
+      padding: clamp(100px, 12vh, 140px) 20px clamp(60px, 8vh, 100px);
+      position: relative;
+      background: var(--c-ground);
+    }
+
+    .cipher-hero__copy { position: relative; z-index: 2; }
+
+    .cipher-hero__kicker {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(9px, 1vw, 10px);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-label);
+      margin: 0 0 28px;
+    }
+
+    .cipher-hero__h1 {
+      font-family: 'VT323', 'Courier New', monospace;
+      font-size: clamp(44px, 8vw, 96px);
+      line-height: 1.0;
+      color: var(--c-phosphor);
+      margin: 0 0 24px;
+      letter-spacing: 0.02em;
+    }
+
+    .cipher-hero__pitch {
+      font-size: clamp(14px, 1.6vw, 17px);
+      line-height: 1.7;
+      color: var(--c-muted);
+      margin: 0 0 36px;
+      max-width: 52ch;
+    }
+
+    .cipher-hero__dialogue {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(12px, 1.2vw, 13px);
+      color: var(--c-label);
+      line-height: 1.6;
+      border-left: 2px solid var(--c-border);
+      padding-left: 16px;
+      margin: 0 0 40px;
+      font-style: italic;
+    }
+
+    .cipher-hero__img {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cipher-hero__img img {
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+      display: block;
+      margin-left: auto;
+      opacity: 0;
+      transform: translateX(32px);
+      animation: cipherFadeRight 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+    }
+
+    @keyframes cipherFadeRight {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cipher-hero__img img {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .cipher-hero {
+        grid-template-columns: 1fr;
+        padding-top: clamp(80px, 14vh, 110px);
+      }
+      .cipher-hero__img { order: -1; }
+      .cipher-hero__img img { max-width: 260px; margin: 0 auto; }
+    }
+
+    /* ── Status / confirmation banners ────────────────────── */
+    .cipher-banner {
+      padding: 16px 20px;
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      margin-bottom: 24px;
+    }
+
+    .cipher-banner--confirmed {
+      border-color: var(--c-phosphor);
+    }
+
+    .cipher-banner__label {
+      font-family: 'VT323', monospace;
+      font-size: 20px;
+      color: var(--c-phosphor);
+      margin: 0 0 6px;
+      letter-spacing: 0.06em;
+    }
+
+    .cipher-banner__body {
+      font-size: 13px;
+      color: var(--c-muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* SIGNUP FORM                                            */
+    /* ─────────────────────────────────────────────────────── */
+    .cipher-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 480px;
+    }
+
+    .cipher-form__label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(9px, 1vw, 10px);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-label);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .cipher-form__row {
+      display: flex;
+      gap: 0;
+    }
+
+    .cipher-form__input {
+      flex: 1;
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-right: none;
+      color: var(--c-text);
+      font-size: 14px;
+      padding: 13px 16px;
+      font-family: 'IBM Plex Mono', monospace;
+      outline: none;
+      min-width: 0;
+      caret-color: var(--c-phosphor);
+    }
+
+    .cipher-form__input::placeholder { color: var(--c-label); }
+
+    .cipher-form__input:focus {
+      border-color: rgba(140,255,174,0.5);
+      box-shadow: 0 0 0 1px rgba(140,255,174,0.2);
+    }
+
+    .cipher-form__btn {
+      background: var(--c-cta-bg);
+      color: var(--c-cta-text);
+      border: none;
+      padding: 13px 22px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.15s;
+    }
+
+    .cipher-form__btn:hover { opacity: 0.88; }
+    .cipher-form__btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .cipher-form__factions {
+      margin: 18px 0 0;
+    }
+
+    .cipher-form__factions-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-label);
+      margin: 0 0 10px;
+    }
+
+    .cipher-form__chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cipher-chip {
+      position: relative;
+    }
+
+    .cipher-chip input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .cipher-chip label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--c-muted);
+      border: 1px solid var(--c-border);
+      padding: 7px 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+    }
+
+    .cipher-chip input:checked + label,
+    .cipher-chip label:hover {
+      border-color: var(--c-phosphor);
+      color: var(--c-phosphor);
+      background: rgba(140,255,174,0.06);
+    }
+
+    .cipher-chip__icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .cipher-form__note {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--c-label);
+      margin: 14px 0 0;
+      line-height: 1.6;
+    }
+
+    .cipher-form__status {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--c-phosphor);
+      margin: 12px 0 0;
+      min-height: 1.4em;
+      line-height: 1.5;
+    }
+
+    .cipher-form__status--error { color: #FF9E7A; }
+
+    /* Honeypot */
+    .cipher-form__honey { display: none; }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* §2  MISSION BREAKDOWN                                  */
+    /* ─────────────────────────────────────────────────────── */
+    .cipher-mission {
+      padding: clamp(64px, 9vh, 112px) 20px;
+      background: var(--c-ground);
+    }
+
+    .cipher-mission__inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .cipher-mission__screens {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 12px;
+    }
+
+    .cipher-mission__screens::-webkit-scrollbar { height: 2px; }
+    .cipher-mission__screens::-webkit-scrollbar-track { background: var(--c-border); }
+    .cipher-mission__screens::-webkit-scrollbar-thumb { background: var(--c-phosphor); }
+
+    .cipher-phone {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      width: 140px;
+      position: relative;
+    }
+
+    .cipher-phone img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 20px;
+      border: 1px solid var(--c-border);
+    }
+
+    .cipher-phone__caption {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      color: var(--c-label);
+      margin: 8px 0 0;
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 680px) {
+      .cipher-mission__inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* §3  INTAKE / GETTING STARTED                           */
+    /* ─────────────────────────────────────────────────────── */
+    .cipher-intake {
+      padding: clamp(64px, 9vh, 112px) 20px;
+      background: var(--c-surface);
+    }
+
+    .cipher-intake__inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .cipher-intake__photo img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      display: block;
+      border: 1px solid var(--c-border);
+    }
+
+    @media (max-width: 680px) {
+      .cipher-intake__inner { grid-template-columns: 1fr; gap: 36px; }
+      .cipher-intake__photo { order: -1; }
+      .cipher-intake__photo img { max-width: 280px; margin: 0 auto; }
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* §4  HANDLERS                                           */
+    /* ─────────────────────────────────────────────────────── */
+    .cipher-handlers {
+      padding: clamp(64px, 9vh, 112px) 20px;
+      background: var(--c-ground);
+      position: relative;
+    }
+
+    .cipher-handlers__inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .cipher-handlers__cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .cipher-handler-card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      padding: 28px 28px 24px;
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .cipher-handler-card__portrait img {
+      width: 80px;
+      height: 80px;
+      display: block;
+      object-fit: cover;
+      border: 1px solid var(--c-border);
+      filter: sepia(0.3) saturate(0.6);
+    }
+
+    .cipher-handler-card__name {
+      font-family: 'VT323', monospace;
+      font-size: 24px;
+      color: var(--c-phosphor);
+      margin: 0 0 4px;
+      letter-spacing: 0.04em;
+    }
+
+    .cipher-handler-card__role {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      color: var(--c-label);
+      text-transform: uppercase;
+      margin: 0 0 14px;
+    }
+
+    .cipher-handler-card__line {
+      font-size: 13px;
+      color: var(--c-muted);
+      line-height: 1.65;
+      font-style: italic;
+      margin: 0;
+    }
+
+    .cipher-intercept {
+      margin-top: 32px;
+      background: rgba(3,8,5,0.6);
+      border: 1px solid rgba(255,100,60,0.3);
+      padding: 20px 24px;
+      position: relative;
+    }
+
+    .cipher-intercept::before {
+      content: '⚠ INTERCEPTED TRANSMISSION';
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      color: rgba(255,140,100,0.7);
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .cipher-intercept__line {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      color: #FF9E7A;
+      font-style: italic;
+      margin: 0;
+    }
+
+    @media (max-width: 680px) {
+      .cipher-handlers__cards { grid-template-columns: 1fr; }
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* §5  FACTIONS / ALLEGIANCES                             */
+    /* ─────────────────────────────────────────────────────── */
+    .cipher-factions {
+      padding: clamp(64px, 9vh, 112px) 20px;
+      background: var(--c-surface);
+    }
+
+    .cipher-factions__inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .cipher-factions__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .cipher-faction-card {
+      border: 1px solid var(--c-border);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--c-ground);
+    }
+
+    .cipher-faction-card__insignia {
+      width: 52px;
+      height: 52px;
+    }
+
+    .cipher-faction-card__name {
+      font-family: 'VT323', monospace;
+      font-size: 26px;
+      color: var(--c-phosphor);
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .cipher-faction-card__tagline {
+      font-size: 12px;
+      color: var(--c-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    @media (max-width: 680px) {
+      .cipher-factions__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* §6  NO AGENT LEFT BEHIND                               */
+    /* ─────────────────────────────────────────────────────── */
+    .cipher-inclusive {
+      padding: clamp(64px, 9vh, 112px) 20px;
+      background: var(--c-ground);
+    }
+
+    .cipher-inclusive__inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .cipher-inclusive__phone img {
+      width: 100%;
+      max-width: 220px;
+      height: auto;
+      display: block;
+      border-radius: 20px;
+      border: 1px solid var(--c-border);
+      margin: 0 auto;
+    }
+
+    .cipher-inclusive__ninth {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-style: italic;
+      color: var(--c-label);
+      border-left: 2px solid var(--c-border);
+      padding-left: 14px;
+      margin: 24px 0 0;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 680px) {
+      .cipher-inclusive__inner { grid-template-columns: 1fr; gap: 36px; }
+      .cipher-inclusive__phone { order: -1; }
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* §7  OPERATION 001 / HANDLER SECTION                   */
+    /* ─────────────────────────────────────────────────────── */
+    .cipher-handler-section {
+      padding: clamp(64px, 9vh, 112px) 20px;
+      background: var(--c-surface);
+      position: relative;
+    }
+
+    .cipher-handler-section__inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .cipher-handler-section__vienna img {
+      width: 100%;
+      max-width: 440px;
+      height: auto;
+      display: block;
+      border: 1px solid var(--c-border);
+      filter: brightness(0.65) saturate(0.8);
+    }
+
+    .cipher-handler-section__free {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--c-phosphor);
+      text-transform: uppercase;
+      margin: 0 0 24px;
+    }
+
+    @media (max-width: 680px) {
+      .cipher-handler-section__inner { grid-template-columns: 1fr; gap: 36px; }
+      .cipher-handler-section__vienna { order: -1; }
+    }
+  </style>
+</head>
+<body>
+<div class="shell cipher">
+
+  <!-- ──────────  NAV  ────────── -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo cta" aria-label="Bleek Vision — home">
+        <span class="nav__wm-bleek">BLEEK</span>
+        <span class="nav__wm-vision">VISION</span>
+      </a>
+      <div class="nav__right">
+        <div class="nav__links" id="navLinks">
+          <a href="index.html#work">The Work</a>
+          <a href="index.html#about">About</a>
+          <a href="mailto:malik@bleekvision.com">Contact</a>
+        </div>
+        <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+  <!-- ──────────  §1 HERO  ────────── -->
+  <section class="cipher-hero cipher-crt" aria-labelledby="cipher-hero-h1">
+    <div class="cipher-hero__copy">
+      <p class="cipher-hero__kicker" aria-hidden="true">BLEEK VISION · COMING SPRING 2027</p>
+      <h1 class="cipher-hero__h1" id="cipher-hero-h1">YOU HAVE BEEN<br>OBSERVED.</h1>
+      <p class="cipher-hero__pitch">A running app told as a spy thriller. You get a briefing before each run. A debrief when you finish. The story moves when you do — a block builds to 5.5 kilometres, mission by mission.</p>
+      <p class="cipher-hero__dialogue">"Not your name. Your routes. The same streets at the same hours, in weather most people stay in for."</p>
+
+      <!-- Confirmation / expired state banners -->
+      <div id="cipher-confirmed-banner" class="cipher-banner cipher-banner--confirmed" hidden>
+        <p class="cipher-banner__label">YOU'RE ON FILE, AGENT.</p>
+        <p class="cipher-banner__body">You're on the waitlist. We'll email you when Operation 001 is ready to run.</p>
+      </div>
+      <div id="cipher-expired-banner" class="cipher-banner" hidden>
+        <p class="cipher-banner__label">LINK EXPIRED.</p>
+        <p class="cipher-banner__body">This link has expired. Links last seven days. Join the waitlist again and we'll send a fresh one.</p>
+      </div>
+
+      <form class="cipher-form" id="cipher-form-hero" action="/api/subscribe" method="post" novalidate>
+        <!-- Honeypot -->
+        <input class="cipher-form__honey" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="source" value="hero">
+
+        <label class="cipher-form__label" for="cipher-email-hero">WHERE DO WE SEND YOUR INTAKE PACKAGE?</label>
+        <div class="cipher-form__row">
+          <input
+            class="cipher-form__input"
+            type="email"
+            id="cipher-email-hero"
+            name="email"
+            placeholder="your@email.com"
+            autocomplete="email"
+            required
+            aria-required="true"
+            aria-describedby="cipher-status-hero"
+          >
+          <button class="cipher-form__btn" type="submit">Join the waitlist</button>
+        </div>
+
+        <div class="cipher-form__factions">
+          <p class="cipher-form__factions-label">Pick a side <span style="color:var(--c-label);font-style:italic;">(optional)</span></p>
+          <div class="cipher-form__chips" role="radiogroup" aria-label="Pick a side">
+            <div class="cipher-chip">
+              <input type="radio" id="hero-cipher9" name="sympathies" value="cipher-9">
+              <label for="hero-cipher9">
+                <svg class="cipher-chip__icon" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1"/>
+                  <line x1="7" y1="1.5" x2="7" y2="12.5" stroke="currentColor" stroke-width="1"/>
+                  <line x1="1.5" y1="7" x2="12.5" y2="7" stroke="currentColor" stroke-width="1"/>
+                  <circle cx="7" cy="7" r="1.5" fill="currentColor"/>
+                </svg>
+                CIPHER-9
+              </label>
+            </div>
+            <div class="cipher-chip">
+              <input type="radio" id="hero-cinder" name="sympathies" value="cinder">
+              <label for="hero-cinder">
+                <svg class="cipher-chip__icon" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <polygon points="7,1 13,7 7,13 1,7" stroke="currentColor" stroke-width="1" fill="none"/>
+                  <polygon points="7,4 10,7 7,10 4,7" fill="currentColor" opacity="0.5"/>
+                </svg>
+                CINDER
+              </label>
+            </div>
+            <div class="cipher-chip">
+              <input type="radio" id="hero-umbra" name="sympathies" value="umbra">
+              <label for="hero-umbra">
+                <svg class="cipher-chip__icon" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M7 1.5a5.5 5.5 0 1 0 0 11A4 4 0 1 1 7 1.5z" stroke="currentColor" stroke-width="1" fill="none"/>
+                  <circle cx="9.5" cy="4" r="1" fill="currentColor"/>
+                </svg>
+                UMBRA
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Turnstile widget (invisible) — REPLACE 0x4AAA... with your real site key -->
+        <div class="cf-turnstile"
+             data-sitekey="0x4AAAAAAAAAA_REPLACE_WITH_YOUR_SITEKEY"
+             data-callback="onTurnstileToken"
+             data-size="invisible"
+             data-id="turnstile-hero"
+             aria-hidden="true">
+        </div>
+
+        <p class="cipher-form__note">Coming to iPhone in spring 2027. One email a month, at most. Unsubscribe anytime.</p>
+        <div class="cipher-form__status" id="cipher-status-hero" role="status" aria-live="polite" aria-atomic="true"></div>
+      </form>
+    </div>
+
+    <div class="cipher-hero__img" aria-hidden="true">
+      <img
+        src="assets/cipher/package-sealed.webp"
+        alt=""
+        width="1127"
+        height="1400"
+        loading="eager"
+        decoding="async"
+      >
+    </div>
+  </section>
+
+  <!-- ──────────  §2 MISSION BREAKDOWN  ────────── -->
+  <section class="cipher-mission" aria-labelledby="cipher-mission-h2">
+    <div class="cipher-mission__inner">
+      <div>
+        <p class="cipher-eyebrow">FILE 01 · HOW A RUN WORKS</p>
+        <h2 class="cipher-h2" id="cipher-mission-h2">EVERY RUN IS A MISSION.</h2>
+        <div class="cipher-divider"></div>
+        <p class="cipher-p">You get a briefing before you head out: what the mission is, how far, what you're listening for. You run. When you finish, the Archivist debriefs you — what happened out there, what it means, what comes next.</p>
+        <p class="cipher-p">A kilometre build starts at 2 km and reaches 5.5 km across nine cells. A 14-minute mile completes the mission exactly like a 7. The treadmill counts. Rest days count. Apple Health is optional.</p>
+      </div>
+      <div>
+        <div class="cipher-mission__screens" role="img" aria-label="App screenshots: Briefing, Run, Debrief">
+          <div class="cipher-phone">
+            <img src="assets/cipher/shot-briefing.webp" alt="Briefing screen" width="414" height="900" loading="lazy" decoding="async">
+            <p class="cipher-phone__caption">BRIEFING</p>
+          </div>
+          <div class="cipher-phone">
+            <img src="assets/cipher/shot-run-waypoint.webp" alt="Run waypoint screen" width="414" height="900" loading="lazy" decoding="async">
+            <p class="cipher-phone__caption">RUN</p>
+          </div>
+          <div class="cipher-phone">
+            <img src="assets/cipher/shot-debrief.webp" alt="Debrief screen" width="414" height="900" loading="lazy" decoding="async">
+            <p class="cipher-phone__caption">DEBRIEF</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────  §3 INTAKE  ────────── -->
+  <section class="cipher-intake" aria-labelledby="cipher-intake-h2">
+    <div class="cipher-intake__inner">
+      <div class="cipher-intake__photo">
+        <img src="assets/cipher/foam-tray.webp" alt="A sealed intake package in a foam equipment tray" width="1127" height="1400" loading="lazy" decoding="async">
+      </div>
+      <div>
+        <p class="cipher-eyebrow">FILE 02 · GETTING STARTED</p>
+        <h2 class="cipher-h2" id="cipher-intake-h2">IT STARTS WITH A PACKAGE.</h2>
+        <div class="cipher-divider"></div>
+        <p class="cipher-p">You download the app and a package arrives: your file number, your sector, your first mission. The Archivist doesn't explain herself, but she tells you exactly what to do.</p>
+        <p class="cipher-p">The setup takes two minutes. Sign in with Apple is available but optional. You don't need an account to run your first mission.</p>
+        <p class="cipher-p">Operation 001 opens with nine cells across three acts. The first three missions are free.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────  §4 HANDLERS  ────────── -->
+  <section class="cipher-handlers cipher-crt" aria-labelledby="cipher-handlers-h2">
+    <div class="cipher-handlers__inner">
+      <p class="cipher-eyebrow">FILE 03 · YOUR HANDLERS</p>
+      <h2 class="cipher-h2" id="cipher-handlers-h2">TWO VOICES IN YOUR EAR.</h2>
+      <div class="cipher-divider"></div>
+      <p class="cipher-p" style="max-width:62ch;">You run with the Archivist on the line. Vector handles logistics. Neither of them tells you everything. They agree on one thing: that you come back.</p>
+
+      <div class="cipher-handlers__cards">
+        <div class="cipher-handler-card">
+          <div class="cipher-handler-card__portrait">
+            <img src="assets/cipher/archivist.webp" alt="The Archivist — a shadowed portrait" width="1400" height="1400" loading="lazy" decoding="async">
+          </div>
+          <div>
+            <p class="cipher-handler-card__name">The Archivist</p>
+            <p class="cipher-handler-card__role">Handler · CIPHER-9</p>
+            <p class="cipher-handler-card__line">"This first run is a test of one thing: that you come back."</p>
+          </div>
+        </div>
+        <div class="cipher-handler-card">
+          <div class="cipher-handler-card__portrait">
+            <img src="assets/cipher/vector.webp" alt="Vector — a case officer portrait" width="1400" height="1400" loading="lazy" decoding="async">
+          </div>
+          <div>
+            <p class="cipher-handler-card__name">Vector</p>
+            <p class="cipher-handler-card__role">Case Officer · Field</p>
+            <p class="cipher-handler-card__line">"Take the harder line, hills included. The intel is waiting at the top."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cipher-intercept" role="note" aria-label="Intercepted transmission">
+        <p class="cipher-intercept__line">"Agent. The Archivist is lying to you about Vienna."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────  §5 ALLEGIANCES  ────────── -->
+  <section class="cipher-factions" aria-labelledby="cipher-factions-h2">
+    <div class="cipher-factions__inner">
+      <p class="cipher-eyebrow">FILE 04 · ALLEGIANCES</p>
+      <h2 class="cipher-h2" id="cipher-factions-h2">WHERE DO YOUR SYMPATHIES LIE?</h2>
+      <div class="cipher-divider"></div>
+      <p class="cipher-p">Three factions operate in Vienna. The Ninth keeps the record. The Doctrine keeps the fire. The Network keeps the silence. You don't have to pick. But they'll notice either way.</p>
+
+      <div class="cipher-factions__grid">
+        <!-- CIPHER-9 -->
+        <div class="cipher-faction-card">
+          <svg class="cipher-faction-card__insignia" viewBox="0 0 52 52" fill="none" aria-hidden="true">
+            <circle cx="26" cy="26" r="21" stroke="#8CFFAE" stroke-width="1.5"/>
+            <line x1="26" y1="5" x2="26" y2="47" stroke="#8CFFAE" stroke-width="1"/>
+            <line x1="5" y1="26" x2="47" y2="26" stroke="#8CFFAE" stroke-width="1"/>
+            <circle cx="26" cy="26" r="5" fill="#8CFFAE" opacity="0.8"/>
+            <text x="26" y="16" font-family="VT323,monospace" font-size="9" fill="#8CFFAE" text-anchor="middle">IX</text>
+          </svg>
+          <p class="cipher-faction-card__name">CIPHER-9</p>
+          <p class="cipher-faction-card__tagline">The Ninth keeps the record, keeps the line, and keeps its nerve. It has operated since 1961 and asks only one thing in return: that you come back.</p>
+        </div>
+        <!-- Cinder -->
+        <div class="cipher-faction-card">
+          <svg class="cipher-faction-card__insignia" viewBox="0 0 52 52" fill="none" aria-hidden="true">
+            <polygon points="26,4 48,26 26,48 4,26" stroke="#8CFFAE" stroke-width="1.5" fill="none"/>
+            <polygon points="26,14 38,26 26,38 14,26" stroke="#8CFFAE" stroke-width="0.75" fill="none" opacity="0.5"/>
+            <circle cx="26" cy="26" r="3" fill="#8CFFAE" opacity="0.7"/>
+          </svg>
+          <p class="cipher-faction-card__name">THE CINDER DOCTRINE</p>
+          <p class="cipher-faction-card__tagline">The Doctrine believes the record is the problem. It doesn't destroy the archive. It replaces it. The Ninth doesn't punish that. It remembers it.</p>
+        </div>
+        <!-- Umbra -->
+        <div class="cipher-faction-card">
+          <svg class="cipher-faction-card__insignia" viewBox="0 0 52 52" fill="none" aria-hidden="true">
+            <circle cx="26" cy="26" r="20" stroke="#8CFFAE" stroke-width="1.5" fill="none"/>
+            <path d="M26 6a20 20 0 1 0 0 40 14 14 0 1 1 0-40z" stroke="none" fill="#8CFFAE" opacity="0.15"/>
+            <circle cx="35" cy="16" r="2.5" fill="#8CFFAE" opacity="0.6"/>
+          </svg>
+          <p class="cipher-faction-card__name">THE UMBRA NETWORK</p>
+          <p class="cipher-faction-card__tagline">The Network doesn't keep a record. It doesn't need to. It already knows. Be careful who you say that to. Some of them are already listening.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────  §6 NO AGENT LEFT BEHIND  ────────── -->
+  <section class="cipher-inclusive" aria-labelledby="cipher-inclusive-h2">
+    <div class="cipher-inclusive__inner">
+      <div>
+        <p class="cipher-eyebrow">FILE 05 · PROTOCOL</p>
+        <h2 class="cipher-h2" id="cipher-inclusive-h2">NO AGENT LEFT BEHIND.</h2>
+        <div class="cipher-divider"></div>
+        <p class="cipher-p">No leaderboards. No pace gates. A 14-minute mile completes the mission exactly like a 7. The treadmill counts. Rest days count. There is no shame in walking the route — the Archivist only cares that you come back.</p>
+        <p class="cipher-p">Your runs stay on your device. Apple Health is available but never required. Nothing leaves your phone without your permission.</p>
+        <blockquote class="cipher-inclusive__ninth">
+          <p style="margin:0;">"The Ninth cares that you came back."</p>
+        </blockquote>
+      </div>
+      <div class="cipher-inclusive__phone">
+        <img src="assets/cipher/shot-live-activity.webp" alt="Cipher Protocol Live Activity on iPhone lock screen showing mission progress" width="414" height="900" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────  §7 OPERATION 001 / SECOND SIGNUP  ────────── -->
+  <section class="cipher-handler-section cipher-crt" aria-labelledby="cipher-operation-h2">
+    <div class="cipher-handler-section__inner">
+      <div class="cipher-handler-section__vienna">
+        <img src="assets/cipher/vienna.webp" alt="Vienna, 1961 — a darkened street at dusk" width="1127" height="1400" loading="lazy" decoding="async">
+      </div>
+      <div>
+        <p class="cipher-eyebrow">OPERATION 001</p>
+        <h2 class="cipher-h2" id="cipher-operation-h2">VIENNA.<br>1961.</h2>
+        <div class="cipher-divider"></div>
+        <p class="cipher-p">Nine cells. Three acts. A network that operated for 68 years before it was exposed. The first three missions are free. Operation 001 comes to iPhone in spring 2027.</p>
+        <p class="cipher-handler-section__free">THE FIRST THREE MISSIONS ARE FREE.</p>
+
+        <form class="cipher-form" id="cipher-form-footer" action="/api/subscribe" method="post" novalidate>
+          <!-- Honeypot -->
+          <input class="cipher-form__honey" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="hidden" name="source" value="footer">
+
+          <label class="cipher-form__label" for="cipher-email-footer">WHERE DO WE SEND YOUR INTAKE PACKAGE?</label>
+          <div class="cipher-form__row">
+            <input
+              class="cipher-form__input"
+              type="email"
+              id="cipher-email-footer"
+              name="email"
+              placeholder="your@email.com"
+              autocomplete="email"
+              required
+              aria-required="true"
+              aria-describedby="cipher-status-footer"
+            >
+            <button class="cipher-form__btn" type="submit">Join the waitlist</button>
+          </div>
+
+          <div class="cipher-form__factions">
+            <p class="cipher-form__factions-label">Pick a side <span style="color:var(--c-label);font-style:italic;">(optional)</span></p>
+            <div class="cipher-form__chips" role="radiogroup" aria-label="Pick a side">
+              <div class="cipher-chip">
+                <input type="radio" id="footer-cipher9" name="sympathies" value="cipher-9">
+                <label for="footer-cipher9">
+                  <svg class="cipher-chip__icon" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1"/>
+                    <line x1="7" y1="1.5" x2="7" y2="12.5" stroke="currentColor" stroke-width="1"/>
+                    <line x1="1.5" y1="7" x2="12.5" y2="7" stroke="currentColor" stroke-width="1"/>
+                    <circle cx="7" cy="7" r="1.5" fill="currentColor"/>
+                  </svg>
+                  CIPHER-9
+                </label>
+              </div>
+              <div class="cipher-chip">
+                <input type="radio" id="footer-cinder" name="sympathies" value="cinder">
+                <label for="footer-cinder">
+                  <svg class="cipher-chip__icon" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <polygon points="7,1 13,7 7,13 1,7" stroke="currentColor" stroke-width="1" fill="none"/>
+                    <polygon points="7,4 10,7 7,10 4,7" fill="currentColor" opacity="0.5"/>
+                  </svg>
+                  CINDER
+                </label>
+              </div>
+              <div class="cipher-chip">
+                <input type="radio" id="footer-umbra" name="sympathies" value="umbra">
+                <label for="footer-umbra">
+                  <svg class="cipher-chip__icon" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M7 1.5a5.5 5.5 0 1 0 0 11A4 4 0 1 1 7 1.5z" stroke="currentColor" stroke-width="1" fill="none"/>
+                    <circle cx="9.5" cy="4" r="1" fill="currentColor"/>
+                  </svg>
+                  UMBRA
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Turnstile widget (invisible) -->
+          <div class="cf-turnstile"
+               data-sitekey="0x4AAAAAAAAAA_REPLACE_WITH_YOUR_SITEKEY"
+               data-callback="onTurnstileToken"
+               data-size="invisible"
+               data-id="turnstile-footer"
+               aria-hidden="true">
+          </div>
+
+          <p class="cipher-form__note">Coming to iPhone in spring 2027. One email a month, at most. Unsubscribe anytime.</p>
+          <div class="cipher-form__status" id="cipher-status-footer" role="status" aria-live="polite" aria-atomic="true"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ──────────  FOOTER  ────────── -->
+  <footer class="footer" id="contact">
+    <div class="footer__cols">
+      <div class="footer__brand">
+        <a href="index.html" class="footer__wordmark" aria-label="Bleek Vision — home">
+          <span class="footer__wm-bleek">BLEEK</span>
+          <span class="footer__wm-vision">VISION</span>
+        </a>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-label">THE WORK</p>
+        <div class="links">
+          <a href="https://apps.apple.com/us/app/madweather/id6758524351" target="_blank" rel="noopener">MadWeather</a>
+          <a href="https://apps.apple.com/us/app/momknows/id6763380814" target="_blank" rel="noopener">MomKnows!</a>
+          <a href="https://apps.apple.com/us/app/focus-deck-focus-timer/id6771453354" target="_blank" rel="noopener">FOCUS//DECK</a>
+          <a href="https://apps.apple.com/us/app/uncontained/id6761268905" target="_blank" rel="noopener">UNCONTAINED</a>
+          <a href="index.html#gobobbygo">Go, Bobby, Go!</a>
+          <a href="cipher.html">Cipher Protocol</a>
+          <a href="estoppelbot.html">Estoppel Bot</a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-label">STUDIO</p>
+        <div class="links">
+          <a href="index.html#about">About</a>
+          <a href="mailto:malik@bleekvision.com">Contact</a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-label">LEGAL</p>
+        <div class="links">
+          <a href="privacy.html">Privacy</a>
+          <a href="support.html">Support</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bar">
+      <div>© 2026 Bleek Vision LLC. All rights reserved.</div>
+      <div>Est. 2026</div>
+    </div>
+  </footer>
+
+</div><!-- /.shell.cipher -->
+
+<script>
+(function () {
+  // ── Nav hamburger ───────────────────────────────────────
+  var nav = document.getElementById('nav');
+  var toggle = document.getElementById('navToggle');
+  toggle.addEventListener('click', function () {
+    var open = nav.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+
+  // ── URL param banners ───────────────────────────────────
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('confirmed') === '1') {
+    document.getElementById('cipher-confirmed-banner').hidden = false;
+    // Clean URL without reload
+    window.history.replaceState(null, '', window.location.pathname);
+  }
+  if (params.get('expired') === '1') {
+    document.getElementById('cipher-expired-banner').hidden = false;
+    window.history.replaceState(null, '', window.location.pathname);
+  }
+
+  // ── Turnstile token store ───────────────────────────────
+  var _tokenHero   = '';
+  var _tokenFooter = '';
+
+  window.onTurnstileToken = function (token) {
+    // Turnstile calls this with the widget id as 2nd arg in some versions
+    // Assign to both (only one form is active at a time)
+    _tokenHero = token;
+    _tokenFooter = token;
+  };
+
+  // ── Form submit handler ─────────────────────────────────
+  function wireForm(formId, emailId, statusId, source) {
+    var form    = document.getElementById(formId);
+    var emailEl = document.getElementById(emailId);
+    var statusEl = document.getElementById(statusId);
+    var btn     = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var email      = emailEl.value.trim();
+      var sympathies = (form.querySelector('input[name="sympathies"]:checked') || {}).value || '';
+      var honeypot   = form.querySelector('input[name="website"]').value;
+      var cfToken    = source === 'hero' ? _tokenHero : _tokenFooter;
+
+      // Client-side email validation
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        setStatus(statusEl, "That address won't reach you. Check it and try again.", true);
+        emailEl.focus();
+        return;
+      }
+
+      btn.disabled = true;
+      setStatus(statusEl, '...', false);
+
+      fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, sympathies: sympathies, source: source, turnstileToken: cfToken, honeypot: honeypot }),
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          btn.disabled = false;
+          if (data.ok) {
+            setStatus(statusEl, data.message || 'CHECK YOUR INBOX, AGENT.', false);
+            form.reset();
+          } else {
+            setStatus(statusEl, data.error || 'The line dropped. Try again.', true);
+          }
+          // Reset Turnstile for next submit
+          if (window.turnstile) { window.turnstile.reset(); }
+        })
+        .catch(function () {
+          btn.disabled = false;
+          setStatus(statusEl, 'The line dropped. Try again.', true);
+          if (window.turnstile) { window.turnstile.reset(); }
+        });
+    });
+  }
+
+  function setStatus(el, msg, isError) {
+    el.textContent = msg;
+    el.className = 'cipher-form__status' + (isError ? ' cipher-form__status--error' : '');
+  }
+
+  wireForm('cipher-form-hero',   'cipher-email-hero',   'cipher-status-hero',   'hero');
+  wireForm('cipher-form-footer', 'cipher-email-footer', 'cipher-status-footer', 'footer');
+}());
+</script>
+
+</body>
+</html>
