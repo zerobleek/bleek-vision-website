@@ -528,8 +528,8 @@ a { color: inherit; }
   --w-accent: #FFD23E; --w-accent-deep: #D93B2B; --w-mount: #1F1916; --w-cta-bg: #D93B2B; --w-cta-text: #FFFFFF;
 }
 .card--cipher {
-  --w-bg: #04100A; --w-surface: #0A1A12; --w-text: #5BF08C; --w-muted: rgba(91,240,140,0.58);
-  --w-accent: #36F07A; --w-accent-deep: #1B9E4E; --w-mount: #020805; --w-cta-bg: #36F07A; --w-cta-text: #03130A;
+  --w-bg: #030805; --w-surface: #08130D; --w-text: #EAF7EE; --w-muted: rgba(191,227,201,0.72);
+  --w-accent: #8CFFAE; --w-accent-deep: #3AC46A; --w-mount: #020805; --w-cta-bg: #8CFFAE; --w-cta-text: #030805;
 }
 .card--estoppelbot {
   --w-bg: #0E2235; --w-surface: #132F4C; --w-text: #FFFFFF; --w-muted: rgba(255,255,255,0.62);
