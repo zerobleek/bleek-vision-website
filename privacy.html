@@ -48,7 +48,7 @@
     <div class="wrap">
       <div class="eyebrow">— LEGAL</div>
       <h1>Privacy Policy</h1>
-      <p class="legal-meta">Bleek Vision LLC &nbsp;·&nbsp; Effective October 13, 2026</p>
+      <p class="legal-meta">Bleek Vision LLC &nbsp;·&nbsp; Effective October 14, 2026</p>
     </div>
   </header>
 
@@ -66,13 +66,53 @@
         <span class="legal-app-tag">UNCONTAINED</span>
         <span class="legal-app-tag">GO, BOBBY, GO! ROAD TRIP</span>
       </div>
-      <p>All four are designed with privacy as a core principle. None of them sell, share, or monetize your personal data. All display <strong>Data Not Collected</strong> on their App Store privacy labels, with the one exception noted below for MadWeather.</p>
+      <p>All four are designed with privacy as a core principle, and Bleek Vision LLC does not sell your personal information. FOCUS//DECK, UNCONTAINED, and Go, Bobby, Go! Road Trip collect no data and show <strong>Data Not Collected</strong> on their App Store privacy labels. MadWeather is the exception. It is free with ads and uses Google services, so it does collect some data. Its section below explains what, why, and who receives it.</p>
 
       <h3>Our Commitment</h3>
-      <p>Every Bleek Vision app is built exclusively on first-party Apple frameworks. We do not integrate third-party SDKs, analytics platforms, crash reporters, or ad networks. Your data stays between you and Apple.</p>
+      <p>FOCUS//DECK, UNCONTAINED, and Go, Bobby, Go! Road Trip are built only on Apple's own frameworks. They contain no third-party SDKs, analytics, crash reporters, or ad networks, and their data stays on your device or with Apple. MadWeather is the one exception: it includes Google's advertising and analytics software, and newer versions use Google's Firebase to sign you in. For every app, Bleek Vision LLC names each outside service that receives your data and explains what it receives.</p>
 
-      <h3>MadWeather</h3>
-      <p>MadWeather transmits your device location to <strong>Apple WeatherKit</strong> solely to retrieve a weather forecast. This location data is not logged, stored, or retained by the app or by Bleek Vision LLC — it is transient and used only to fulfill your immediate request. Weather data is owned by Apple Inc. and subject to Apple's privacy policy.</p>
+      <h3 id="madweather">MadWeather</h3>
+      <p>MadWeather is free and supported by ads. Bleek Vision LLC does not run its own servers for MadWeather. The app sends data directly to Apple, Google, IQAir, and the MTA, as described below. We can see the reports Google prepares from the app's analytics and ad data, and, in versions with Firebase sign-in, the list of accounts. This section describes MadWeather 8.2 and notes where newer versions differ.</p>
+
+      <p><strong>Location.</strong> If you allow it, MadWeather reads your approximate location, accurate to about a kilometer, only while you are using the app or asking Siri for the weather. It sends that location to Apple WeatherKit for your forecast, to Apple's map services to name your borough and neighborhood, and to IQAir for your air quality reading. Neither the app nor Bleek Vision LLC keeps a history of where you have been. The app saves only the latest weather reading on your device so its widgets can show it. You can turn off location access at any time in iOS Settings.</p>
+
+      <p><strong>Subway status.</strong> To show service changes, the app downloads the MTA's public subway alerts feed. That request carries nothing about you beyond what every internet request carries, such as your IP address.</p>
+
+      <p><strong>Ads (Google AdMob).</strong> Unless you buy MadWeather Ad-Free, the app shows banner and full-screen ads served by Google AdMob. To serve them, Google's software in the app collects:</p>
+      <ul>
+        <li>your IP address, which Google uses to estimate your general location</li>
+        <li>device identifiers. MadWeather never asks for permission to track you, so Google cannot read your device's advertising identifier (IDFA) through MadWeather. Google may use other identifiers that are limited to this app or to apps from the same developer.</li>
+        <li>the ads you see and tap, and how you interact with the app</li>
+        <li>crash and performance information about the ad software</li>
+      </ul>
+      <p>Google uses this information to choose and show ads, limit repeats, measure how ads perform, and prevent fraud, as described in <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">how Google uses information from apps that use its services</a>. Because MadWeather never asks for tracking permission, the App Store does not allow the app, or the ad software inside it, to track you across other companies' apps and websites. Bleek Vision LLC does not choose individual ads and does not receive information about you from them. We see only Google's totals, such as how many ads were shown.</p>
+      <p>If you are in the European Economic Area, the United Kingdom, or Switzerland, the app asks for your consent using Google's consent form, and Google follows the choice you make. To change your choice later, delete and reinstall the app and the form will appear again, or email us.</p>
+
+      <p><strong>Ad-Free.</strong> MadWeather Ad-Free is a one-time in-app purchase. Once you own it, the app shows no ads and never starts Google's ad software. Apple processes the purchase, and Bleek Vision LLC never sees your payment details or Apple Account.</p>
+
+      <p><strong>Analytics (Google Analytics for Firebase).</strong> MadWeather uses Google Analytics for Firebase to understand how the app is used, so we can see which features matter and where the app breaks. It records app opens, sessions, screens viewed, in-app purchases (product and price), and basic device information such as model, iOS version, app version, and language. Google ties this data to a random app-instance ID, not to your name, email, or account, and estimates your general location from your IP address. It does not use your device's location services. Google deletes event-level analytics data after no more than 14 months.</p>
+
+      <p><strong>Your profile.</strong> You can use MadWeather as a guest. If you fill in your profile, such as your name, city, home borough, favorite subway lines, birthday month and day (for a birthday greeting), or veteran status (for a Veterans Day greeting), it is stored on your device and in your own iCloud account so it follows you to your other devices. Bleek Vision LLC cannot see it. In MadWeather 8.2, Sign in with Apple happens entirely on your device. Apple shares your name and email address, or a private relay address if you choose Hide My Email, and the app keeps them in that same profile and sends them nowhere else.</p>
+
+      <p><strong>Accounts with Firebase (versions after 8.2).</strong> Newer versions of MadWeather create a real account when you sign in with Apple or Google, using Firebase Authentication, a Google service. The app sends the sign-in token from Apple or Google to Firebase, which checks it and stores your account: a random account ID, your email address or Apple relay address, your name if Apple or Google provides it, the sign-in method you used, and, for Google, a link to your profile photo. Firebase also receives basic technical details about your device, such as its model, iOS version, and app version, which it does not link to your account. Bleek Vision LLC uses the account only to sign you in. Your analytics and ad data are not linked to it.</p>
+
+      <p><strong>Deleting your data.</strong> Use <em>Delete Account</em> in Settings (<em>Erase My Data</em> if you use the app as a guest) to permanently remove your profile and settings from your device and your iCloud account. In versions with Firebase sign-in, this also deletes your Firebase account. Deleting the app removes everything stored on the device. If you used Sign in with Apple, you can also stop using it with MadWeather in your Apple Account settings. Analytics and ad data are tied to random identifiers rather than to you, so we usually cannot find one person's records, but email us and we will do what we can.</p>
+
+      <p><strong>Other Apple services.</strong> Achievements go to Apple Game Center if you are signed in to it. Notifications are scheduled on your device, and there is no push server. Widgets and Control Center use only data already on your device, and Siri requests are handled by Apple.</p>
+
+      <p><strong>Services that receive data from MadWeather:</strong></p>
+      <ul>
+        <li><strong>Apple:</strong> WeatherKit, Maps, iCloud, Game Center, the App Store, and Sign in with Apple. See <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a>.</li>
+        <li><strong>Google:</strong> AdMob and its consent form, Google Analytics for Firebase, and, in versions after 8.2, Firebase Authentication and Google Sign-In. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</li>
+        <li><strong>IQAir:</strong> air quality, which receives your approximate location. See <a href="https://www.iqair.com/privacy-policy" target="_blank" rel="noopener">IQAir's Privacy Policy</a>.</li>
+        <li><strong>The MTA:</strong> the public subway alerts feed, which receives no information about you beyond the request itself.</li>
+      </ul>
+
+      <p><strong>Security and where data is stored.</strong> All of MadWeather's network traffic is encrypted. Google stores ads, analytics, and account data in the United States and other countries where it operates. Bleek Vision LLC uses reasonable safeguards, but no system is perfectly secure.</p>
+
+      <p><strong>Children.</strong> MadWeather is not directed to children under 13, and Bleek Vision LLC does not knowingly collect personal information from them. If you believe a child has used the app to give us personal information, email us and we will delete it.</p>
+
+      <p><strong>Your choices and rights.</strong> You can turn off location access, use the app as a guest, buy Ad-Free to remove the ads and Google's ad software, and delete your data in Settings at any time. Depending on where you live, you may also have the right to know what personal information we hold about you, to correct or delete it, and to opt out of targeted advertising. To make a request, email <a href="mailto:malik@bleekvision.com">malik@bleekvision.com</a>. We will respond within 30 days.</p>
 
       <h3 id="focus-deck">FOCUS//DECK</h3>
       <p>FOCUS//DECK collects no data. Your sessions, tasks, goals, parked thoughts, and settings are stored only on your device, and Bleek Vision LLC runs no servers for the app. Deleting the app removes all of it.</p>
