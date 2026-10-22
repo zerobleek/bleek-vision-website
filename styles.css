@@ -1002,6 +1002,39 @@ a { color: inherit; }
   margin-bottom: 40px;
 }
 
+/* ──────────────────────────  MISSION  ────────────────────────── */
+.mission {
+  padding: 112px 32px;
+}
+.mission__inner {
+  padding-left: 0;
+  padding-right: 0;
+}
+.mission__statement {
+  font-size: clamp(28px, 3.4vw, 42px);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+  color: var(--silver);
+  margin: 0;
+  max-width: 900px;
+  text-wrap: balance;
+}
+.mission__body {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--mute);
+  margin: 28px 0 0;
+  letter-spacing: -0.01em;
+  max-width: 640px;
+  text-wrap: pretty;
+}
+
+@media (max-width: 560px) {
+  .mission { padding: 80px 24px; }
+  .mission__body { font-size: 17px; }
+}
+
 /* ──────────────────────────  BUILT WITH  ────────────────────────── */
 .built-with {
   padding: 64px 32px;
