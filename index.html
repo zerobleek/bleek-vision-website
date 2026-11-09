@@ -304,17 +304,20 @@
       <article class="card card--calmaxx card--img-left" id="calmaxx">
         <div class="card__mount">
           <div class="card__glow" aria-hidden="true"></div>
-          <div class="card__frame hud" role="img" aria-label="CalMaxx heads-up display mock-up: a green lens with a lock-on reticle, a 47 of 100 push-up count and a 3:12 timer">
-            <div class="hud__screen" aria-hidden="true">
-              <span class="hud__corner hud__corner--tl"></span><span class="hud__corner hud__corner--tr"></span>
-              <span class="hud__corner hud__corner--bl"></span><span class="hud__corner hud__corner--br"></span>
-              <div class="hud__top"><span>PUSH-UPS</span><span>03:12</span></div>
-              <div class="hud__reticle"><span class="hud__ring"></span><span class="hud__ring hud__ring--inner"></span><span class="hud__cross"></span></div>
-              <div class="hud__count"><span class="hud__reps">047</span><span class="hud__target">/ 100</span></div>
-              <div class="hud__bar"><span style="width:47%"></span></div>
-              <div class="hud__bottom"><span>DEPTH ✓</span><span>LINE ✓</span><span>TEMPO ✓</span></div>
+          <!-- Onboarding boards (not final): swap files in assets/calmaxx/ and the
+               data-* attributes on the buttons below. 04 keeps its black space at the bottom. -->
+          <figure class="cmx" id="cmx">
+            <div class="card__frame cmx__frame">
+              <video class="cmx__video" src="assets/calmaxx/01-challenge.mp4" poster="assets/calmaxx/01-challenge.jpg" width="1080" height="1910" muted loop playsinline autoplay preload="metadata" aria-label="CalMaxx art: a woman mid push-up while a phone on the floor tracks her shoulders and hands"></video>
+              <p class="cmx__caption" aria-hidden="true">5:00 on the clock</p>
             </div>
-          </div>
+            <div class="cmx__picker" role="group" aria-label="Choose a CalMaxx athlete">
+              <button type="button" class="cmx__pick" aria-pressed="true" data-src="assets/calmaxx/01-challenge" data-caption="5:00 on the clock" data-alt="CalMaxx art: a woman mid push-up while a phone on the floor tracks her shoulders and hands"><img src="assets/calmaxx/01-challenge.jpg" alt="" width="1080" height="1910" loading="lazy" decoding="async"><span class="sr-only">Push-ups</span></button>
+              <button type="button" class="cmx__pick" aria-pressed="false" data-src="assets/calmaxx/02-setup" data-caption="Prop it up. Get in frame." data-alt="CalMaxx art: a man doing a pull-up while a phone propped on the floor frames his whole body"><img src="assets/calmaxx/02-setup.jpg" alt="" width="1080" height="1910" loading="lazy" decoding="async"><span class="sr-only">Pull-ups</span></button>
+              <button type="button" class="cmx__pick" aria-pressed="false" data-src="assets/calmaxx/03-camera" data-caption="Counted on your phone" data-alt="CalMaxx art: a phone inside a green shield counts reps on-device while a woman gets ready"><img src="assets/calmaxx/03-camera.jpg" alt="" width="1080" height="1910" loading="lazy" decoding="async"><span class="sr-only">On-device counting</span></button>
+              <button type="button" class="cmx__pick" aria-pressed="false" data-src="assets/calmaxx/04-paywall" data-caption="Every rep counted" data-bottom="1" data-alt="CalMaxx art: a man flexing both biceps as tracking brackets lock on"><img src="assets/calmaxx/04-paywall.jpg" alt="" width="1080" height="1910" loading="lazy" decoding="async"><span class="sr-only">Flex</span></button>
+            </div>
+          </figure>
         </div>
         <div class="card__copy">
           <div>
@@ -499,6 +502,54 @@
         toggle.setAttribute('aria-label', 'Open menu');
       }
     });
+  })();
+
+  // CalMaxx athletes: cycle the four onboarding loops (one pass each), let
+  // visitors pick one, and only play while the card is on screen. Reduced
+  // motion gets the still posters only.
+  (function () {
+    var root = document.getElementById('cmx');
+    if (!root) return;
+    var video = root.querySelector('.cmx__video');
+    var caption = root.querySelector('.cmx__caption');
+    var picks = Array.prototype.slice.call(root.querySelectorAll('.cmx__pick'));
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var current = 0, visible = false, chosen = false;
+
+    video.loop = false;
+    if (still) { video.removeAttribute('autoplay'); video.pause(); video.preload = 'none'; }
+
+    function show(i) {
+      current = i;
+      var b = picks[i];
+      picks.forEach(function (p, j) { p.setAttribute('aria-pressed', String(j === i)); });
+      video.poster = b.dataset.src + '.jpg';
+      video.setAttribute('aria-label', b.dataset.alt);
+      caption.textContent = b.dataset.caption;
+      root.classList.toggle('cmx--bottom', b.dataset.bottom === '1');
+      if (still) return;
+      video.src = b.dataset.src + '.mp4';
+      if (visible) { var pr = video.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    }
+
+    // A picked athlete keeps looping; otherwise move on after each pass.
+    video.addEventListener('ended', function () {
+      if (chosen) { video.currentTime = 0; video.play().catch(function () {}); }
+      else show((current + 1) % picks.length);
+    });
+    picks.forEach(function (b, i) {
+      b.addEventListener('click', function () { chosen = true; show(i); });
+    });
+
+    if (!still && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+        if (visible) { var pr = video.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        else video.pause();
+      }, { threshold: 0.25 }).observe(root);
+    } else if (!still) {
+      visible = true;
+    }
   })();
 
   // CalMaxx waitlist: post as JSON, show the result in place. Without JS the
