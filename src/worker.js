@@ -15,17 +15,124 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    if (url.pathname === '/api/subscribe' && request.method === 'POST') {
-      return handleSubscribe(request, env);
+    if (url.pathname === '/api/waitlist' && request.method === 'POST') {
+      return handleWaitlist(request, env);
     }
 
-    if (url.pathname === '/api/confirm' && request.method === 'GET') {
-      return handleConfirm(request, env);
+    // The Cipher Resend flow stays dark until its secrets are set in Cloudflare;
+    // without them it would report success while sending nothing.
+    if (env.RESEND_API_KEY && env.SIGNUP_SECRET) {
+      if (url.pathname === '/api/subscribe' && request.method === 'POST') {
+        return handleSubscribe(request, env);
+      }
+
+      if (url.pathname === '/api/confirm' && request.method === 'GET') {
+        return handleConfirm(request, env);
+      }
     }
 
     return env.ASSETS.fetch(request);
   },
 };
+
+// ── POST /api/waitlist ───────────────────────────────────────────────────────
+// Single opt-in launch waitlist stored in Workers KV (binding WAITLIST).
+// Key: "<product>:<email>". Nothing else about the visitor is stored.
+
+const WAITLIST_PRODUCTS = {
+  calmaxx: { name: 'CalMaxx', page: '/#calmaxx' },
+};
+
+async function handleWaitlist(request, env) {
+  const isJSON = request.headers.get('content-type')?.includes('application/json');
+  let email, product, consent, honeypot;
+
+  try {
+    if (isJSON) {
+      ({ email, product, consent, honeypot } = await request.json());
+    } else {
+      const form = await request.formData();
+      email    = form.get('email')   ?? '';
+      product  = form.get('product') ?? '';
+      consent  = form.get('consent') === 'yes';
+      honeypot = form.get('website') ?? '';
+    }
+  } catch {
+    return waitlistRespond(isJSON, 400, 'Something went wrong. Please try again.', null, null);
+  }
+
+  const meta = Object.hasOwn(WAITLIST_PRODUCTS, product) ? WAITLIST_PRODUCTS[product] : null;
+  if (!meta) {
+    return waitlistRespond(isJSON, 400, 'Something went wrong. Please try again.', null, null);
+  }
+
+  // Bots fill the hidden field; pretend it worked.
+  if (honeypot) {
+    return waitlistRespond(isJSON, 200, null, `You're on the ${meta.name} list.`, meta);
+  }
+
+  email = String(email ?? '').trim().toLowerCase();
+  if (!isValidEmail(email) || email.length > 254) {
+    return waitlistRespond(isJSON, 422, 'Please enter a valid email address.', null, meta);
+  }
+
+  if (consent !== true) {
+    return waitlistRespond(isJSON, 422, 'Please tick the box so we can email you at launch.', null, meta);
+  }
+
+  const ip = request.headers.get('cf-connecting-ip') ?? '0.0.0.0';
+  if (env.RATE_LIMITER) {
+    const { success } = await env.RATE_LIMITER.limit({ key: `waitlist:${ip}` });
+    if (!success) {
+      return waitlistRespond(isJSON, 429, 'Too many tries. Wait a minute and try again.', null, meta);
+    }
+  }
+
+  if (!env.WAITLIST) {
+    return waitlistRespond(isJSON, 503, 'The waitlist is not available right now. Please try again later.', null, meta);
+  }
+
+  const key = `${product}:${email}`;
+  try {
+    // Re-joining keeps the original signup date.
+    const existing = await env.WAITLIST.get(key);
+    if (!existing) {
+      await env.WAITLIST.put(key, JSON.stringify({
+        email,
+        product,
+        consent: 'launch-email-v1',
+        joined_at: new Date().toISOString(),
+      }));
+    }
+  } catch {
+    return waitlistRespond(isJSON, 500, 'Something went wrong. Please try again.', null, meta);
+  }
+
+  return waitlistRespond(isJSON, 200, null, `You're on the ${meta.name} list. We'll email ${email} when it launches.`, meta);
+}
+
+function waitlistRespond(isJSON, status, error, message, meta) {
+  if (isJSON) {
+    return new Response(JSON.stringify({ ok: !error, error, message }), {
+      status,
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
+    });
+  }
+  // No-JS fallback page in the studio palette.
+  const back = meta?.page ?? '/';
+  const body = escapeHTML(error ?? message ?? '');
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Waitlist | Bleek Vision</title>
+<style>body{font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:#121418;color:#D6DBE3;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:2rem;}p{max-width:480px;text-align:center;line-height:1.6;}a{color:#89A1C3;}</style>
+</head><body><p>${body} <a href="${back}">Back to Bleek Vision →</a></p></body></html>`;
+  return new Response(html, { status, headers: { 'Content-Type': 'text/html;charset=utf-8', 'Cache-Control': 'no-store' } });
+}
+
+function escapeHTML(str) {
+  return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+}
 
 // ── POST /api/subscribe ──────────────────────────────────────────────────────
 

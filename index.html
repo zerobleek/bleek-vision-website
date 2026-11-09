@@ -299,6 +299,49 @@
         </div>
       </a>
 
+
+      <!-- CalMaxx · waitlist card, HUD mock left -->
+      <article class="card card--calmaxx card--img-left" id="calmaxx">
+        <div class="card__mount">
+          <div class="card__glow" aria-hidden="true"></div>
+          <div class="card__frame hud" role="img" aria-label="CalMaxx heads-up display mock-up: a green lens with a lock-on reticle, a 47 of 100 push-up count and a 3:12 timer">
+            <div class="hud__screen" aria-hidden="true">
+              <span class="hud__corner hud__corner--tl"></span><span class="hud__corner hud__corner--tr"></span>
+              <span class="hud__corner hud__corner--bl"></span><span class="hud__corner hud__corner--br"></span>
+              <div class="hud__top"><span>PUSH-UPS</span><span>03:12</span></div>
+              <div class="hud__reticle"><span class="hud__ring"></span><span class="hud__ring hud__ring--inner"></span><span class="hud__cross"></span></div>
+              <div class="hud__count"><span class="hud__reps">047</span><span class="hud__target">/ 100</span></div>
+              <div class="hud__bar"><span style="width:47%"></span></div>
+              <div class="hud__bottom"><span>DEPTH ✓</span><span>LINE ✓</span><span>TEMPO ✓</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card__copy">
+          <div>
+            <div class="card__status"><span class="dot dot--work"><span class="core"></span></span>IN DEVELOPMENT</div>
+            <h3 class="card__title">CalMaxx</h3>
+            <div class="card__subtitle">Five minutes. Every rep counted.</div>
+            <p class="card__desc">CalMaxx is a five-minute calisthenics challenge: 100 push-ups or 50 pull-ups against the clock. Prop up your iPhone and the camera counts every rep, checking depth, body line and tempo. A heads-up display locks on and tracks your count live. Everything runs on your phone, and no video ever leaves it.</p>
+          </div>
+          <div>
+            <div class="card__meta">iPhone · Calisthenics · On-device rep counting</div>
+            <form class="waitlist" id="waitlist-calmaxx" action="/api/waitlist" method="post" novalidate>
+              <input type="hidden" name="product" value="calmaxx">
+              <input class="waitlist__honey" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <label class="waitlist__label" for="waitlist-email">Get an email when CalMaxx launches</label>
+              <div class="waitlist__row">
+                <input class="waitlist__input" type="email" id="waitlist-email" name="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required aria-describedby="waitlist-status">
+                <button class="card__cta cta waitlist__btn" type="submit">Join the waitlist</button>
+              </div>
+              <label class="waitlist__consent">
+                <input type="checkbox" name="consent" value="yes" required>
+                <span>Email me when CalMaxx launches. I can unsubscribe anytime. See the <a href="privacy.html#calmaxx-waitlist">privacy policy</a>.</span>
+              </label>
+              <p class="waitlist__status" id="waitlist-status" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -455,6 +498,60 @@
         toggle.setAttribute('aria-expanded', 'false');
         toggle.setAttribute('aria-label', 'Open menu');
       }
+    });
+  })();
+
+  // CalMaxx waitlist: post as JSON, show the result in place. Without JS the
+  // form still posts to /api/waitlist and gets a plain confirmation page.
+  (function () {
+    var form = document.getElementById('waitlist-calmaxx');
+    if (!form || !window.fetch) return;
+    var status = document.getElementById('waitlist-status');
+    var btn = form.querySelector('button[type="submit"]');
+    var email = form.elements.email;
+    var consent = form.elements.consent;
+    function say(msg, isError) {
+      status.textContent = msg;
+      status.classList.toggle('is-error', !!isError);
+    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var value = email.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) {
+        say('Please enter a valid email address.', true);
+        email.focus();
+        return;
+      }
+      if (!consent.checked) {
+        say('Please tick the box so we can email you at launch.', true);
+        consent.focus();
+        return;
+      }
+      btn.disabled = true;
+      say('Joining…');
+      fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: value,
+          product: form.elements.product.value,
+          consent: true,
+          honeypot: form.elements.website.value
+        })
+      }).then(function (res) {
+        return res.json().catch(function () { return { ok: false }; });
+      }).then(function (data) {
+        if (data && data.ok) {
+          form.classList.add('is-done');
+          say(data.message || "You're on the list.");
+        } else {
+          btn.disabled = false;
+          say((data && data.error) || 'Something went wrong. Please try again.', true);
+        }
+      }).catch(function () {
+        btn.disabled = false;
+        say('Something went wrong. Please check your connection and try again.', true);
+      });
     });
   })();
 
