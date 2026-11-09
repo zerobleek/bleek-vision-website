@@ -315,7 +315,7 @@
               <button type="button" class="cmx__pick" aria-pressed="true" data-src="assets/calmaxx/01-challenge" data-caption="5:00 on the clock" data-alt="CalMaxx art: a woman mid push-up while a phone on the floor tracks her shoulders and hands"><img src="assets/calmaxx/01-challenge.jpg" alt="" width="1080" height="1910" loading="lazy" decoding="async"><span class="sr-only">Push-ups</span></button>
               <button type="button" class="cmx__pick" aria-pressed="false" data-src="assets/calmaxx/02-setup" data-caption="Prop it up. Get in frame." data-alt="CalMaxx art: a man doing a pull-up while a phone propped on the floor frames his whole body"><img src="assets/calmaxx/02-setup.jpg" alt="" width="1080" height="1910" loading="lazy" decoding="async"><span class="sr-only">Pull-ups</span></button>
               <button type="button" class="cmx__pick" aria-pressed="false" data-src="assets/calmaxx/03-camera" data-caption="Counted on your phone" data-alt="CalMaxx art: a phone inside a green shield counts reps on-device while a woman gets ready"><img src="assets/calmaxx/03-camera.jpg" alt="" width="1080" height="1910" loading="lazy" decoding="async"><span class="sr-only">On-device counting</span></button>
-              <button type="button" class="cmx__pick" aria-pressed="false" data-src="assets/calmaxx/04-paywall" data-caption="Every rep counted" data-bottom="1" data-alt="CalMaxx art: a man flexing both biceps as tracking brackets lock on"><img src="assets/calmaxx/04-paywall.jpg" alt="" width="1080" height="1910" loading="lazy" decoding="async"><span class="sr-only">Flex</span></button>
+              <button type="button" class="cmx__pick" aria-pressed="false" data-src="assets/calmaxx/04-paywall" data-v="2" data-caption="Every rep counted" data-bottom="1" data-alt="CalMaxx art: a man flexing both biceps as tracking brackets lock on"><img src="assets/calmaxx/04-paywall.jpg?v=2" alt="" width="1080" height="1910" loading="lazy" decoding="async"><span class="sr-only">Flex</span></button>
             </div>
           </figure>
         </div>
@@ -523,12 +523,13 @@
       current = i;
       var b = picks[i];
       picks.forEach(function (p, j) { p.setAttribute('aria-pressed', String(j === i)); });
-      video.poster = b.dataset.src + '.jpg';
+      var q = b.dataset.v ? '?v=' + b.dataset.v : '';
+      video.poster = b.dataset.src + '.jpg' + q;
       video.setAttribute('aria-label', b.dataset.alt);
       caption.textContent = b.dataset.caption;
       root.classList.toggle('cmx--bottom', b.dataset.bottom === '1');
       if (still) return;
-      video.src = b.dataset.src + '.mp4';
+      video.src = b.dataset.src + '.mp4' + q;
       if (visible) { var pr = video.play(); if (pr && pr.catch) pr.catch(function () {}); }
     }
 
