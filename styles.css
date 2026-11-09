@@ -1168,7 +1168,7 @@ a { color: inherit; }
   cursor: pointer;
   transition: border-color .2s, transform .16s var(--ease-out);
 }
-.cmx__pick img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 70%; display: block; }
+.cmx__pick img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 56%; display: block; }
 .cmx__pick[data-bottom="1"] img { object-position: 50% 25%; }
 .cmx__pick[aria-pressed="true"] { border-color: var(--w-accent); box-shadow: 0 0 0 3px rgba(61,255,107,0.2); }
 .cmx__pick:hover { border-color: rgba(61,255,107,0.6); }
@@ -1180,3 +1180,6 @@ a { color: inherit; }
 @media (max-width: 560px) {
   .cmx__caption { font-size: 10.5px; letter-spacing: .1em; }
 }
+
+.card__title--logo { line-height: 0; margin-left: -6px; }
+.card__title--logo img { height: clamp(60px, 7vw, 84px); width: auto; display: block; }

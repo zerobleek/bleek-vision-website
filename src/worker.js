@@ -15,6 +15,11 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    // Short link for social posts and bios.
+    if (url.pathname === '/calmaxx' || url.pathname === '/calmaxx/') {
+      return Response.redirect(`${url.origin}/#calmaxx`, 302);
+    }
+
     if (url.pathname === '/api/waitlist' && request.method === 'POST') {
       return handleWaitlist(request, env);
     }
