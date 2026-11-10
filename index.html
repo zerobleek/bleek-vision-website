@@ -10,17 +10,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bleek Vision: Indie iOS App Developer | iPhone &amp; iPad Apps</title>
-  <meta name="description" content="Bleek Vision is an independent app developer with a point of view, building iPhone &amp; iPad apps that are genuinely useful, a little surprising, and worth keeping around. MadWeather, FOCUS//DECK, UNCONTAINED, MomKnows!, Go, Bobby, Go! Road Trip." />
+  <title>Bleek Vision | iPhone Apps &amp; Games: MadWeather, FOCUS//DECK, UNCONTAINED</title>
+  <meta name="description" content="iPhone apps and games from indie studio Bleek Vision: MadWeather NYC weather, FOCUS//DECK ADHD focus timer, UNCONTAINED puzzle game, MomKnows! and new CalMaxx." />
+  <!-- Smart App Banner: iPhone Safari visitors get a one-tap install for the flagship app -->
+  <meta name="apple-itunes-app" content="app-id=6758524351" />
   <meta name="theme-color" content="#121418" />
-  <meta property="og:title" content="Bleek Vision: Indie iOS App Developer | iPhone &amp; iPad Apps" />
+  <meta property="og:title" content="Bleek Vision | iPhone Apps &amp; Games" />
+  <meta property="og:url" content="https://bleekvision.com/" />
+  <meta property="og:site_name" content="Bleek Vision" />
   <meta property="og:description" content="An independent app developer with a point of view. Apps made to be genuinely useful, a little surprising, and worth keeping around." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://bleekvision.com/assets/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Bleek Vision: Indie iOS App Developer | iPhone &amp; iPad Apps" />
+  <meta name="twitter:title" content="Bleek Vision | iPhone Apps &amp; Games" />
   <meta name="twitter:description" content="An independent app developer with a point of view. Apps made to be genuinely useful, a little surprising, and worth keeping around." />
   <meta name="twitter:image" content="https://bleekvision.com/assets/og-image.png" />
   <link rel="canonical" href="https://bleekvision.com/" />
@@ -41,6 +45,25 @@
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebSite",
+        "name": "Bleek Vision",
+        "url": "https://bleekvision.com/",
+        "publisher": { "@type": "Organization", "name": "Bleek Vision LLC" }
+      },
+      {
+        "@type": "ItemList",
+        "name": "Bleek Vision apps",
+        "itemListOrder": "https://schema.org/ItemListOrderAscending",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "MadWeather", "url": "https://apps.apple.com/us/app/madweather/id6758524351" },
+          { "@type": "ListItem", "position": 2, "name": "FOCUS//DECK", "url": "https://apps.apple.com/us/app/focus-deck-focus-timer/id6771453354" },
+          { "@type": "ListItem", "position": 3, "name": "UNCONTAINED", "url": "https://apps.apple.com/us/app/uncontained/id6761268905" },
+          { "@type": "ListItem", "position": 4, "name": "MomKnows!", "url": "https://apps.apple.com/us/app/momknows/id6763380814" },
+          { "@type": "ListItem", "position": 5, "name": "Go, Bobby, Go! Road Trip", "url": "https://apps.apple.com/us/app/go-bobby-go-road-trip/id6810872232" },
+          { "@type": "ListItem", "position": 6, "name": "Estoppel Bot", "url": "https://estoppelbot.com" }
+        ]
+      },
+      {
         "@type": "Organization",
         "name": "Bleek Vision LLC",
         "url": "https://bleekvision.com",
@@ -51,7 +74,8 @@
           "https://apps.apple.com/us/app/uncontained/id6761268905",
           "https://apps.apple.com/us/app/focus-deck-focus-timer/id6771453354",
           "https://apps.apple.com/us/app/momknows/id6763380814",
-          "https://apps.apple.com/us/app/go-bobby-go-road-trip/id6810872232"
+          "https://apps.apple.com/us/app/go-bobby-go-road-trip/id6810872232",
+          "https://estoppelbot.com"
         ]
       },
       {
@@ -122,7 +146,7 @@
       <div class="nav__right">
         <div class="nav__links" id="navLinks">
           <a href="#apps">Apps</a>
-          <a href="#games">Games</a>
+          <a href="#calmaxx" class="nav__new">New: CalMaxx</a>
           <a href="#about">About</a>
           <a href="mailto:malik@bleekvision.com">Contact</a>
         </div>
@@ -152,8 +176,8 @@
       <h1 class="v5-fadeup v5-d2">An independent studio building apps, games, and tools.</h1>
       <p class="hero__sub v5-fadeup v5-d3">One developer. The best AI tools. Shipping across iOS and web.</p>
       <div class="hero__actions v5-fadeup v5-d4">
-        <a href="#apps" class="btn btn--solid cta">See the work</a>
-        <a href="#about" class="btn btn--ghost cta">About →</a>
+        <a href="#apps" class="btn btn--solid cta">Browse the apps</a>
+        <a href="#calmaxx" class="btn btn--ghost cta">New: CalMaxx →</a>
       </div>
     </div>
     <div class="hero__scroll-cue" aria-hidden="true">
@@ -194,114 +218,20 @@
     </div>
   </section>
 
-  <!-- ──────────  APPS & TOOLS  ────────── -->
-  <section class="work" id="apps">
+  <!-- ──────────  APPS  ──────────
+       Tiered by promotion priority (focus list, Oct 26 2026):
+       1. New-release spotlight  2. Flagship  3. Top apps (tiles)  4. More (mini tiles)
+       To feature a different new release, move its card into the spotlight slot. -->
+  <section class="work" id="apps" aria-labelledby="apps-heading">
     <div class="slate wrap" style="padding-left:0;padding-right:0;">
-      <div class="section-label">APPS &amp; TOOLS</div>
+      <div class="work__head">
+        <div class="section-label">THE APPS</div>
+        <h2 id="apps-heading">iPhone apps &amp; games worth keeping.</h2>
+      </div>
 
-      <!-- MadWeather · image right -->
-      <article class="card card--madweather">
-        <div class="card__copy">
-          <div>
-            <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>LIVE ON THE APP STORE</div>
-            <h3 class="card__title">MadWeather</h3>
-            <div class="card__subtitle">NYC Weather. Real Talk.</div>
-            <p class="card__desc">A weather app that talks the way New York actually talks. Plain-language forecasts, borough personalities, and the small details a hometown forecast gets right.</p>
-          </div>
-          <div>
-            <div class="card__meta">iPhone &amp; iPad · Free with ads · Premium one-time IAP</div>
-            <a class="card__cta cta" href="https://apps.apple.com/us/app/madweather/id6758524351" target="_blank" rel="noopener">View on App Store →</a>
-          </div>
-        </div>
-        <div class="card__mount">
-          <div class="card__glow" aria-hidden="true"></div>
-          <div class="card__frame"><img src="assets/products/madweather-today.png" alt="MadWeather NYC weather app — borough forecast screen showing plain-language conditions for New York" width="1284" height="2778" loading="lazy" decoding="async" /></div>
-        </div>
-      </article>
-
-      <!-- FOCUS//DECK · image left -->
-      <article class="card card--focusdeck card--mono card--img-left">
-        <div class="card__mount">
-          <div class="card__glow" aria-hidden="true"></div>
-          <div class="card__frame"><img src="assets/products/focusdeck-cyberdeck.png" alt="FOCUS//DECK focus timer iPhone app — cyberdeck UI showing deep work sprint session" width="1320" height="2868" loading="lazy" decoding="async" /></div>
-        </div>
-        <div class="card__copy">
-          <div>
-            <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>LIVE ON THE APP STORE</div>
-            <h3 class="card__title">FOCUS//DECK</h3>
-            <div class="card__subtitle">A pocket cyberdeck for staying on task.</div>
-            <p class="card__desc">Stop negotiating with yourself. Pomodoro, ADHD sprints, and deep work, fronted by a drill-sergeant mascot named BIT who won’t let you bail mid-session.</p>
-          </div>
-          <div>
-            <div class="card__meta">iPhone · One-time Pro unlock · No subscriptions</div>
-            <a class="card__cta cta" href="https://apps.apple.com/us/app/focus-deck-focus-timer/id6771453354" target="_blank" rel="noopener">View on App Store →</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- MomKnows! · image right (alternation corrected) -->
-      <article class="card card--momknows">
-        <div class="card__copy">
-          <div>
-            <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>LIVE ON THE APP STORE</div>
-            <h3 class="card__title">MomKnows!</h3>
-            <div class="card__subtitle">The things only she knows.</div>
-            <p class="card__desc">A private space for capturing what matters most: emergency information, family stories, the health details that need to be findable when it counts. Privacy-first. Yours forever.</p>
-          </div>
-          <div>
-            <div class="card__meta">iPhone &amp; iPad · One-time purchase · No subscription</div>
-            <a class="card__cta cta" href="https://apps.apple.com/us/app/momknows/id6763380814" target="_blank" rel="noopener">View on App Store →</a>
-          </div>
-        </div>
-        <div class="card__mount">
-          <div class="card__glow" aria-hidden="true"></div>
-          <div class="card__frame"><img src="assets/products/momknows-crisis.png" alt="MomKnows! family emergency information app for iPhone — one-time purchase, no subscription" width="1284" height="2778" loading="lazy" decoding="async" /></div>
-        </div>
-      </article>
-
-      <!-- Estoppel Bot · full-card link, image left (alternation corrected, now live) -->
-      <a href="https://estoppelbot.com" class="card card--estoppelbot card--img-left" style="text-decoration:none;" target="_blank" rel="noopener">
-        <div class="card__mount">
-          <div class="card__glow" aria-hidden="true"></div>
-          <div class="card__frame"><img src="assets/products/estoppel-bot-mascot.png" alt="Estoppel Bot — friendly robot paralegal holding an estoppel certificate binder" width="1024" height="1536" loading="lazy" decoding="async" /></div>
-        </div>
-        <div class="card__copy">
-          <div>
-            <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>LIVE ON THE WEB</div>
-            <h3 class="card__title">Estoppel Bot</h3>
-            <div class="card__subtitle">Your super paralegal.</div>
-            <p class="card__desc">The AI-powered estoppel certificate workbench for commercial real estate teams. Works with Claude, GPT-4, and other leading models — reads the lease, pulls the key dates, and drafts the certificate. Your team reviews, approves, and closes.</p>
-          </div>
-          <div>
-            <div class="card__meta">Web app · Claude · GPT-4 · CRE legal ops · Free to start</div>
-            <span class="card__cta card__cta--ghost cta">Visit EstoppelBot.com →</span>
-          </div>
-        </div>
-      </a>
-
-      <!-- Cipher Protocol · full-card link, image right (alternation corrected) -->
-      <a href="cipher.html" class="card card--cipher" style="text-decoration:none;">
-        <div class="card__copy">
-          <div>
-            <div class="card__status"><span class="dot dot--mute"><span class="core"></span></span>COMING SPRING 2027</div>
-            <h3 class="card__title">Cipher Protocol</h3>
-            <div class="card__subtitle">A running app told as a spy thriller.</div>
-            <p class="card__desc">You get a briefing before each run. A debrief when you finish. The story moves when you do — a block builds mission by mission, starting free. No leaderboards. No pace gates. No agent left behind.</p>
-          </div>
-          <div>
-            <div class="card__meta">iPhone · Running app · Spring 2027 · First three missions free</div>
-            <span class="card__cta card__cta--ghost cta">Join the waitlist →</span>
-          </div>
-        </div>
-        <div class="card__mount">
-          <div class="card__glow" aria-hidden="true"></div>
-          <div class="card__frame"><img src="assets/cipher/shot-missions.webp" alt="Cipher Protocol iOS running app — mission screen showing spy briefing before a run" width="414" height="900" loading="lazy" decoding="async" /></div>
-        </div>
-      </a>
-
-
-      <!-- CalMaxx · waitlist card, HUD mock left -->
-      <article class="card card--calmaxx card--img-left" id="calmaxx">
+      <!-- 1 · NEW RELEASE SPOTLIGHT · CalMaxx -->
+      <article class="card card--calmaxx card--spotlight card--img-left" id="calmaxx">
+        <div class="card__flag" aria-hidden="true">NEW</div>
         <div class="card__mount">
           <div class="card__glow" aria-hidden="true"></div>
           <!-- Promo art (design/promo in the CalMaxx repo). To swap: replace assets/calmaxx/promo-*
@@ -321,20 +251,20 @@
         </div>
         <div class="card__copy">
           <div>
-            <div class="card__status"><span class="dot dot--work"><span class="core"></span></span>IN DEVELOPMENT</div>
+            <div class="card__status"><span class="dot dot--work"><span class="core"></span></span>NEW RELEASE · LAUNCHING SOON</div>
             <h3 class="card__title card__title--logo"><img src="assets/calmaxx/calmaxx-wordmark.svg" alt="CalMaxx" width="690" height="220" decoding="async"></h3>
             <div class="card__subtitle">Five minutes. Every rep counted.</div>
-            <p class="card__desc">CalMaxx is a five-minute calisthenics challenge: 100 push-ups or 50 pull-ups against the clock. Prop up your iPhone and the camera counts every rep, checking depth, body line and tempo. A heads-up display locks on and tracks your count live. Everything runs on your phone, and no video ever leaves it.</p>
+            <p class="card__desc">A five-minute calisthenics challenge: 100 push-ups or 50 pull-ups against the clock. Prop up your iPhone and the camera counts every rep, checking depth, body line and tempo. Everything runs on your phone, and no video ever leaves it.</p>
           </div>
           <div>
             <div class="card__meta">iPhone · Calisthenics · On-device rep counting</div>
             <form class="waitlist" id="waitlist-calmaxx" action="/api/waitlist" method="post" novalidate>
               <input type="hidden" name="product" value="calmaxx">
               <input class="waitlist__honey" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-              <label class="waitlist__label" for="waitlist-email">Get an email when CalMaxx launches</label>
+              <label class="waitlist__label" for="waitlist-email">Be first to download it on launch day</label>
               <div class="waitlist__row">
                 <input class="waitlist__input" type="email" id="waitlist-email" name="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required aria-describedby="waitlist-status">
-                <button class="card__cta cta waitlist__btn" type="submit">Join the waitlist</button>
+                <button class="card__cta cta waitlist__btn" type="submit">Notify me at launch</button>
               </div>
               <label class="waitlist__consent">
                 <input type="checkbox" name="consent" value="yes" required>
@@ -345,54 +275,132 @@
           </div>
         </div>
       </article>
-    </div>
-  </section>
 
-  <!-- ──────────  GAMES  ────────── -->
-  <section class="work" id="games">
-    <div class="slate wrap" style="padding-left:0;padding-right:0;">
-      <div class="section-label">GAMES</div>
-
-      <!-- UNCONTAINED · image right -->
-      <article class="card card--uncontained">
+      <!-- 2 · FLAGSHIP · MadWeather -->
+      <article class="card card--madweather card--flagship" id="madweather">
         <div class="card__copy">
           <div>
-            <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>LIVE ON THE APP STORE</div>
-            <h3 class="card__title">UNCONTAINED</h3>
-            <div class="card__subtitle">The deeper you go.</div>
-            <p class="card__desc">Nuclear fission puzzles. Seventy-two levels, nine atom types, chain reactions that don’t forgive bad angles. Six chapters, from First Light to Vacuum Decay.</p>
+            <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>FLAGSHIP · LIVE ON THE APP STORE</div>
+            <h3 class="card__title">MadWeather</h3>
+            <div class="card__subtitle">NYC Weather. Real Talk.</div>
+            <p class="card__desc">A weather app that talks the way New York actually talks. Plain-language forecasts, borough personalities, and the small details a hometown forecast gets right.</p>
           </div>
           <div>
-            <div class="card__meta">iPhone &amp; iPad · No ads · No timers · No tricks</div>
-            <a class="card__cta cta" href="https://apps.apple.com/us/app/uncontained/id6761268905" target="_blank" rel="noopener">View on App Store →</a>
+            <div class="card__meta">iPhone &amp; iPad · Free with ads · Premium one-time IAP</div>
+            <a class="card__cta cta" href="https://apps.apple.com/us/app/madweather/id6758524351" target="_blank" rel="noopener">Download free on the App Store</a>
           </div>
         </div>
         <div class="card__mount">
           <div class="card__glow" aria-hidden="true"></div>
-          <div class="card__frame"><img src="assets/products/uncontained-dark-matter.png" alt="UNCONTAINED nuclear fission puzzle game for iPhone — Dark Matter chapter level" width="1242" height="2688" loading="lazy" decoding="async" /></div>
+          <div class="card__frame"><img src="assets/products/madweather-today.png" alt="MadWeather NYC weather app — borough forecast screen showing plain-language conditions for New York" width="1284" height="2778" loading="lazy" decoding="async" /></div>
         </div>
       </article>
 
-      <!-- Go, Bobby, Go! Road Trip · image left (alternation corrected) -->
-      <article class="card card--gobobbygo card--img-left" id="gobobbygo">
-        <div class="card__mount">
-          <div class="card__glow" aria-hidden="true"></div>
-          <div class="card__frame"><img src="assets/products/gobobbygo-city.png" alt="Go, Bobby, Go! Road Trip kids car ride game for iPhone — Bobby running along a city sidewalk collecting coins at dusk" width="990" height="2151" loading="lazy" decoding="async" /></div>
-        </div>
-        <div class="card__copy">
-          <div>
-            <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>LIVE ON THE APP STORE</div>
-            <h3 class="card__title">Go, Bobby, Go! Road Trip</h3>
-            <div class="card__subtitle">A car ride game for kids.</div>
-            <p class="card__desc">Straight from the Go, Bobby, Go! picture books. Bobby runs beside the car at your real speed: stop at a light and he stops, hit the highway and he takes off. Tap to jump, grab the coins, and watch the city, the highway, and the rings of a planet roll by from the back seat.</p>
+      <!-- 3 · TOP APPS · tiles -->
+      <div class="tiles tiles--3">
+        <article class="card card--tile card--focusdeck card--mono" id="focusdeck">
+          <div class="card__mount">
+            <div class="card__glow" aria-hidden="true"></div>
+            <div class="card__frame"><img src="assets/products/focusdeck-cyberdeck.png" alt="FOCUS//DECK ADHD study timer for iPhone — cyberdeck UI showing a deep work sprint" width="1320" height="2868" loading="lazy" decoding="async" /></div>
           </div>
-          <div>
-            <div class="card__meta">iPhone &amp; iPad · Made for kids 6–8 · One-time purchase · No ads · No accounts</div>
-            <a class="card__cta cta" href="https://apps.apple.com/us/app/go-bobby-go-road-trip/id6810872232" target="_blank" rel="noopener">View on App Store →</a>
+          <div class="card__copy">
+            <div>
+              <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>LIVE · PRODUCTIVITY</div>
+              <h3 class="card__title">FOCUS//DECK</h3>
+              <div class="card__subtitle">ADHD study &amp; focus timer.</div>
+              <p class="card__desc">Pomodoro, ADHD sprints and deep work, run by a drill-sergeant mascot who won’t let you bail mid-session.</p>
+            </div>
+            <div>
+              <div class="card__meta">iPhone · One-time Pro unlock · No subscriptions</div>
+              <a class="card__cta cta" href="https://apps.apple.com/us/app/focus-deck-focus-timer/id6771453354" target="_blank" rel="noopener">Get it on the App Store</a>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
 
+        <article class="card card--tile card--uncontained" id="uncontained">
+          <div class="card__mount">
+            <div class="card__glow" aria-hidden="true"></div>
+            <div class="card__frame"><img src="assets/products/uncontained-dark-matter.png" alt="UNCONTAINED chain reaction physics puzzle game for iPhone — Dark Matter chapter level" width="1242" height="2688" loading="lazy" decoding="async" /></div>
+          </div>
+          <div class="card__copy">
+            <div>
+              <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>LIVE · PUZZLE GAME</div>
+              <h3 class="card__title">UNCONTAINED</h3>
+              <div class="card__subtitle">Chain reaction physics puzzles.</div>
+              <p class="card__desc">72 levels, nine atom types, six chapters from First Light to Vacuum Decay. Chain reactions that don’t forgive bad angles.</p>
+            </div>
+            <div>
+              <div class="card__meta">iPhone &amp; iPad · No ads · No timers</div>
+              <a class="card__cta cta" href="https://apps.apple.com/us/app/uncontained/id6761268905" target="_blank" rel="noopener">Play on the App Store</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card--tile card--momknows" id="momknows">
+          <div class="card__mount">
+            <div class="card__glow" aria-hidden="true"></div>
+            <div class="card__frame"><img src="assets/products/momknows-crisis.png" alt="MomKnows! private family emergency information app for iPhone — one-time purchase, no subscription" width="1284" height="2778" loading="lazy" decoding="async" /></div>
+          </div>
+          <div class="card__copy">
+            <div>
+              <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>LIVE · FAMILY</div>
+              <h3 class="card__title">MomKnows!</h3>
+              <div class="card__subtitle">The things only she knows.</div>
+              <p class="card__desc">Medications, emergency contacts, wishes and family stories, captured before you need them. 100% on-device.</p>
+            </div>
+            <div>
+              <div class="card__meta">iPhone &amp; iPad · No accounts · No subscription</div>
+              <a class="card__cta cta" href="https://apps.apple.com/us/app/momknows/id6763380814" target="_blank" rel="noopener">Get it on the App Store</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- 4 · MORE FROM THE STUDIO · mini tiles -->
+      <div class="section-label section-label--sub">MORE FROM BLEEK VISION</div>
+      <div class="tiles tiles--3">
+        <article class="card card--mini card--gobobbygo" id="gobobbygo">
+          <div class="card__mount">
+            <div class="card__frame"><img src="assets/products/gobobbygo-city.png" alt="Go, Bobby, Go! Road Trip kids car ride game for iPhone — Bobby running along a city sidewalk" width="990" height="2151" loading="lazy" decoding="async" /></div>
+          </div>
+          <div class="card__copy">
+            <div>
+              <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>LIVE · KIDS 6–8</div>
+              <h3 class="card__title">Go, Bobby, Go! Road Trip</h3>
+              <p class="card__desc">A back-seat game where Bobby runs beside the car at your real speed. No ads, no accounts.</p>
+            </div>
+            <a class="card__cta cta" href="https://apps.apple.com/us/app/go-bobby-go-road-trip/id6810872232" target="_blank" rel="noopener">Get the app</a>
+          </div>
+        </article>
+
+        <article class="card card--mini card--cipher" id="cipher">
+          <div class="card__mount">
+            <div class="card__frame"><img src="assets/cipher/shot-missions.webp" alt="Cipher Protocol iOS running app — mission screen showing a spy briefing before a run" width="414" height="900" loading="lazy" decoding="async" /></div>
+          </div>
+          <div class="card__copy">
+            <div>
+              <div class="card__status"><span class="dot dot--mute"><span class="core"></span></span>COMING SPRING 2027</div>
+              <h3 class="card__title">Cipher Protocol</h3>
+              <p class="card__desc">A running app told as a spy thriller. The story moves when you do. First three missions free.</p>
+            </div>
+            <a class="card__cta card__cta--ghost cta" href="cipher.html">Join waitlist</a>
+          </div>
+        </article>
+
+        <article class="card card--mini card--estoppelbot" id="estoppelbot">
+          <div class="card__mount">
+            <div class="card__frame"><img src="assets/products/estoppel-bot-mascot.png" alt="Estoppel Bot — robot paralegal holding an estoppel certificate binder" width="1024" height="1536" loading="lazy" decoding="async" /></div>
+          </div>
+          <div class="card__copy">
+            <div>
+              <div class="card__status"><span class="dot dot--live"><span class="core"></span><span class="ring"></span></span>FOR CRE TEAMS · WEB</div>
+              <h3 class="card__title">Estoppel Bot</h3>
+              <p class="card__desc">AI estoppel certificate workbench. Reads the lease, pulls the dates, drafts the certificate.</p>
+            </div>
+            <a class="card__cta card__cta--ghost cta" href="https://estoppelbot.com" target="_blank" rel="noopener" aria-label="Start free at EstoppelBot.com">Start free</a>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -451,10 +459,11 @@
       <div class="footer__col">
         <p class="footer__col-label">THE WORK</p>
         <div class="links">
+          <a href="#calmaxx">CalMaxx (new)</a>
           <a href="https://apps.apple.com/us/app/madweather/id6758524351" target="_blank" rel="noopener">MadWeather</a>
-          <a href="https://apps.apple.com/us/app/momknows/id6763380814" target="_blank" rel="noopener">MomKnows!</a>
           <a href="https://apps.apple.com/us/app/focus-deck-focus-timer/id6771453354" target="_blank" rel="noopener">FOCUS//DECK</a>
           <a href="https://apps.apple.com/us/app/uncontained/id6761268905" target="_blank" rel="noopener">UNCONTAINED</a>
+          <a href="https://apps.apple.com/us/app/momknows/id6763380814" target="_blank" rel="noopener">MomKnows!</a>
           <a href="https://apps.apple.com/us/app/go-bobby-go-road-trip/id6810872232" target="_blank" rel="noopener">Go, Bobby, Go!</a>
           <a href="cipher.html">Cipher Protocol</a>
           <a href="https://estoppelbot.com" target="_blank" rel="noopener">Estoppel Bot</a>

@@ -1183,3 +1183,94 @@ a { color: inherit; }
 
 .card__title--logo { line-height: 0; margin-left: -6px; }
 .card__title--logo img { height: clamp(60px, 7vw, 84px); width: auto; display: block; }
+
+/* ──────────────────────────  APPS · PROMOTION TIERS  ──────────────────────────
+   1 spotlight (new release) → 2 flagship → 3 tiles (top apps) → 4 mini tiles (more).
+   Placed last so tier sizing wins over the base .card breakpoints above. */
+.work__head .section-label { margin-bottom: 18px; }
+.section-label--sub { margin: 40px 0 0; }
+
+/* Nav: the new-release link carries a live dot */
+.nav__new::before {
+  content: "";
+  display: inline-block;
+  width: 6px; height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #3DFF6B;
+  vertical-align: middle;
+  transform: translateY(-1px);
+}
+
+/* 1 · Spotlight */
+.card--spotlight {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--w-accent) 38%, transparent),
+              0 40px 90px -40px color-mix(in srgb, var(--w-accent) 35%, transparent);
+}
+.card__flag {
+  position: absolute;
+  top: 22px; right: 22px;
+  z-index: 2;
+  padding: 7px 14px;
+  border-radius: 980px;
+  background: var(--w-accent);
+  color: var(--w-cta-text);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+/* 2 · Flagship */
+.card--flagship { min-height: 660px; }
+.card--flagship .card__title { font-size: clamp(48px, 6vw, 80px); }
+
+/* 3 + 4 · Tile grids */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* 3 · Tile: image on top, copy below */
+.card--tile,
+.card--tile.card--img-left {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 28px;
+  padding: 28px 28px 32px;
+  min-height: 0;
+}
+.card--tile .card__mount { order: 0; }
+.card--tile .card__copy { order: 1; }
+.card--tile .card__frame { height: 340px; }
+.card--tile .card__glow { width: 220px; height: 300px; }
+.card--tile .card__status { margin-bottom: 16px; }
+.card--tile .card__title { font-size: clamp(28px, 2.6vw, 34px); }
+.card--tile .card__subtitle { font-size: 17px; margin: 6px 0 14px; }
+.card--tile .card__desc { font-size: 15.5px; margin-bottom: 20px; }
+.card--tile .card__meta { margin-bottom: 16px; }
+
+/* 4 · Mini tile: thumbnail left, compact copy */
+.card--mini {
+  grid-template-columns: 84px 1fr;
+  gap: 20px;
+  padding: 22px;
+  min-height: 0;
+  align-items: start;
+}
+.card--mini .card__mount { order: 0; align-items: flex-start; }
+.card--mini .card__copy { order: 1; gap: 16px; height: 100%; }
+.card--mini .card__frame { height: 172px; padding: 5px; border-radius: 16px; }
+.card--mini .card__frame img { border-radius: 12px; }
+.card--mini:hover .card__frame { transform: translateY(-3px); }
+.card--mini .card__status { margin-bottom: 12px; font-size: 10px; }
+.card--mini .card__title { font-size: 21px; letter-spacing: -0.02em; line-height: 1.15; }
+.card--mini .card__desc { font-size: 14.5px; margin: 8px 0 0; }
+.card--mini .card__cta { padding: 10px 18px; font-size: 13.5px; align-self: flex-start; white-space: nowrap; }
+
+@media (max-width: 560px) {
+  .card__flag { top: 16px; right: 16px; }
+  .card--flagship { min-height: 0; }
+  .card--tile .card__frame { height: 300px; }
+}
