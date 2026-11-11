@@ -547,9 +547,8 @@ a { color: inherit; }
 .card--rafflepop .card__status { color: var(--w-accent-deep); }
 
 /* RafflePop: Poppy the mascot stands beside the phone. The mount pushes the
-   phone to the right and Poppy sits bottom-left. The clip has a white
-   background; multiply makes white disappear into the cream card, so no
-   see-through video format is needed. */
+   phone to the right and Poppy sits bottom-left. The animated picture has a
+   white background; multiply makes white disappear into the cream card. */
 .card__mount--poppy { justify-content: flex-end; }
 .card__poppy {
   position: absolute;
