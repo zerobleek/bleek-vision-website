@@ -33,6 +33,7 @@ Studio palette (CSS custom properties, hex as authored):
 - **FOCUS//DECK** — near-black `#0A0907`, gold text/accent `#E8C772`/`#F2D27A` (mono title). Muted body `--w-muted: rgba(232,199,114,0.66)` ≈ 5.65:1 on the near-black bg (passes WCAG AA).
 - **UNCONTAINED** — black-brown `#0B0805`, hot orange `#FF7A1A`, white text.
 - **MomKnows!** — warm light world `#F5EDE3` bg, terracotta `#C5532A`, dark ink `#2A1A12`. (The one light card.) Muted body `--w-muted: rgba(42,26,18,0.7)` ≈ 5.78:1 on cream (passes WCAG AA).
+- **RafflePop** — the app's own cream `#F3EDE2`, ink `#221D17`, ticket red `#D6292E`. (The second light card.) Muted body `--w-muted: rgba(34,29,23,0.72)`. Added 11/11/26 as a second `.card--spotlight` below CalMaxx while the app is in App Review; its CTA links to rafflepop.app until the App Store link exists.
 - **Cipher Protocol** — black-green `#04100A`, neon green `#36F07A`/`#5BF08C`.
 
 Strategy: **restrained** studio shell (one accent ≤10% of surface) wrapping **drenched** product cards (the card surface IS the app's color).
