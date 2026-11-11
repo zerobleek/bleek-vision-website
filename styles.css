@@ -546,6 +546,31 @@ a { color: inherit; }
 .card--momknows .card__status { color: var(--w-accent-deep); }
 .card--rafflepop .card__status { color: var(--w-accent-deep); }
 
+/* RafflePop: Poppy the mascot stands beside the phone. The mount pushes the
+   phone to the right and Poppy sits bottom-left. The clip has a white
+   background; multiply makes white disappear into the cream card, so no
+   see-through video format is needed. */
+.card__mount--poppy { justify-content: flex-end; }
+.card__poppy {
+  position: absolute;
+  left: -56px;
+  bottom: -28px;
+  width: min(330px, 62%);
+  height: auto;
+  aspect-ratio: 1;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 1;
+}
+@media (max-width: 920px) {
+  .card__mount--poppy { justify-content: center; padding-left: 38%; }
+  .card__poppy { left: 4%; width: min(300px, 48%); bottom: -16px; }
+}
+@media (max-width: 560px) {
+  .card__mount--poppy { padding-left: 34%; }
+  .card__poppy { left: -38px; width: 184px; }
+}
+
 /* ──────────────────────────  FOUNDER  ────────────────────────── */
 .founder {
   position: relative;
