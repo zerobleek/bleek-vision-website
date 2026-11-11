@@ -36,6 +36,11 @@ export default {
       }
     }
 
+    // Safari will not play a video unless the server can send it in pieces.
+    if (url.pathname.endsWith('.mp4') && request.method === 'GET') {
+      return serveVideo(request, env);
+    }
+
     return env.ASSETS.fetch(request);
   },
 };
@@ -337,4 +342,52 @@ function respond(isJSON, status, code, error, message, env) {
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+}
+
+// Video files, with support for "Range" requests.
+//
+// A browser playing a video asks for parts of the file ("bytes 0 to 99") and
+// expects a 206 Partial Content answer. Cloudflare's static file server always
+// sends the whole file, and Safari then refuses to play it. So this fetches
+// the whole file (they are all well under 1 MB) and cuts out the part asked for.
+async function serveVideo(request, env) {
+  const range = request.headers.get('Range');
+  if (!range) {
+    const whole = await env.ASSETS.fetch(request);
+    if (whole.status !== 200) return whole;
+    const headers = new Headers(whole.headers);
+    headers.set('Accept-Ranges', 'bytes');
+    return new Response(whole.body, { status: 200, headers });
+  }
+
+  // Ask for the file with no Range or "only if changed" headers, so the answer is the full file.
+  const whole = await env.ASSETS.fetch(new Request(request.url, { method: 'GET' }));
+  if (whole.status !== 200) return whole;
+  const headers = new Headers(whole.headers);
+  headers.set('Accept-Ranges', 'bytes');
+
+  // "bytes=START-END", "bytes=START-" (to the end) or "bytes=-COUNT" (the last COUNT bytes).
+  const match = /^bytes=(\d*)-(\d*)$/.exec(range.trim());
+  if (!match || (match[1] === '' && match[2] === '')) {
+    return new Response(whole.body, { status: 200, headers });
+  }
+
+  const bytes = await whole.arrayBuffer();
+  const size = bytes.byteLength;
+  let start;
+  let end;
+  if (match[1] === '') {
+    start = Math.max(0, size - Number(match[2]));
+    end = size - 1;
+  } else {
+    start = Number(match[1]);
+    end = match[2] === '' ? size - 1 : Math.min(Number(match[2]), size - 1);
+  }
+  if (start >= size || start > end) {
+    return new Response(null, { status: 416, headers: { 'Content-Range': `bytes */${size}` } });
+  }
+
+  headers.set('Content-Range', `bytes ${start}-${end}/${size}`);
+  headers.set('Content-Length', String(end - start + 1));
+  return new Response(bytes.slice(start, end + 1), { status: 206, headers });
 }

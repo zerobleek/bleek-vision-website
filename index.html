@@ -238,7 +238,7 @@
                files and the data-* on the buttons; add data-v="N" to bust caches on same-name swaps. -->
           <figure class="cmx" id="cmx">
             <div class="card__frame cmx__frame">
-              <video class="cmx__video" src="assets/calmaxx/promo-P1-pushup.mp4?v=2" poster="assets/calmaxx/promo-P1-pushup.jpg?v=2" width="1080" height="1910" muted loop playsinline autoplay preload="metadata" aria-label="CalMaxx art: a woman mid push-up while her propped-up phone counts 87 reps"></video>
+              <video class="cmx__video" src="assets/calmaxx/promo-P1-pushup.mp4?v=2" poster="assets/calmaxx/promo-P1-pushup.jpg?v=2" width="1080" height="1910" muted loop playsinline preload="metadata" aria-label="CalMaxx art: a woman mid push-up while her propped-up phone counts 87 reps"></video>
               <p class="cmx__caption" aria-hidden="true">100 push-ups. 5 minutes.</p>
             </div>
             <div class="cmx__picker" role="group" aria-label="Choose a CalMaxx athlete">
@@ -558,6 +558,25 @@
     video.loop = false;
     if (still) { video.removeAttribute('autoplay'); video.pause(); video.preload = 'none'; }
 
+    // Start the video. Safari refuses in Low Power Mode until the visitor has
+    // touched the page, so if it says no, try again on their first tap, click
+    // or key press. Until then the poster picture shows, with no play button.
+    var waiting = false;
+    function play() {
+      var pr = video.play();
+      if (pr && pr.catch) pr.catch(function (err) {
+        if (!err || err.name !== 'NotAllowedError' || waiting) return;
+        waiting = true;
+        var events = ['pointerdown', 'touchend', 'keydown'];
+        var retry = function () {
+          waiting = false;
+          events.forEach(function (e) { document.removeEventListener(e, retry, true); });
+          if (visible) play();
+        };
+        events.forEach(function (e) { document.addEventListener(e, retry, true); });
+      });
+    }
+
     function show(i) {
       current = i;
       var b = picks[i];
@@ -569,12 +588,12 @@
       root.classList.toggle('cmx--bottom', b.dataset.bottom === '1');
       if (still) return;
       video.src = b.dataset.src + '.mp4' + q;
-      if (visible) { var pr = video.play(); if (pr && pr.catch) pr.catch(function () {}); }
+      if (visible) play();
     }
 
     // A picked athlete keeps looping; otherwise move on after each pass.
     video.addEventListener('ended', function () {
-      if (chosen) { video.currentTime = 0; video.play().catch(function () {}); }
+      if (chosen) { video.currentTime = 0; play(); }
       else show((current + 1) % picks.length);
     });
     picks.forEach(function (b, i) {
@@ -584,11 +603,12 @@
     if (!still && 'IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
         visible = entries[0].isIntersecting;
-        if (visible) { var pr = video.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        if (visible) play();
         else video.pause();
       }, { threshold: 0.25 }).observe(root);
     } else if (!still) {
       visible = true;
+      play();
     }
   })();
 

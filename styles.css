@@ -1163,6 +1163,9 @@ a { color: inherit; }
 /* CalMaxx athletes (onboarding loops) */
 .cmx { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .cmx__frame { aspect-ratio: 1080 / 1910; width: auto; overflow: hidden; }
+/* Safari draws its own play button on a video it will not auto-play. Hide it:
+   the page starts the video itself (see the script in index.html). */
+.cmx__video::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
 .cmx__video {
   display: block;
   height: 100%;
