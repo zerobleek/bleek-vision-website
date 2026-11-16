@@ -2,6 +2,17 @@
 
 Visual system for the Bleek Vision marketing site, captured from `styles.css` and `index.html`. Studio shell is a restrained dark theme; each product card opens its own color world.
 
+## Homepage (Nov 16, 2026): minimal light-field layout
+
+`index.html` now uses its own stylesheet, `home.css`. Privacy, terms, support and Cipher pages still use `styles.css` and the card system described below.
+
+- **Ground:** `#0E1015` with a full-screen WebGL "light field": three slow periwinkle/silver beams with a faint prism fringe, drawn at half resolution, paused when the tab is hidden, a still frame under reduced motion, a CSS radial glow if WebGL is missing. A faint SVG grain sits on top.
+- **Hero:** two-weight Outfit wordmark as the h1: **Bleek** 800 white, *Vision* 300 periwinkle, up to 148px, tight tracking. One-line tagline to the right; white pill + frosted pill buttons below.
+- **Glass surfaces:** `rgba(23,26,32,.55)` + 18px backdrop blur + 1px `rgba(214,219,227,.16)` border, 22–28px radius.
+- **New-release feature:** one frosted panel (CalMaxx now): athlete video + picker on the left, tag, wordmark, one-line subtitle, two-line description and the waitlist form on the right. To feature another app, swap this block.
+- **Split sections:** bold Outfit h2 + one gray line (+ optional pill) on the left; a glass panel of rows on the right (44px thumbnail · name · one-line subtitle · underlined Get/Play link). Apps, Also from the studio, The studio (portrait, one line, the founder story folded in a `<details>`).
+- **Copy rule:** minimal text. One line per item; longer copy goes behind a click.
+
 ## Theme
 
 Dark, near-black navy ground with cool silver ink and a single periwinkle accent. Calm, engineered, nocturnal — a quiet gallery wall on which the apps' own colors light up. Ambient motion (drifting aurora blobs, a pulsing live dot, a letter-by-letter wordmark reveal) adds life without noise, and fully quiets under `prefers-reduced-motion`.
