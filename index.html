@@ -38,7 +38,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="home.css" />
+  <link rel="stylesheet" href="site.css" />
   <!-- Structured data — update "url" values to your live domain before deploying -->
   <script type="application/ld+json">
   {
@@ -143,7 +143,7 @@
     <a class="mark" href="index.html" aria-label="Bleek Vision — home"><i aria-hidden="true"></i><b>BLEEK</b><span>VISION</span></a>
     <nav class="top__links" aria-label="Main">
       <a href="#apps">Apps</a>
-      <a href="#calmaxx">New</a>
+      <a href="#new">New</a>
       <a href="#about">Studio</a>
       <a class="pill-sm" href="https://apps.apple.com/us/app/madweather/id6758524351" target="_blank" rel="noopener">Get MadWeather</a>
     </nav>
@@ -162,9 +162,25 @@
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.5 2-3.7 2.1-3.8-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.8-1.1-2.9-4.2zM13.9 5.2c.7-.8 1.2-2 1-3.2-1 .1-2.3.7-3 1.5-.7.7-1.2 1.9-1.1 3.1 1.2.1 2.3-.6 3.1-1.4z"/></svg>
       Browse the apps
     </a>
-    <a class="btn btn--glass" href="#calmaxx">New: CalMaxx</a>
+    <a class="btn btn--glass" href="#new">New: RafflePop</a>
   </div>
   <p class="fine rv">Indie studio · Built by <a href="#about">one developer</a></p>
+
+  <!-- ──────────  NEW RELEASES  ──────────
+       Newest first: RafflePop (live), then CalMaxx (waitlist). -->
+  <section class="feature feature--flip rv" id="new" aria-labelledby="rafflepop-title">
+    <div class="feature__media">
+      <div class="shot"><img src="assets/products/rafflepop-draw.webp" alt="RafflePop random name picker for iPhone: red raffle tickets tumbling inside a glass jar during a draw, under a QR code guests scan to join." width="660" height="1434" loading="lazy" decoding="async"></div>
+    </div>
+    <div class="feature__copy">
+      <div class="tag tag--live"><i aria-hidden="true"></i>NEW · LIVE ON THE APP STORE</div>
+      <h2 id="rafflepop-title" class="feature__title">RafflePop</h2>
+      <p class="feature__sub">Ditch the paper tickets.</p>
+      <p class="feature__desc">A digital jar for picking a name at random. Guests scan a QR code and join from their own phone. Shake your iPhone and one name pops out.</p>
+      <p class="feature__meta">iPhone · Free for up to 20 guests · No ads, no accounts</p>
+      <a class="btn btn--solid feature__cta" href="https://apps.apple.com/us/app/rafflepop-random-name-picker/id6833320712" target="_blank" rel="noopener">Download free on the App Store</a>
+    </div>
+  </section>
 
   <!-- ──────────  NEW RELEASE · CalMaxx (waitlist until Apple approves) ──────────
        On approval: swap the form for an App Store link and change the tag to LIVE. -->
@@ -413,79 +429,8 @@
       io.observe(el);
     });
   })();
-
-  // Light field: three slow periwinkle/silver beams with a faint prism fringe,
-  // drawn on a full-screen WebGL canvas. Pauses when the tab is hidden; holds a
-  // still frame for reduced motion; falls back to a CSS glow without WebGL.
-  (function () {
-    var c = document.getElementById('field');
-    var gl = c.getContext('webgl', { antialias: false });
-    if (!gl) { c.classList.add('field--flat'); return; }
-    var vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
-    var fs = [
-      'precision mediump float;uniform vec2 r;uniform float t;',
-      'float band(vec2 uv,float a,float off,float w,float s){',
-      ' vec2 d=vec2(cos(a),sin(a));float x=dot(uv,d)+off+0.08*sin(dot(uv,vec2(-d.y,d.x))*2.2+t*s);',
-      ' return exp(-x*x/w);}',
-      'void main(){',
-      ' vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;',
-      ' vec3 col=vec3(.055,.063,.082);',
-      ' float T=t*.06;',
-      ' for(int i=0;i<3;i++){',
-      '  float fi=float(i);',
-      '  float a=-.62+fi*.21+.06*sin(T+fi);',
-      '  float off=-.35+fi*.42+.12*sin(T*1.3+fi*2.);',
-      '  float w=.0035+fi*.0025;float s=.4+fi*.15;',
-      '  vec3 b=vec3(band(uv,a,off-.012,w,s),band(uv,a,off,w,s),band(uv,a,off+.014,w,s));',
-      '  vec3 tint=mix(vec3(.54,.63,.76),vec3(.78,.80,.84),fi*.5);',
-      '  col+=b*tint*(.34-fi*.07);',
-      '  col+=band(uv,a,off,w*40.,s)*vec3(.54,.63,.76)*.05;',
-      ' }',
-      ' float v=smoothstep(1.25,.25,length(uv*vec2(.85,1.)));',
-      ' col*=mix(.55,1.,v);',
-      ' gl_FragColor=vec4(col,1.);',
-      '}'
-    ].join('\n');
-    function sh(type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; }
-    var pr = gl.createProgram();
-    gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs));
-    gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs));
-    gl.linkProgram(pr);
-    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) { c.classList.add('field--flat'); return; }
-    gl.useProgram(pr);
-    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-    var loc = gl.getAttribLocation(pr, 'p');
-    gl.enableVertexAttribArray(loc);
-    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-    var uR = gl.getUniformLocation(pr, 'r'), uT = gl.getUniformLocation(pr, 't');
-    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var t0 = performance.now(), running = false;
-    function draw() {
-      gl.uniform2f(uR, c.width, c.height);
-      gl.uniform1f(uT, still ? 20 : (performance.now() - t0) / 1000 + 20);
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
-    }
-    function loop() {
-      if (document.hidden || still) { running = false; return; }
-      draw();
-      requestAnimationFrame(loop);
-    }
-    function size() {
-      // Half-resolution is plenty for soft light and keeps phones cool.
-      c.width = Math.round(window.innerWidth * dpr * 0.5);
-      c.height = Math.round(window.innerHeight * dpr * 0.5);
-      gl.viewport(0, 0, c.width, c.height);
-      draw();
-    }
-    function start() { if (!running && !still && !document.hidden) { running = true; requestAnimationFrame(loop); } }
-    size();
-    window.addEventListener('resize', size);
-    document.addEventListener('visibilitychange', start);
-    start();
-  })();
 </script>
+<script src="field.js" defer></script>
 
 </body>
 </html>

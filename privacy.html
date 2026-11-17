@@ -18,42 +18,32 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="site.css" />
 </head>
 <body>
-<div class="shell">
+<canvas id="field" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
 
-  <!-- NAV -->
-  <nav class="nav" id="nav">
-    <div class="nav__inner">
-      <a href="index.html" class="nav__logo cta" aria-label="Bleek Vision — home">
-        <span class="nav__wm-bleek">BLEEK</span>
-        <span class="nav__wm-vision">VISION</span>
-      </a>
-      <div class="nav__right">
-        <div class="nav__links" id="navLinks">
-          <a href="index.html#work">The Work</a>
-          <a href="index.html#about">About</a>
-          <a href="mailto:malik@bleekvision.com">Contact</a>
-        </div>
-        <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </nav>
+<header class="top">
+  <div class="wrap top__inner">
+    <a class="mark" href="index.html" aria-label="Bleek Vision — home"><i aria-hidden="true"></i><b>BLEEK</b><span>VISION</span></a>
+    <nav class="top__links" aria-label="Main">
+      <a href="index.html#apps">Apps</a>
+      <a href="index.html#new">New</a>
+      <a href="index.html#about">Studio</a>
+      <a class="pill-sm" href="https://apps.apple.com/us/app/madweather/id6758524351" target="_blank" rel="noopener">Get MadWeather</a>
+    </nav>
+  </div>
+</header>
 
   <!-- HEADER -->
-  <header class="legal-header">
-    <div class="wrap">
+  <main class="wrap">
+  <div class="doc-head">
       <div class="eyebrow">— LEGAL</div>
       <h1>Privacy Policy</h1>
       <p class="legal-meta">Bleek Vision LLC &nbsp;·&nbsp; Effective November 4, 2026</p>
-    </div>
-  </header>
+  </div>
 
-  <!-- BODY -->
-  <main>
     <div class="legal-body">
       <a href="index.html" class="legal-back">← Back to bleekvision.com</a>
 
@@ -451,66 +441,12 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer__cols">
-      <div class="footer__brand">
-        <a href="index.html" class="footer__wordmark" aria-label="Bleek Vision — home">
-          <span class="footer__wm-bleek">BLEEK</span>
-          <span class="footer__wm-vision">VISION</span>
-        </a>
-      </div>
-      <div class="footer__col">
-        <p class="footer__col-label">THE WORK</p>
-        <div class="links">
-          <a href="https://apps.apple.com/us/app/madweather/id6758524351" target="_blank" rel="noopener">MadWeather</a>
-          <a href="https://apps.apple.com/us/app/momknows/id6763380814" target="_blank" rel="noopener">MomKnows!</a>
-          <a href="https://apps.apple.com/us/app/focus-deck-focus-timer/id6771453354" target="_blank" rel="noopener">FOCUS//DECK</a>
-          <a href="https://apps.apple.com/us/app/uncontained/id6761268905" target="_blank" rel="noopener">UNCONTAINED</a>
-          <a href="https://apps.apple.com/us/app/go-bobby-go-road-trip/id6810872232" target="_blank" rel="noopener">Go, Bobby, Go!</a>
-          <a href="cipher.html">Cipher Protocol</a>
-          <a href="estoppelbot.html">Estoppel Bot</a>
-        </div>
-      </div>
-      <div class="footer__col">
-        <p class="footer__col-label">STUDIO</p>
-        <div class="links">
-          <a href="index.html#about">About</a>
-          <a href="mailto:malik@bleekvision.com">Contact</a>
-        </div>
-      </div>
-      <div class="footer__col">
-        <p class="footer__col-label">LEGAL</p>
-        <div class="links">
-          <a href="privacy.html">Privacy</a>
-          <a href="support.html">Support</a>
-          <a href="terms.html">Terms</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer__bar">
-      <div>© 2026 Bleek Vision LLC. All rights reserved.</div>
-      <div>Est. 2026</div>
-    </div>
-  </footer>
-
-</div>
-<script>
-  (function () {
-    var nav = document.getElementById('nav');
-    var toggle = document.getElementById('navToggle');
-    toggle.addEventListener('click', function () {
-      var open = nav.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    });
-    document.getElementById('navLinks').addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') {
-        nav.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.setAttribute('aria-label', 'Open menu');
-      }
-    });
-  })();
-</script>
+  <footer class="foot">
+  <div class="wrap foot__inner">
+    <span>© 2026 Bleek Vision LLC</span>
+    <nav aria-label="Footer"><a href="mailto:malik@bleekvision.com">Contact</a><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
+  </div>
+</footer>
+<script src="field.js" defer></script>
 </body>
 </html>
