@@ -137,28 +137,6 @@ img { max-width: 100%; }
 .cmx__pick:hover { border-color: rgba(61,255,107,.6); }
 .cmx__pick:active { transform: scale(.95); }
 
-/* waitlist */
-.waitlist { display: grid; gap: 12px; margin-top: 26px; max-width: 520px; }
-.waitlist__honey { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-.waitlist__label { font-size: 14px; font-weight: 600; color: var(--ink); }
-.waitlist__row { display: flex; gap: 10px; flex-wrap: wrap; }
-.waitlist__input {
-  flex: 1 1 220px; min-height: 48px; padding: 0 20px; border-radius: 99px;
-  border: 1px solid var(--rule-hi); background: rgba(14,16,21,.6); color: var(--ink);
-  font: 400 15px var(--font);
-}
-.waitlist__input::placeholder { color: var(--mute); }
-.waitlist__input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(137,161,195,.25); }
-.waitlist__btn:disabled { opacity: .55; cursor: progress; }
-.waitlist__consent { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; line-height: 1.45; color: var(--mute); }
-.waitlist__consent input { margin-top: 2px; width: 16px; height: 16px; flex: none; accent-color: var(--accent); }
-.waitlist__consent a { color: var(--ink); text-underline-offset: 2px; }
-.waitlist__status { min-height: 1.4em; font-size: 14px; color: var(--live); }
-.waitlist__status.is-error { color: #FFB4A0; }
-.waitlist.is-done .waitlist__label,
-.waitlist.is-done .waitlist__row,
-.waitlist.is-done .waitlist__consent { display: none; }
-.waitlist.is-done .waitlist__status { font-size: 16px; font-weight: 600; }
 
 /* ─── Split sections ─── */
 .split { display: grid; grid-template-columns: 1fr 1.45fr; gap: 56px; padding: 96px 0; border-top: 1px solid var(--rule); scroll-margin-top: 8px; }
@@ -223,7 +201,7 @@ img { max-width: 100%; }
 @media (max-width: 560px) {
   .wrap { padding: 0 16px; }
   .hero__cta .btn { flex: 1 1 100%; }
-  .waitlist__btn, .feature__cta { width: 100%; }
+  .feature__cta { width: 100%; }
   .panel { padding: 4px 16px 2px; }
   .panel--studio { padding: 18px 16px; }
   .row { grid-template-columns: 40px 1fr auto; gap: 12px; }

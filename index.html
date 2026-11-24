@@ -60,7 +60,8 @@
           { "@type": "ListItem", "position": 3, "name": "UNCONTAINED", "url": "https://apps.apple.com/us/app/uncontained/id6761268905" },
           { "@type": "ListItem", "position": 4, "name": "MomKnows!", "url": "https://apps.apple.com/us/app/momknows/id6763380814" },
           { "@type": "ListItem", "position": 5, "name": "Go, Bobby, Go! Road Trip", "url": "https://apps.apple.com/us/app/go-bobby-go-road-trip/id6810872232" },
-          { "@type": "ListItem", "position": 6, "name": "Estoppel Bot", "url": "https://estoppelbot.com" }
+          { "@type": "ListItem", "position": 6, "name": "Estoppel Bot", "url": "https://estoppelbot.com" },
+          { "@type": "ListItem", "position": 7, "name": "CalMaxx", "url": "https://apps.apple.com/us/app/calmaxx-rep-counter/id6832640479" }
         ]
       },
       {
@@ -75,6 +76,7 @@
           "https://apps.apple.com/us/app/focus-deck-focus-timer/id6771453354",
           "https://apps.apple.com/us/app/momknows/id6763380814",
           "https://apps.apple.com/us/app/go-bobby-go-road-trip/id6810872232",
+          "https://apps.apple.com/us/app/calmaxx-rep-counter/id6832640479",
           "https://estoppelbot.com"
         ]
       },
@@ -127,6 +129,16 @@
         "description": "A private family information vault for iPhone and iPad. Emergency contacts, health records, and family stories — on your device, yours forever. One-time purchase, no subscription.",
         "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "USD" },
         "author": { "@type": "Organization", "name": "Bleek Vision LLC" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "CalMaxx: Rep Counter",
+        "operatingSystem": "iOS",
+        "applicationCategory": "HealthApplication",
+        "url": "https://apps.apple.com/us/app/calmaxx-rep-counter/id6832640479",
+        "description": "Push-up and pull-up rep counter for iPhone. The camera counts every rep in a five-minute calisthenics challenge. Free download with an optional subscription.",
+        "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "USD" },
+        "author": { "@type": "Organization", "name": "Bleek Vision LLC" }
       }
     ]
   }
@@ -167,7 +179,7 @@
   <p class="fine rv">Indie studio · Built by <a href="#about">one developer</a></p>
 
   <!-- ──────────  NEW RELEASES  ──────────
-       Newest first: RafflePop (live), then CalMaxx (waitlist). -->
+       RafflePop, then CalMaxx. Both live. -->
   <section class="feature feature--flip rv" id="new" aria-labelledby="rafflepop-title">
     <div class="feature__media">
       <div class="shot"><img src="assets/products/rafflepop-draw.webp" alt="RafflePop random name picker for iPhone: red raffle tickets tumbling inside a glass jar during a draw, under a QR code guests scan to join." width="660" height="1434" loading="lazy" decoding="async"></div>
@@ -182,8 +194,7 @@
     </div>
   </section>
 
-  <!-- ──────────  NEW RELEASE · CalMaxx (waitlist until Apple approves) ──────────
-       On approval: swap the form for an App Store link and change the tag to LIVE. -->
+  <!-- ──────────  NEW RELEASE · CalMaxx  ────────── -->
   <section class="feature rv" id="calmaxx" aria-labelledby="calmaxx-title">
     <figure class="cmx" id="cmx">
       <div class="cmx__frame">
@@ -198,24 +209,12 @@
       </div>
     </figure>
     <div class="feature__copy">
-      <div class="tag"><i aria-hidden="true"></i>NEW · LAUNCHING SOON</div>
+      <div class="tag tag--live"><i aria-hidden="true"></i>NEW · LIVE ON THE APP STORE</div>
       <h2 id="calmaxx-title" class="feature__logo"><img src="assets/calmaxx/calmaxx-wordmark.svg" alt="CalMaxx" width="690" height="220" decoding="async"></h2>
       <p class="feature__sub">Five minutes. Every rep counted.</p>
-      <p class="feature__desc">100 push-ups or 50 pull-ups against the clock. Prop up your iPhone and the camera counts every rep. No video ever leaves your phone.</p>
-      <form class="waitlist" id="waitlist-calmaxx" action="/api/waitlist" method="post" novalidate>
-        <input type="hidden" name="product" value="calmaxx">
-        <input class="waitlist__honey" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <label class="waitlist__label" for="waitlist-email">Be first to download it on launch day</label>
-        <div class="waitlist__row">
-          <input class="waitlist__input" type="email" id="waitlist-email" name="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required aria-describedby="waitlist-status">
-          <button class="btn btn--solid waitlist__btn" type="submit">Notify me at launch</button>
-        </div>
-        <label class="waitlist__consent">
-          <input type="checkbox" name="consent" value="yes" required>
-          <span>Email me when CalMaxx launches. I can unsubscribe anytime. See the <a href="privacy.html#calmaxx-waitlist">privacy policy</a>.</span>
-        </label>
-        <p class="waitlist__status" id="waitlist-status" role="status" aria-live="polite"></p>
-      </form>
+      <p class="feature__desc">100 push-ups and 50 pull-ups against the clock. Prop up your iPhone and the camera counts every rep. Rep counting runs on your iPhone, and CalMaxx uploads no video.</p>
+      <p class="feature__meta">iPhone · Free download · One free Classic 5:00 a day</p>
+      <a class="btn btn--solid feature__cta" href="https://apps.apple.com/us/app/calmaxx-rep-counter/id6832640479" target="_blank" rel="noopener">Download free on the App Store</a>
     </div>
   </section>
 
@@ -229,6 +228,7 @@
     </div>
     <div class="panel rv">
       <div class="panel__head"><h3>On the App Store</h3><p>Tap any app to open its App Store page.</p></div>
+      <a class="row" id="calmaxx-app" href="https://apps.apple.com/us/app/calmaxx-rep-counter/id6832640479" target="_blank" rel="noopener"><img src="assets/calmaxx/calmaxx-icon.png" alt="" width="176" height="176" loading="lazy" decoding="async"><div><h3 class="row__name">CalMaxx <em>NEW</em></h3><p class="row__desc">Push-up and pull-up rep counter.</p></div><span class="row__go">Get</span></a>
       <a class="row" id="rafflepop" href="https://apps.apple.com/us/app/rafflepop-random-name-picker/id6833320712" target="_blank" rel="noopener"><img src="assets/products/rafflepop-draw.webp" alt="" width="660" height="1434" loading="lazy" decoding="async"><div><h3 class="row__name">RafflePop <em>NEW</em></h3><p class="row__desc">Ditch the paper tickets.</p></div><span class="row__go">Get</span></a>
       <a class="row" id="madweather" href="https://apps.apple.com/us/app/madweather/id6758524351" target="_blank" rel="noopener"><img src="assets/products/madweather-today.png" alt="" width="1284" height="2778" loading="lazy" decoding="async"><div><h3 class="row__name">MadWeather</h3><p class="row__desc">NYC Weather. Real Talk.</p></div><span class="row__go">Get</span></a>
       <a class="row" id="focusdeck" href="https://apps.apple.com/us/app/focus-deck-focus-timer/id6771453354" target="_blank" rel="noopener"><img src="assets/products/focusdeck-cyberdeck.png" alt="" width="1320" height="2868" loading="lazy" decoding="async"><div><h3 class="row__name">FOCUS//DECK</h3><p class="row__desc">ADHD study &amp; focus timer.</p></div><span class="row__go">Get</span></a>
@@ -354,60 +354,6 @@
       visible = true;
       play();
     }
-  })();
-
-  // CalMaxx waitlist: post as JSON, show the result in place. Without JS the
-  // form still posts to /api/waitlist and gets a plain confirmation page.
-  (function () {
-    var form = document.getElementById('waitlist-calmaxx');
-    if (!form || !window.fetch) return;
-    var status = document.getElementById('waitlist-status');
-    var btn = form.querySelector('button[type="submit"]');
-    var email = form.elements.email;
-    var consent = form.elements.consent;
-    function say(msg, isError) {
-      status.textContent = msg;
-      status.classList.toggle('is-error', !!isError);
-    }
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var value = email.value.trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) {
-        say('Please enter a valid email address.', true);
-        email.focus();
-        return;
-      }
-      if (!consent.checked) {
-        say('Please tick the box so we can email you at launch.', true);
-        consent.focus();
-        return;
-      }
-      btn.disabled = true;
-      say('Joining…');
-      fetch(form.action, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: value,
-          product: form.elements.product.value,
-          consent: true,
-          honeypot: form.elements.website.value
-        })
-      }).then(function (res) {
-        return res.json().catch(function () { return { ok: false }; });
-      }).then(function (data) {
-        if (data && data.ok) {
-          form.classList.add('is-done');
-          say(data.message || "You're on the list.");
-        } else {
-          btn.disabled = false;
-          say((data && data.error) || 'Something went wrong. Please try again.', true);
-        }
-      }).catch(function () {
-        btn.disabled = false;
-        say('Something went wrong. Please check your connection and try again.', true);
-      });
-    });
   })();
 
   // Reveal on scroll, lightly staggered. Reduced motion shows everything at once (CSS).

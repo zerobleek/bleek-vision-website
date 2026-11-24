@@ -11,13 +11,15 @@ import { welcomeEmail, welcomeEmailText } from './emails/welcome.js';
 
 const TOKEN_TTL = 7 * 24 * 60 * 60; // 7 days in seconds
 
+const CALMAXX_APP_STORE = 'https://apps.apple.com/us/app/calmaxx-rep-counter/id6832640479';
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
     // Short link for social posts and bios.
     if (url.pathname === '/calmaxx' || url.pathname === '/calmaxx/') {
-      return Response.redirect(`${url.origin}/#calmaxx`, 302);
+      return Response.redirect(CALMAXX_APP_STORE, 302);
     }
 
     if (url.pathname === '/api/waitlist' && request.method === 'POST') {
@@ -49,8 +51,11 @@ export default {
 // Single opt-in launch waitlist stored in Workers KV (binding WAITLIST).
 // Key: "<product>:<email>". Nothing else about the visitor is stored.
 
+// A product with `appStore` has launched: sign-ups are closed and nothing is
+// stored, but the sign-ups already in KV stay where they are.
+
 const WAITLIST_PRODUCTS = {
-  calmaxx: { name: 'CalMaxx', page: '/#calmaxx' },
+  calmaxx: { name: 'CalMaxx', page: '/#calmaxx', appStore: CALMAXX_APP_STORE },
 };
 
 async function handleWaitlist(request, env) {
@@ -74,6 +79,11 @@ async function handleWaitlist(request, env) {
   const meta = Object.hasOwn(WAITLIST_PRODUCTS, product) ? WAITLIST_PRODUCTS[product] : null;
   if (!meta) {
     return waitlistRespond(isJSON, 400, 'Something went wrong. Please try again.', null, null);
+  }
+
+  // Reached from a cached copy of the old sign-up form.
+  if (meta.appStore) {
+    return waitlistRespond(isJSON, 410, `${meta.name} is out now, so the waitlist is closed. Your email was not saved. Get it on the App Store: ${meta.appStore}`, null, meta);
   }
 
   // Bots fill the hidden field; pretend it worked.
