@@ -5,10 +5,9 @@
 # Copyright © 2026 Bleek Vision LLC. All rights reserved.
 #
 # Runs on every push to main:
-#   1. Purges Cloudflare CDN cache
-#   2. Pings Google sitemap
+#   1. Waits for Cloudflare Workers Builds to deploy this commit
+#   2. Purges Cloudflare CDN cache (fails the run if Cloudflare refuses)
 #   3. Submits to IndexNow (Bing, Yandex, DuckDuckGo)
-#   4. Pings Bing sitemap directly
 
 name: Deploy — Purge Cache & Notify Search Engines
 
@@ -16,40 +15,71 @@ on:
   push:
     branches: [main]
 
+permissions:
+  checks: read
+
+# A newer push replaces a run that is still waiting on an older deploy.
+concurrency:
+  group: purge-and-ping
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   deploy:
     name: Purge & ping
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
-      - name: Purge Cloudflare cache
+      - name: Wait for the Cloudflare deploy
+        id: deploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CHECK_NAME: "Workers Builds: bleek-vision-website"
         run: |
-          echo "Purging Cloudflare CDN..."
-          curl -s -X POST \
-            "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \
-            -H "Authorization: Bearer ${{ secrets.CF_CACHE_PURGE_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            -d '{"purge_everything":true}' | python3 -c "import json,sys; r=json.load(sys.stdin); print('Cloudflare purge:', 'OK' if r['success'] else r['errors'])"
+          # Cloudflare usually reports within 90 seconds; give it 10 minutes.
+          deadline=$((SECONDS + 600))
+          while (( SECONDS < deadline )); do
+            result=$(gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/check-runs?per_page=100" \
+              --jq '[.check_runs[] | select(.name == env.CHECK_NAME and .app.slug == "cloudflare-workers-and-pages")]
+                    | sort_by(.started_at) | last | if . == null then "missing" elif .status == "completed" then .conclusion else .status end') \
+              || result="unreadable"
+            case "$result" in
+              success) echo "Cloudflare deploy: OK"; exit 0 ;;
+              failure|cancelled|timed_out|action_required|neutral|skipped|stale|startup_failure)
+                echo "::error::Cloudflare deploy ended as '$result'. The cache was not purged."; exit 1 ;;
+            esac
+            echo "Cloudflare deploy: $result, waiting..."
+            sleep 10
+          done
+          echo "::error::No finished Cloudflare deploy for $GITHUB_SHA after 10 minutes (last state: $result). The cache was not purged."
+          exit 1
 
-      - name: Ping Google sitemap
+      - name: Purge Cloudflare cache
+        env:
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+          CF_CACHE_PURGE_TOKEN: ${{ secrets.CF_CACHE_PURGE_TOKEN }}
         run: |
-          echo "Pinging Google..."
-          curl -s "https://www.google.com/ping?sitemap=https://bleekvision.com/sitemap.xml" \
-            -o /dev/null -w "Google: HTTP %{http_code}\n"
+          response=$(curl -sS --max-time 60 -X POST \
+            "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/purge_cache" \
+            -H "Authorization: Bearer $CF_CACHE_PURGE_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"purge_everything":true}')
+          if jq -e '.success == true' <<< "$response" > /dev/null; then
+            echo "Cloudflare purge: OK"
+          else
+            echo "::error::Cloudflare purge failed: $(jq -c '.errors' <<< "$response" 2> /dev/null || echo 'unreadable response')"
+            exit 1
+          fi
 
       - name: Submit to IndexNow (Bing, Yandex, DuckDuckGo)
+        if: ${{ !cancelled() && steps.deploy.outcome == 'success' }}
         run: |
           echo "Submitting to IndexNow..."
           curl -s -X POST "https://api.indexnow.org/IndexNow" \
             -H "Content-Type: application/json; charset=utf-8" \
             -d '{"host":"bleekvision.com","key":"bc05497c4b12b8e6ee8e30f4d3a78a6c","keyLocation":"https://bleekvision.com/bc05497c4b12b8e6ee8e30f4d3a78a6c.txt","urlList":["https://bleekvision.com/"]}' \
             -o /dev/null -w "IndexNow: HTTP %{http_code}\n"
-
-      - name: Ping Bing sitemap
-        run: |
-          echo "Pinging Bing..."
-          curl -s "https://ssl.bing.com/webmaster/ping.aspx?siteMap=https://bleekvision.com/sitemap.xml" \
-            -o /dev/null -w "Bing: HTTP %{http_code}\n"
-
-      - name: Done
-        run: echo "Cache purged and all search engines notified for bleekvision.com"
